@@ -1,0 +1,59 @@
+.navbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* padding: 3rem; */
+    padding:1rem 2rem 0 2rem;
+    background-color: black;
+    color:white;
+    position: sticky;
+    top:0;
+    z-index: 1;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.navbar h1{
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.navbar-right{
+    display: flex;
+    gap:5rem;
+    align-items: center;
+}
+
+.navbar-right button{
+    font-size: 1rem;
+}
+
+.button-container{
+    border: 1px solid gray;
+    padding: 10px;
+    padding-left:20px;
+    padding-right:20px;
+    border-radius: 30px;
+}
+
+.button-container:hover{
+    background-color: red;
+    cursor:pointer;
+}
+
+.fa-bell, .fa-moon, .fa-sun{
+    font-size: 1.3rem;
+}
+
+@media screen and (max-width:768px){
+    .fa-bell{
+        display: none;
+    }
+    .navbar-right{
+        display: flex;
+        gap:1rem;
+    }
+
+    .fa-bell, .fa-moon, .fa-sun{
+        font-size: 1rem;
+    }
+}

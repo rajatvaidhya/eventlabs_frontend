@@ -1,0 +1,50 @@
+.user-welcome{
+    font-size: 2.5rem;
+    font-weight: 900;
+    /* background: linear-gradient(45deg, #47ffd1, #128a02); */
+    /* background: linear-gradient(45deg, #ff41a9, #e9024f); */
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-family: 'Poppins';
+}
+  
+
+.create-event-button{
+    font-size: 1rem;
+    border-radius: 30px;
+    background-color: rgb(11, 196, 67);
+    margin-top: 2rem;
+}
+
+.create-event-button div{
+    display: flex;
+    align-items: center;
+    gap:1rem;
+    padding: 10px 20px 10px 20px;
+}
+
+.welcome-container{
+    border-bottom: 0.3px dashed rgb(26,26,26);
+}
+
+.welcome-heading{
+    font-size: 2rem;
+}
+
+@media screen and (max-width:768px){
+
+    .user-welcome{
+        font-size: 1.9rem;
+    }
+    .welcome-heading{
+        font-size: 1.9rem;
+    }
+    .heading-para{
+        font-size: 0.8rem;
+    }
+    .create-event-heading{
+        font-size: 0.4rem;
+    }
+}
