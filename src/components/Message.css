@@ -1,8 +1,7 @@
 .receive-box{
     display: flex;
     flex-direction: row;
-    margin: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: .1rem;
     gap:.6rem;
     clear: both;
 }

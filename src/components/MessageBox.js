@@ -17,7 +17,7 @@ const MessageBox = (props) => {
   return (
     <Link to={`/chat/${props.id}`} target="_blank">
       <div className="message-box-container">
-        <div style={{ display: "flex", gap: "1rem" }}>
+        <div style={{ display: "flex" }}>
           <img src={`${ENDPOINT}/api/chat/photo/${props.id}`} alt="" />
 
           <div className="content">

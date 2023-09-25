@@ -191,6 +191,7 @@ function ChatRoulette() {
           <div className="chat-container scroller" ref={scrollerRef}>
             {messages.map((message, index) => (
               <Message
+                id={message}
                 key={index}
                 index={index}
                 sender={message.sender}

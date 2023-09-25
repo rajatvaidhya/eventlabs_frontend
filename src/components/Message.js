@@ -41,7 +41,7 @@ const Message = (props) => {
             props.phonenumber
               ? "mt-[1px]"
               : "mt-[16px]"
-          } mx-[16px] mb-[16px] max-w-fit message-box`}
+          } mb-[16px] max-w-fit message-box`}
         >
           <div
             className={`${
@@ -79,7 +79,7 @@ const Message = (props) => {
           </div>
           {props.messages?.[props.index - 1]?.senderNumber !==
             props.phonenumber && (
-            <img src={`${ENDPOINT}/api/auth/photo/${props.id}`} />
+            <img src={`${ENDPOINT}/api/auth/photo/${props.sender}`} />
           )}
         </div>
       ) : (
@@ -90,18 +90,21 @@ const Message = (props) => {
               props.phonenumber
                 ? "mt-[1px]"
                 : "mt-[16px]"
-            } mx-[16px] mb-[16px] max-w-fit receive-box`}
+            } mr-[16px] mb-[16px] max-w-fit receive-box`}
           >
             {props.messages?.[props.index - 1]?.senderNumber !==
               props.phonenumber && (
-              <img src={`${ENDPOINT}/api/auth/photo/${props.id}`} />
+              <img
+                src={`${ENDPOINT}/api/auth/photo/${props.sender}`}
+                alt="im"
+              />
             )}
 
             <div
               className={`${
                 props.messages?.[props.index - 1]?.senderNumber ===
                 props.phonenumber
-                  ? "mr-[42px]"
+                  ? "ml-[42px]"
                   : ""
               } texts`}
             >
