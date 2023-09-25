@@ -79,14 +79,32 @@ const Message = (props) => {
           </div>
           {props.messages?.[props.index - 1]?.senderNumber !==
             props.phonenumber && (
-            <img src={`${ENDPOINT}/uploads/${props.image}`} />
+            <img src={`${ENDPOINT}/api/auth/photo/${props.id}`} />
           )}
         </div>
       ) : (
         <div>
-          <div className="receive-box">
-            <img src={`${ENDPOINT}/uploads/${props.image}`} />
-            <div className="texts">
+          <div
+            className={`${
+              props.messages?.[props.index - 1]?.senderNumber ===
+              props.phonenumber
+                ? "mt-[1px]"
+                : "mt-[16px]"
+            } mx-[16px] mb-[16px] max-w-fit receive-box`}
+          >
+            {props.messages?.[props.index - 1]?.senderNumber !==
+              props.phonenumber && (
+              <img src={`${ENDPOINT}/api/auth/photo/${props.id}`} />
+            )}
+
+            <div
+              className={`${
+                props.messages?.[props.index - 1]?.senderNumber ===
+                props.phonenumber
+                  ? "mr-[42px]"
+                  : ""
+              } texts`}
+            >
               <div
                 className="msg"
                 style={{
@@ -96,17 +114,20 @@ const Message = (props) => {
                   color: toggleLightMode ? "black" : "white",
                 }}
               >
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    gap: "3rem",
-                  }}
-                >
-                  <p className="user-label">{props.sendername}</p>
-                  <p className="phone-label"> ~ {props.phonenumber}</p>
-                </div>
+                {props.messages?.[props.index - 1]?.senderNumber !==
+                  props.phonenumber && (
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      gap: "3rem",
+                    }}
+                  >
+                    <p className="user-label">{props.sendername}</p>
+                    <p className="phone-label"> ~ {props.phonenumber}</p>
+                  </div>
+                )}
 
                 <p>{props.content}</p>
                 <p className="msg-time">{msgtime}</p>
