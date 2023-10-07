@@ -21,7 +21,7 @@ const DropDown = ({ options, onSelect, selectedOption }) => {
         className="dropdown-header"
         onClick={toggleDropdown}
         style={{
-          backgroundColor: toggleLightMode ? "rgb(190 251 249)" : "black",
+          backgroundColor: toggleLightMode ? "white" : "black",
           color: toggleLightMode ? "black" : "white",
         }}
       >
@@ -32,7 +32,7 @@ const DropDown = ({ options, onSelect, selectedOption }) => {
         <ul
           className="dropdown-options"
           style={{
-            backgroundColor: toggleLightMode ? "rgb(190 251 249)" : "black",
+            backgroundColor: toggleLightMode ? "white" : "black",
             color: toggleLightMode ? "black" : "white",
           }}
         >

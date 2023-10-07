@@ -146,7 +146,7 @@ function ChatRoulette() {
     <div
       className="main-chat-page"
       style={{
-        backgroundColor: toggleLightMode ? "#6499E9" : "rgb(15, 15, 15)",
+        backgroundColor: toggleLightMode ? "dimgrey" : "rgb(15, 15, 15)",
         color: toggleLightMode ? "black" : "white",
       }}
     >
@@ -159,7 +159,7 @@ function ChatRoulette() {
           <div
             className="roulette-header"
             style={{
-              backgroundColor: toggleLightMode ? "#BEFFF7" : "rgb(26, 26, 26)",
+              backgroundColor: toggleLightMode ? "white" : "rgb(26, 26, 26)",
               color: toggleLightMode ? "black" : "white",
             }}
           >
@@ -184,7 +184,7 @@ function ChatRoulette() {
             </div>
 
             <div className="dots" onClick={handleGroupInfoToggle}>
-              <i className="fa-solid fa-ellipsis-vertical"></i>
+              <i className="fa-solid fa-ellipsis-vertical" style={{color:toggleLightMode?"black":"white"}}></i>
             </div>
           </div>
 
@@ -213,18 +213,28 @@ function ChatRoulette() {
               style={{
                 color: toggleLightMode ? "black" : "white",
                 backgroundColor: toggleLightMode
-                  ? "#9EDDFF"
+                  ? "white"
                   : "rgb(51, 51, 51)",
                 boxShadow:
                   "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
               }}
               placeholder="Type your message..."
             />
+            <button onClick={handleSend} disabled>
+              <i
+                className="fas fa-paperclip"
+                style={{
+                  color: "white",
+                  backgroundColor:toggleLightMode?"rgb(255, 68, 79)":"black"
+                }}
+              ></i>
+            </button>
             <button onClick={handleSend}>
               <i
                 className="fa-solid fa-paper-plane"
                 style={{
-                  color: toggleLightMode ? "rgb(255, 68, 79)" : "lightgreen",
+                  color: "white",
+                  backgroundColor:toggleLightMode?"rgb(255, 68, 79)":"black"
                 }}
               ></i>
             </button>

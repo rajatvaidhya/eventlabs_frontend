@@ -10,8 +10,8 @@
 .main-modal-container{
     display:flex;
     flex-direction: row;
-    margin-top: 2rem;
-    height:43vh;
+    padding-top:3rem;
+    margin:0;
     gap:2rem;
 }
 
@@ -26,6 +26,8 @@
     margin-left: 2rem;
     gap:1rem;
     cursor:pointer;
+    height:50vh;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
 }
 
 .main-modal-container .fill-room-details{
@@ -35,7 +37,8 @@
     padding:10px;
     gap:1rem;
     margin-right: 2rem;
-    overflow-y: scroll;
+    height:100vh;
+    overflow-y: visible;
 }
 
 .fill-room-details input, textarea{
@@ -45,12 +48,12 @@
     background-color: rgb(26,26,26);
     border-radius: 10px;
     padding-right: 20px;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
 }
 
 .create-button{
     height:2rem;
     width:5rem;
-    background-color: rgb(11, 196, 67);
     border-radius: 10px;
 }
 
@@ -61,7 +64,6 @@
 }
 
 .address-list ul li{
-  border:1px solid white;
   padding: 6px;
   border-bottom: none;
   border-radius: 10px;
@@ -143,12 +145,13 @@
 
     .main-modal-container .image-picker{
       margin: 0;
-      min-height:20vh;
+      min-height:40vh;
       width:90%;
       margin: auto;
     }
 
     .main-modal-container .fill-room-details{
       width:100%;
+      min-height:100vh;
     }
   }

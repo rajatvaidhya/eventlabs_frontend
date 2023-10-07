@@ -10,7 +10,7 @@ import { useLightMode } from "../contexts/LightModeContext";
 import FelxiFooter from "../components/FelxiFooter";
 
 const Home = () => {
-  const { toggleLightMode, setToggleLightMode } = useLightMode();
+  const { toggleLightMode } = useLightMode();
 
   const navigate = useNavigate();
 
@@ -25,7 +25,7 @@ const Home = () => {
       <div
         className="main-home-container"
         style={{
-          backgroundColor: toggleLightMode ? "#BEFFF7" : "black",
+          backgroundColor: toggleLightMode ? "white" : "black",
           color: toggleLightMode ? "black" : "white",
         }}
       >

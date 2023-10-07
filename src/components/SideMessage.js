@@ -48,7 +48,7 @@ const SideMessage = () => {
     <div
       className="main-side-container"
       style={{
-        backgroundColor: toggleLightMode ? "#BEFFF7" : "rgb(26, 26, 26)",
+        backgroundColor: toggleLightMode ? "white" : "rgb(26, 26, 26)",
         color: toggleLightMode ? "black" : "white",
       }}
     >
@@ -65,7 +65,8 @@ const SideMessage = () => {
         ></i>
         <input
           style={{
-            backgroundColor: toggleLightMode ? "#9EDDFF" : "rgb(51, 51, 51)",
+            backgroundColor: toggleLightMode ? "white" : "rgb(51, 51, 51)",
+            border:toggleLightMode?"1px solid #bdbdbd":""
           }}
           className="search-bar"
           type="text"

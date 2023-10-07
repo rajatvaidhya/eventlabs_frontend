@@ -16,6 +16,10 @@
     border-bottom: 0.3px dashed rgb(26,26,26);
 }
 
+.event-cards{
+    padding:10px;
+}
+
 @media screen and (max-width:768px) {
     .third-container h1{
         margin:0;

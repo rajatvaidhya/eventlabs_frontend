@@ -30,7 +30,6 @@ const Message = (props) => {
       });
     });
   }, []);
-  console.log(props, "messages");
 
   return (
     <>
@@ -112,7 +111,7 @@ const Message = (props) => {
                 className="msg"
                 style={{
                   backgroundColor: toggleLightMode
-                    ? "#A6F6FF"
+                    ? "white"
                     : "rgb(26,26,26)",
                   color: toggleLightMode ? "black" : "white",
                 }}

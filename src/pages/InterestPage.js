@@ -71,7 +71,7 @@ const InterestSelectionPage = () => {
     <>
       <Navbar />
 
-      <div className="main-interest-container" style={{backgroundColor:toggleLightMode?'#BEFFF7':'black', color:toggleLightMode?'black':'white'}}>
+      <div className="main-interest-container" style={{backgroundColor:toggleLightMode?'white':'black', color:toggleLightMode?'black':'white'}}>
         <label className="file-input-container-interest" htmlFor="file-input">
           {!imageSelect ? (
             <div className="upload-texts">
@@ -153,7 +153,7 @@ const InterestSelectionPage = () => {
           <button
             className="btn continue-btn"
             onClick={handleClick}
-            style={{ marginTop: "2rem" }}
+            style={{ marginTop: "2rem", backgroundColor:toggleLightMode?'rgb(255, 68, 79)':''}}
           >
             Continue
           </button>

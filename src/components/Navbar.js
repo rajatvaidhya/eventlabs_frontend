@@ -1,7 +1,7 @@
 import React from "react";
 import "./Navbar.css";
 import DarkLogo from "../images/Eventlabs__1_-removebg-preview.png";
-import LightLogo from "../images/orilogo.png";
+import LightLogo from "../images/newlogo.png";
 import { useNavigate } from "react-router-dom";
 import { useLightMode } from "../contexts/LightModeContext";
 
@@ -28,7 +28,7 @@ const Navbar = () => {
     <div
       className="navbar"
       style={{
-        backgroundColor: toggleLightMode ? "#BEFFF7" : "black",
+        backgroundColor: toggleLightMode ? "white" : "black",
         color: toggleLightMode ? "black" : "white",
       }}
     >

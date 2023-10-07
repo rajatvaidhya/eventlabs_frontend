@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLightMode } from "../contexts/LightModeContext";
-import CreateEventModal from "../components/CreateEventModal";
 import "./MainPage.css";
 import SecondSection from "../components/SecondSection";
 import ThirdContainer from "../components/ThirdContainer";
@@ -12,18 +11,13 @@ const MainPage = () => {
   const ENDPOINT = "https://eventlabs-backend.onrender.com";
   // const ENDPOINT = "http://localhost:5000";
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
   const username = localStorage.getItem("username");
-  const { toggleLightMode, setToggleLightMode } = useLightMode();
+  const { toggleLightMode } = useLightMode();
 
   const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
+    navigate('/create-event');
   };
 
   useEffect(() => {
@@ -72,7 +66,7 @@ const MainPage = () => {
 
       <div
         className="main-container"
-        style={{ backgroundColor: toggleLightMode ? "#BEFFF7" : "black" }}
+        style={{ backgroundColor: toggleLightMode ? "white" : "black" }}
       >
         <div
           className="welcome-container"
@@ -117,7 +111,6 @@ const MainPage = () => {
                 <i className="fa-solid fa-plus"></i>
               </div>
             </button>
-            <CreateEventModal isOpen={isModalOpen} onClose={closeModal} />
           </div>
         </div>
 

@@ -77,7 +77,7 @@ const SecondSection = () => {
           className="radius-search-bar"
           placeholder="Enter radius (variable upto 1-2km)"
           style={{
-            backgroundColor: toggleLightMode ? "rgb(190 251 249)" : "black",
+            backgroundColor: toggleLightMode ? "white" : "black",
             color: toggleLightMode ? "black" : "white",
           }}
         ></input>
@@ -97,7 +97,12 @@ const SecondSection = () => {
 
       <div className="event-cards">
         {loading ? (
-          <Loader />
+          <div style={{display:'flex', margin:'auto', marginTop:'4rem', flexDirection:'row', justifyContent:'center', alignItems:'center', gap:'1rem'}}>
+          <div>
+            <Loader color={toggleLightMode?"black":"white"}/>
+          </div>
+            <p style={{color:toggleLightMode?'black':'white', fontWeight:'bold'}}>Loading nearby events ...</p>
+          </div>
         ) : (
           events.map((room, index) => (
             <EventCard

@@ -94,7 +94,7 @@ const Signup = () => {
       <div
         className="signup-container"
         style={{
-          backgroundColor: toggleLightMode ? "#BEFFF7" : "black",
+          backgroundColor: toggleLightMode ? "white" : "black",
           color: toggleLightMode ? "black" : "white",
           paddingTop: "1rem",
           paddingBottom: "2rem",
@@ -103,8 +103,9 @@ const Signup = () => {
         <div
           className="main-signup-form"
           style={{
-            backgroundColor: toggleLightMode ? "#9EDDFF" : "rgb(43, 43, 43)",
+            backgroundColor: toggleLightMode ? "white" : "rgb(43, 43, 43)",
             color: toggleLightMode ? "black" : "white",
+            border:'1px solid #b3b3b3',
             boxShadow:
               "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px",
           }}
@@ -118,7 +119,7 @@ const Signup = () => {
                 position: "absolute",
                 top: "30%",
                 marginLeft: ".5rem",
-                color: toggleLightMode ? "#3085C3" : "rgb(11, 196, 67)",
+                color: toggleLightMode ? "#ff444f" : "rgb(11, 196, 67)",
                 fontSize: "1.3rem",
               }}
             ></i>
@@ -131,7 +132,7 @@ const Signup = () => {
               style={{
                 paddingLeft: "2.5rem",
                 backgroundColor: toggleLightMode
-                  ? "rgb(136 215 212)"
+                  ? "white"
                   : "rgb(56, 56, 56)",
                 color: toggleLightMode ? "black" : "white",
               }}
@@ -145,7 +146,7 @@ const Signup = () => {
               style={{
                 minWidth: "45%",
                 backgroundColor: toggleLightMode
-                  ? "rgb(136 215 212)"
+                  ? "white"
                   : "rgb(56, 56, 56)",
                 color: toggleLightMode ? "black" : "white",
               }}
@@ -158,7 +159,7 @@ const Signup = () => {
               style={{
                 minWidth: "45%",
                 backgroundColor: toggleLightMode
-                  ? "rgb(136 215 212)"
+                  ? "white"
                   : "rgb(56, 56, 56)",
                 color: toggleLightMode ? "black" : "white",
               }}
@@ -174,7 +175,7 @@ const Signup = () => {
                 position: "absolute",
                 top: "30%",
                 marginLeft: ".5rem",
-                color: toggleLightMode ? "#3085C3" : "rgb(11, 196, 67)",
+                color: toggleLightMode ? "#ff444f" : "rgb(11, 196, 67)",
                 fontSize: "1.3rem",
               }}
             ></i>
@@ -187,7 +188,7 @@ const Signup = () => {
               style={{
                 paddingLeft: "2.5rem",
                 backgroundColor: toggleLightMode
-                  ? "rgb(136 215 212)"
+                  ? "white"
                   : "rgb(56, 56, 56)",
                 color: toggleLightMode ? "black" : "white",
               }}
@@ -201,7 +202,7 @@ const Signup = () => {
                 position: "absolute",
                 top: "30%",
                 marginLeft: ".5rem",
-                color: toggleLightMode ? "#3085C3" : "rgb(11, 196, 67)",
+                color: toggleLightMode ? "#ff444f" : "rgb(11, 196, 67)",
                 fontSize: "1.3rem",
               }}
             ></i>
@@ -214,7 +215,7 @@ const Signup = () => {
               style={{
                 paddingLeft: "2.5rem",
                 backgroundColor: toggleLightMode
-                  ? "rgb(136 215 212)"
+                  ? "white"
                   : "rgb(56, 56, 56)",
                 color: toggleLightMode ? "black" : "white",
               }}
@@ -228,7 +229,7 @@ const Signup = () => {
                 position: "absolute",
                 top: "30%",
                 marginLeft: ".5rem",
-                color: toggleLightMode ? "#3085C3" : "rgb(11, 196, 67)",
+                color: toggleLightMode ? "#ff444f" : "rgb(11, 196, 67)",
                 fontSize: "1.3rem",
               }}
             ></i>
@@ -239,23 +240,12 @@ const Signup = () => {
               style={{
                 paddingLeft: "2.5rem",
                 backgroundColor: toggleLightMode
-                  ? "rgb(136 215 212)"
+                  ? "white"
                   : "rgb(56, 56, 56)",
                 color: toggleLightMode ? "black" : "white",
               }}
             ></input>
           </div>
-
-          {loading ? (
-            <div style={{ marginBottom: "0.5rem" }}>
-              <p style={{ color: "white", marginBottom: "0.4rem" }}>
-                Creating your account ...
-              </p>
-              <Loader />
-            </div>
-          ) : (
-            <div></div>
-          )}
 
           <button
             className="signup-btn"
@@ -265,14 +255,21 @@ const Signup = () => {
               color: "white",
             }}
           >
-            Create Account
+            {loading ? (
+              <div style={{display:'flex', flexDirection:'row', gap:'1rem', alignItems:'center', justifyContent:'center'}}>
+                <Loader color="white"/>
+                <p>Creating your account ... </p>
+              </div>
+            ) : (
+              <div>Create Account</div>
+            )}
           </button>
 
           <p
             style={{
               marginTop: "0.7rem",
               marginBottom: "0.7rem",
-              color: "white",
+              color: toggleLightMode?"black":"white",
             }}
           >
             Already have an account?{" "}

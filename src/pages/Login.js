@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useLightMode } from "../contexts/LightModeContext";
 import Loader from "../components/Loader";
 import Navbar from "../components/Navbar";
+import LoginImage from "../images/110-removebg-preview.png";
 
 const Login = () => {
   const ENDPOINT = "https://eventlabs-backend.onrender.com";
@@ -65,22 +66,22 @@ const Login = () => {
       <div
         className="signup-container"
         style={{
-          // backgroundColor: toggleLightMode ? "#ffb6c1" : "black",
           color: toggleLightMode ? "black" : "white",
-          backgroundColor: toggleLightMode ? "#BEFFF7" : "black",
+          backgroundColor: toggleLightMode ? "white" : "black",
           paddingTop: "1rem",
         }}
       >
         <div
           className="main-signup-form"
           style={{
-            backgroundColor: toggleLightMode ? "#9EDDFF" : "rgb(43, 43, 43)",
+            backgroundColor: toggleLightMode ? "white" : "rgb(43, 43, 43)",
             color: toggleLightMode ? "black" : "white",
+            border:'1px solid #b3b3b3',
             boxShadow:
               "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px",
           }}
         >
-          <h1>Login to continue</h1>
+          <h1>Login</h1>
 
           <div style={{ display: "flex", position: "relative" }}>
             <i
@@ -89,7 +90,7 @@ const Login = () => {
                 position: "absolute",
                 top: "30%",
                 marginLeft: ".5rem",
-                color: toggleLightMode ? "#3085C3" : "rgb(11, 196, 67)",
+                color: toggleLightMode ? "#ff444f" : "rgb(11, 196, 67)",
                 fontSize: "1.3rem",
               }}
             ></i>
@@ -101,7 +102,7 @@ const Login = () => {
               style={{
                 paddingLeft: "2.5rem",
                 backgroundColor: toggleLightMode
-                  ? "rgb(136 215 212)"
+                  ? "white"
                   : "rgb(56, 56, 56)",
                 color: toggleLightMode ? "black" : "white",
               }}
@@ -115,7 +116,7 @@ const Login = () => {
                 position: "absolute",
                 top: "30%",
                 marginLeft: ".5rem",
-                color: toggleLightMode ? "#3085C3" : "rgb(11, 196, 67)",
+                color: toggleLightMode ? "#ff444f" : "rgb(11, 196, 67)",
                 fontSize: "1.3rem",
               }}
             ></i>
@@ -127,23 +128,12 @@ const Login = () => {
               style={{
                 paddingLeft: "2.5rem",
                 backgroundColor: toggleLightMode
-                  ? "rgb(136 215 212)"
+                  ? "white"
                   : "rgb(56, 56, 56)",
                 color: toggleLightMode ? "black" : "white",
               }}
             ></input>
           </div>
-
-          {loading ? (
-            <div style={{ marginBottom: "0.5rem" }}>
-              <p style={{ color: "white", marginBottom: "0.4rem" }}>
-                Configuring you details ...
-              </p>
-              <Loader />
-            </div>
-          ) : (
-            <div></div>
-          )}
 
           <button
             className="signup-btn"
@@ -153,7 +143,16 @@ const Login = () => {
               color: "white",
             }}
           >
-            Login
+            {loading ? (
+              <div>
+                <div style={{display:'flex', flexDirection:'row', alignItems:'center', gap:'1rem', justifyContent:'center'}}>
+                  <Loader color="white"/>
+                  <p>Accessing account ...</p>
+                </div>
+              </div>
+            ) : (
+              <div>Login</div>
+            )}
           </button>
 
           <p
@@ -189,6 +188,7 @@ const Login = () => {
           </div>
         </div>
       </div>
+
     </>
   );
 };

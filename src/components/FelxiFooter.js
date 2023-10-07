@@ -11,7 +11,7 @@ const FelxiFooter = () => {
         textAlign: "center",
         fontSize: "12px",
         paddingTop: "3rem",
-        backgroundColor: toggleLightMode ? "#BEFFF7" : "black",
+        backgroundColor: toggleLightMode ? "white" : "black",
         color: toggleLightMode ? "black" : "white",
       }}
     >

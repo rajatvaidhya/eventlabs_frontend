@@ -1,5 +1,8 @@
 .main-home-container{
     color:white;
+    display: flex;
+    flex-direction: column;
+    gap:4rem;
 }
 
 .first{

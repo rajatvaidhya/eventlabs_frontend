@@ -1,32 +1,26 @@
-.spinner {
-    /* Spinner size and color */
-    width: 1.5rem;
-    height: 1.5rem;
-    border-top-color: rgb(11, 196, 67);
-    border-left-color: rgb(11, 196, 67);
-    margin: auto;
-    position: absolute;
-    left:50%;
-  
-    /* Additional spinner styles */
-    animation: spinner 400ms linear infinite;
-    border-bottom-color: transparent;
-    border-right-color: transparent;
-    border-style: solid;
-    border-width: 2px;
-    border-radius: 50%;  
-    box-sizing: border-box;
-    display: inline-block;
-    vertical-align: middle;
-  }
-  
-  /* Animation styles */
-  @keyframes spinner {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 20px;
+  aspect-ratio: 1;
+  display: grid;
+  color: white;
+  background: radial-gradient(farthest-side, currentColor calc(100% - 6px), #0000 calc(100% - 5px) 0);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 6px), #000 calc(100% - 7px));
+  border-radius: 50%;
+  animation: l19 2s infinite linear;
+}
+.loader::before,
+.loader::after {
+  content: "";
+  grid-area: 1/1;
+  background: linear-gradient(currentColor 0 0) center, linear-gradient(currentColor 0 0) center;
+  background-size: 100% 4px, 4px 100%;
+  background-repeat: no-repeat;
+}
+.loader::after {
+   transform: rotate(45deg);
+}
 
-  .spinner-blue {
-    border-top-color: #09d;
-    border-left-color: #09d;
-  }
+@keyframes l19 { 
+  100% { transform: rotate(1turn) }
+}

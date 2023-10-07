@@ -1,11 +1,13 @@
 import React from "react";
 import "./MessageBox.css";
 import { Link } from "react-router-dom";
+import { useLightMode } from "../contexts/LightModeContext";
 
 const MessageBox = (props) => {
   const ENDPOINT = "https://eventlabs-backend.onrender.com";
   // const ENDPOINT = "http://localhost:5000";
 
+  const {toggleLightMode} = useLightMode();
   const timestamp = props.time;
   const date = new Date(timestamp);
   const formattedTime = date.toLocaleTimeString([], {
@@ -16,7 +18,7 @@ const MessageBox = (props) => {
 
   return (
     <Link to={`/chat/${props.id}`} target="_blank">
-      <div className="message-box-container">
+      <div className="message-box-container" style={{borderBottom:toggleLightMode?"1px solid #C4C4C4":"1px solid rgb(46, 46, 46)"}}>
         <div style={{ display: "flex" }}>
           <img src={`${ENDPOINT}/api/chat/photo/${props.id}`} alt="" />
 

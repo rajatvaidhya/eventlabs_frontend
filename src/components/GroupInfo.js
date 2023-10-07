@@ -57,7 +57,7 @@ const GroupInfo = (props) => {
     <div
       className="group-info-container"
       style={{
-        backgroundColor: toggleLightMode ? "#BEFFF7" : "rgb(26, 26, 26)",
+        backgroundColor: toggleLightMode ? "white" : "rgb(26, 26, 26)",
         color: toggleLightMode ? "black" : "white",
       }}
     >
