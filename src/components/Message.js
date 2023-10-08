@@ -72,7 +72,16 @@ const Message = (props) => {
                   <p className="phone-label"> ~ {props.phonenumber}</p>
                 </div>
               )}
-              <p className="mr-[50px]">{props.content}</p>
+              <p
+                className="mr-[50px]"
+                style={{
+                  overflowWrap: "break-word",
+                  wordWrap: "break-word",
+                  wordBreak: "break-word",
+                }}
+              >
+                {props.content}
+              </p>
               <p className="msg-time mt-[-10px] text-right">{msgtime}</p>
             </div>
           </div>
@@ -110,9 +119,7 @@ const Message = (props) => {
               <div
                 className="msg"
                 style={{
-                  backgroundColor: toggleLightMode
-                    ? "white"
-                    : "rgb(26,26,26)",
+                  backgroundColor: toggleLightMode ? "white" : "rgb(26,26,26)",
                   color: toggleLightMode ? "black" : "white",
                 }}
               >
@@ -131,7 +138,15 @@ const Message = (props) => {
                   </div>
                 )}
 
-                <p>{props.content}</p>
+                <p
+                  style={{
+                    overflowWrap: "break-word",
+                    wordWrap: "break-word",
+                    wordBreak: "break-word",
+                  }}
+                >
+                  {props.content}
+                </p>
                 <p className="msg-time">{msgtime}</p>
               </div>
             </div>
