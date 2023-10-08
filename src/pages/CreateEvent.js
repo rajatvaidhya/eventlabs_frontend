@@ -8,8 +8,8 @@ import { useLightMode } from "../contexts/LightModeContext";
 
 const CreateEvent = ({ isOpen, onClose }) => {
   const NOMINATIM_BASE_URL = "https://nominatim.openstreetmap.org/search?";
-  // const ENDPOINT = "https://eventlabs-backend.onrender.com";
-  const ENDPOINT = "http://localhost:5000";
+  const ENDPOINT = "https://eventlabs-backend.onrender.com";
+  // const ENDPOINT = "http://localhost:5000";
 
   const [eventName, setEventName] = useState("");
   const [description, setDescription] = useState("");
