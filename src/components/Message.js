@@ -4,8 +4,8 @@ import { useLightMode } from "../contexts/LightModeContext";
 import "./Message.css";
 
 const Message = (props) => {
-  const ENDPOINT = "https://eventlabs-backend.onrender.com";
-  // const ENDPOINT = "http://localhost:5000";
+    const ENDPOINT = "https://eventlabs-backend.onrender.com";
+    // const ENDPOINT = "http://localhost:5000";
   const audioRef = useRef(null);
   const id = localStorage.getItem("userId");
   const [msgtime, setMsgTime] = useState("");

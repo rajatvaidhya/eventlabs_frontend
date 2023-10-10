@@ -4,8 +4,8 @@ import EventCard from "./EventCard";
 import { useLightMode } from "../contexts/LightModeContext";
 
 const ThirdContainer = () => {
-  const ENDPOINT = "https://eventlabs-backend.onrender.com";
-  // const ENDPOINT = "http://localhost:5000";
+    const ENDPOINT = "https://eventlabs-backend.onrender.com";
+    // const ENDPOINT = "http://localhost:5000";
 
   const userId = localStorage.getItem("userId");
   const { toggleLightMode } = useLightMode();
@@ -47,7 +47,7 @@ const ThirdContainer = () => {
   return (
     <div className="third-container" style={{ color: "white" }}>
       <h1 style={{ color: toggleLightMode ? "black" : "white" }}>
-        <span className="your-events-title">Your Joined Events</span>
+        <span className="your-events-title">Events You're In</span>
       </h1>
 
       <div className="event-cards">

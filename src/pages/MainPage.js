@@ -8,8 +8,8 @@ import FourthSection from "../components/FourthSection";
 import Navbar from "../components/Navbar";
 
 const MainPage = () => {
-  const ENDPOINT = "https://eventlabs-backend.onrender.com";
-  // const ENDPOINT = "http://localhost:5000";
+    const ENDPOINT = "https://eventlabs-backend.onrender.com";
+    // const ENDPOINT = "http://localhost:5000";
 
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId");

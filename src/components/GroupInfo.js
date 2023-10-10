@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./GroupInfo.css";
 import Member from "./Member";
+import Loader from '../components/Loader'
 import { useLightMode } from "../contexts/LightModeContext";
+import { useNavigate } from "react-router-dom";
 
 const GroupInfo = (props) => {
   const ENDPOINT = "https://eventlabs-backend.onrender.com";
@@ -9,9 +11,12 @@ const GroupInfo = (props) => {
   const [users, setUsers] = useState([]);
   const [length, setLength] = useState(0);
   const [admin, setAdmin] = useState([]);
+  const [adminId, setAdminId] = useState("");
+  const [deleteLoad, setDeleteLoad] = useState(false);
   const [description, setDescription] = useState("");
   const roomId = props.roomId;
   const { toggleLightMode } = useLightMode();
+  const navigate = useNavigate();
 
   const fetchParticipants = async () => {
     const response = await fetch(`${ENDPOINT}/api/chat/getChatRoomData`, {
@@ -26,6 +31,7 @@ const GroupInfo = (props) => {
       const data = await response.json();
 
       setDescription(data.chatRoom.description);
+      setAdminId(data.chatRoom.createdBy);
       const uniqueUserIds = [];
 
       const uniqueUsers = data.users.filter((user) => {
@@ -52,6 +58,21 @@ const GroupInfo = (props) => {
     props.setToggleGroupInfo(!props.toggleGroupInfo);
     props.setToggleChatInfo(!props.toggleChatInfo);
   };
+
+  const handleDeleteEvent = async () =>{
+    setDeleteLoad(true);
+    const response = await fetch(`${ENDPOINT}/api/chat/deleteEvent`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ roomId }),
+    });
+
+    if(response){
+      navigate("/mainpage");
+    }
+  }
 
   return (
     <div
@@ -154,6 +175,21 @@ const GroupInfo = (props) => {
           ))}
         </div>
       </div>
+      {adminId === localStorage.getItem("userId") ? (
+        <button className="delete-btn" onClick={handleDeleteEvent}>
+          {deleteLoad?(
+            <div style={{display:'flex', justifyContent:'center'}}>
+              <Loader/>
+            </div>
+          ):(
+            <div>
+              Delete this event
+            </div>
+          )}
+          </button>
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 };

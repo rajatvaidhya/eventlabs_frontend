@@ -4,8 +4,8 @@ import MessageBox from "./MessageBox";
 import { useLightMode } from "../contexts/LightModeContext";
 
 const SideMessage = () => {
-  const ENDPOINT = "https://eventlabs-backend.onrender.com";
-  // const ENDPOINT = "http://localhost:5000";
+    const ENDPOINT = "https://eventlabs-backend.onrender.com";
+    // const ENDPOINT = "http://localhost:5000";
 
   const userId = localStorage.getItem("userId");
   const { toggleLightMode } = useLightMode();

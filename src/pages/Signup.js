@@ -6,8 +6,8 @@ import Loader from "../components/Loader";
 import "./Signup.css";
 
 const Signup = () => {
-  const ENDPOINT = "https://eventlabs-backend.onrender.com";
-  // const ENDPOINT = "http://localhost:5000";
+    const ENDPOINT = "https://eventlabs-backend.onrender.com";
+    // const ENDPOINT = "http://localhost:5000";
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");

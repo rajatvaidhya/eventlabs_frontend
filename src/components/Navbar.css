@@ -44,16 +44,48 @@
     font-size: 1.3rem;
 }
 
+.notification-count{
+    background-color: red;
+    padding-left:5px;
+    padding-right:5px;
+    border-radius: 50%;
+    font-size: 12px;
+    text-align: center;
+    margin: auto;
+    position: absolute;
+    margin-left: 1rem;
+    margin-top: -0.8rem;
+    color: white;
+}
+
+.navbar-right-div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 3rem;
+}
+
 @media screen and (max-width:768px){
-    .fa-bell{
-        display: none;
-    }
     .navbar-right{
         display: flex;
         gap:1rem;
     }
 
+    .navbar{
+        padding:1rem 1rem 0rem 1rem;
+    }
+
     .fa-bell, .fa-moon, .fa-sun{
         font-size: 1rem;
+    }
+
+    .navbar-right-div{
+        display: flex;
+        gap:1rem;
+    }
+    
+    .notification-count{
+        margin-left: .3rem;
+        margin-top: -.6rem;
     }
 }

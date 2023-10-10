@@ -2,8 +2,8 @@ import React from "react";
 import "./Member.css";
 
 const Member = (props) => {
-  const ENDPOINT = "https://eventlabs-backend.onrender.com";
-  // const ENDPOINT = "http://localhost:5000";
+    const ENDPOINT = "https://eventlabs-backend.onrender.com";
+    // const ENDPOINT = "http://localhost:5000";
 
   return (
     <div className="member-box-container">

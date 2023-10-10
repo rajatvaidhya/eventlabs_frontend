@@ -4,7 +4,7 @@ import { useLightMode } from "../contexts/LightModeContext";
 
 const FourthSection = () => {
   const ENDPOINT = "https://eventlabs-backend.onrender.com";
-  // const ENDPOINT = "http://localhost:5000";
+// const ENDPOINT = "http://localhost:5000";
 
   const userId = localStorage.getItem("userId");
   const [events, setEvents] = useState([]);

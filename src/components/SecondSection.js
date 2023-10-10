@@ -7,8 +7,8 @@ import Loader from "./Loader";
 import MyMap from "./Map";
 
 const SecondSection = () => {
-  const ENDPOINT = "https://eventlabs-backend.onrender.com";
-  // const ENDPOINT = "http://localhost:5000";
+    const ENDPOINT = "https://eventlabs-backend.onrender.com";
+    // const ENDPOINT = "http://localhost:5000";
 
   const userId = localStorage.getItem("userId");
   const [selectedOption, setSelectedOption] = useState("Select Interest");

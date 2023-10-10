@@ -5,7 +5,7 @@ import { useLightMode } from "../contexts/LightModeContext";
 
 const EventCard = (props) => {
   const ENDPOINT = "https://eventlabs-backend.onrender.com";
-  // const ENDPOINT = "http://localhost:5000";
+// const ENDPOINT = "http://localhost:5000";
 
   const { toggleLightMode } = useLightMode();
 

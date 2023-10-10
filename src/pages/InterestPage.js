@@ -7,8 +7,8 @@ import { useLightMode } from "../contexts/LightModeContext";
 
 const InterestSelectionPage = () => {
   
-  const ENDPOINT = "https://eventlabs-backend.onrender.com";
-  // const ENDPOINT = "http://localhost:5000";
+    const ENDPOINT = "https://eventlabs-backend.onrender.com";
+    // const ENDPOINT = "http://localhost:5000";
   
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedInterests, setSelectedInterests] = useState([]);

@@ -20,7 +20,6 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/interest-select" element={<InterestPage />} />
             <Route path="/mainpage" element={<MainPage />} />
-            {/* <Route path="/create-event" element={<CreateEventModal />} /> */}
             <Route path="/chat/:roomId" element={<ChatRoulette />} />
             <Route path="/create-event" element={<CreateEvent />} />
           </Routes>
