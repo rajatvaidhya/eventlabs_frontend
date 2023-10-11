@@ -25,10 +25,6 @@
     padding: 10px 20px 10px 20px;
 }
 
-.welcome-container{
-    border-bottom: 0.3px dashed rgb(26,26,26);
-}
-
 .welcome-heading{
     font-size: 2rem;
 }

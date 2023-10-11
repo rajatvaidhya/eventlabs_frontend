@@ -24,7 +24,7 @@
     padding:7px;
     color:white;
     font-size: 14px;
-    border-radius: 0 5px 5px 5px;
+    border-radius: 0 10px 10px 10px;
 }
 
 .message-box{
@@ -55,7 +55,7 @@
     padding:7px;
     color:white;
     font-size: 14px;
-    border-radius: 5px 0 5px 5px;
+    border-radius: 10px 0 10px 10px;
 }
 
 .message-box .texts .you-label{

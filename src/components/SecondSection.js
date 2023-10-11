@@ -56,7 +56,7 @@ const SecondSection = () => {
   };
 
   return (
-    <div className="find-events-container" style={{ color: "white" }}>
+    <div className="find-events-container" style={{ color: "white", borderBottom:toggleLightMode?'0.3px dashed rgb(196, 196, 196)':'0.3px dashed rgb(26,26,26)'}}>
       <h1 style={{ color: toggleLightMode ? "black" : "white" }}>
         Events happening inside <span className="dist">{radius}km</span> of
         radius from you

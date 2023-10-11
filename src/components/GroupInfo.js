@@ -176,7 +176,7 @@ const GroupInfo = (props) => {
         </div>
       </div>
       {adminId === localStorage.getItem("userId") ? (
-        <button className="delete-btn" onClick={handleDeleteEvent}>
+        <button className="delete-btn" onClick={handleDeleteEvent} style={{color:'white'}}>
           {deleteLoad?(
             <div style={{display:'flex', justifyContent:'center'}}>
               <Loader/>

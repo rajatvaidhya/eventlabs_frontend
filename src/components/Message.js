@@ -119,7 +119,7 @@ const Message = (props) => {
               <div
                 className="msg"
                 style={{
-                  backgroundColor: toggleLightMode ? "white" : "rgb(26,26,26)",
+                  backgroundColor: toggleLightMode ? "#fff" : "rgb(3 59 52)",
                   color: toggleLightMode ? "black" : "white",
                 }}
               >

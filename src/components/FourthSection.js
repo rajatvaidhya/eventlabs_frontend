@@ -43,7 +43,7 @@ const FourthSection = () => {
   return (
     <div className="third-container" style={{ color: "white" }}>
       <h1 style={{ color: toggleLightMode ? "black" : "white" }}>
-        <span className="your-events-title">Events Curated By You</span>
+        <span className="your-events-title" style={{letterSpacing:'-0.4px', borderBottomLeftRadius:'4px', borderBottomRightRadius:'4px' ,borderBottom:toggleLightMode?'2px solid rgb(255, 68, 79)':'2px solid rgb(11, 196, 67)'}}>Events Curated By You</span>
       </h1>
 
       <div className="event-cards">

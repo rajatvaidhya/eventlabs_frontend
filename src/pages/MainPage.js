@@ -73,6 +73,7 @@ const MainPage = () => {
           style={{
             color: toggleLightMode ? "black" : "white",
             padding: "2rem",
+            borderBottom:toggleLightMode?'0.3px dashed rgb(196, 196, 196)':'0.3px dashed rgb(26,26,26)'
           }}
         >
           <div style={{ marginTop: "1rem", textAlign: "center" }}>

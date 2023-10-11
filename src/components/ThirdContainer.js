@@ -45,9 +45,9 @@ const ThirdContainer = () => {
   }, []);
 
   return (
-    <div className="third-container" style={{ color: "white" }}>
+    <div className="third-container" style={{ color: "white", borderBottom:toggleLightMode?'0.3px dashed rgb(196, 196, 196)':'0.3px dashed rgb(26,26,26)' }}>
       <h1 style={{ color: toggleLightMode ? "black" : "white" }}>
-        <span className="your-events-title">Events You're In</span>
+        <span className="your-events-title" style={{letterSpacing:'-0.4px', borderBottomLeftRadius:'4px', borderBottomRightRadius:'4px', borderBottom:toggleLightMode?'2px solid rgb(255, 68, 79)':'2px solid rgb(11, 196, 67)'}}>Events You're In</span>
       </h1>
 
       <div className="event-cards">

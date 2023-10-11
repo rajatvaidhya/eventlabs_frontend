@@ -7,13 +7,8 @@
     text-align: left;
 }
 
-.third-container .your-events-title{
-    border-bottom: 1px solid rgb(11, 196, 67);
-}
-
 .third-container{
     padding-bottom: 2rem;
-    border-bottom: 0.3px dashed rgb(26,26,26);
 }
 
 .event-cards{
