@@ -12,6 +12,13 @@
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
+.site-logo{
+    display: flex;
+    align-items: center;
+    height:100px;
+    width:10rem;
+}
+
 .navbar h1{
     font-size: 2rem;
     font-weight: bold;
@@ -66,6 +73,11 @@
 }
 
 @media screen and (max-width:768px){
+
+    .site-logo{
+        width:8rem;
+    }
+    
     .navbar-right{
         display: flex;
         gap:1rem;

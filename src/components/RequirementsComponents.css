@@ -1,0 +1,58 @@
+.requirements-container{
+    width:80%;
+    margin: auto;
+    margin-top: 1rem;
+  }
+
+.add-more-div{
+  display: flex;
+  flex-direction: column;
+  color: white;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border: 1px dashed #323232;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+  @media screen and (min-width: 768px) {
+    .requirements-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); 
+      gap: 16px; 
+    }
+  }
+  
+  @media screen and (max-width: 767px) {
+    .requirements-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); 
+      gap: 16px; 
+    }
+  }
+
+  .require-modal{
+    width:50%;
+  }
+
+  .requirements-form{
+    display:flex;
+    flex-direction: column;
+    padding:10px;
+    gap:1rem;
+  }
+
+  .requirements-form input{
+    padding:10px;
+    background-color: #323232;
+    color:white;
+    border-radius: 10px;
+    outline:none;
+  }
+
+  .requirements-form button{
+    padding:10px;
+    background-color: blueviolet;
+    border-radius: 10px;
+  }

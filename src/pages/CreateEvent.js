@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import "./CreateEvent.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import io from "socket.io-client";
+// import io from "socket.io-client";
 import Navbar from "../components/Navbar";
 import Loader from "../components/Loader";
 import { useLightMode } from "../contexts/LightModeContext";
 
-let socket;
+// let socket;
 const CreateEvent = ({ isOpen, onClose }) => {
   const NOMINATIM_BASE_URL = "https://nominatim.openstreetmap.org/search?";
   const ENDPOINT = "https://eventlabs-backend.onrender.com";
@@ -106,7 +106,7 @@ const CreateEvent = ({ isOpen, onClose }) => {
       const data = response.data;
       console.log("data : ",data);
       localStorage.setItem("roomId", data.roomId);
-      await socket.emit("notify", {location, eventName, address, radius, selectedInterests, eventId:data.roomId});
+      // await socket.emit("notify", {location, eventName, address, radius, selectedInterests, eventId:data.roomId});
       navigate(`/chat/${data.roomId}`);
     } catch (error) {
       console.error("Error uploading data:", error);
@@ -144,12 +144,12 @@ const CreateEvent = ({ isOpen, onClose }) => {
     }
   };
 
-  useEffect(() => {
-    socket = io(ENDPOINT, { transports: ["websocket"] });
-    socket.on("connect", () => {
-      console.log("Socket Connected!");
-    });
-  },[]);
+  // useEffect(() => {
+  //   socket = io(ENDPOINT, { transports: ["websocket"] });
+  //   socket.on("connect", () => {
+  //     console.log("Socket Connected!");
+  //   });
+  // },[]);
 
   const handleListItemClick = (lat, lon, displayName) => {
     setAddressToggle(false);

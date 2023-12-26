@@ -14,8 +14,8 @@ const NotifyPanel = (props) => {
     >
       <ul>
         {props.notifications.map((notification, index) => (
-            <Link to={`/chat/${notification.id}`}>
-                <li style={{borderBottom:toggleLightMode?'1px solid #d5d5d5':'1px solid #2b2b2b'}} key={index}><span style={{color:toggleLightMode?'rgb(255, 68, 79)':'rgb(11, 196, 67)'}}>{notification.eventName}</span> event has been created at <span style={{color:toggleLightMode?'rgb(255, 68, 79)':'rgb(11, 196, 67)'}}>{notification.eventAddress}</span></li>
+            <Link to={`/event/${notification.id}`}>
+                <li style={{borderBottom:toggleLightMode?'1px solid #d5d5d5':'1px solid #2b2b2b'}} key={index}><span style={{color:toggleLightMode?'rgb(255, 68, 79)':'rgb(11, 196, 67)'}}>{notification.title}</span> required at event <span style={{color:toggleLightMode?'rgb(255, 68, 79)':'rgb(11, 196, 67)'}}>{notification.eventName}</span></li>
             </Link>
         ))}
       </ul>

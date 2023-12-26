@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useLightMode } from "../contexts/LightModeContext";
 import Navbar from "../components/Navbar";
 import Loader from "../components/Loader";
+import LoginImage from '../images/SideBg.svg'
 import "./Signup.css";
 
 const Signup = () => {
@@ -91,211 +92,37 @@ const Signup = () => {
     <>
       <Navbar />
 
-      <div
-        className="signup-container"
-        style={{
-          backgroundColor: toggleLightMode ? "white" : "black",
-          color: toggleLightMode ? "black" : "white",
-          paddingTop: "1rem",
-          paddingBottom: "2rem",
-        }}
-      >
-        <div
-          className="main-signup-form"
-          style={{
-            backgroundColor: toggleLightMode ? "white" : "rgb(43, 43, 43)",
-            color: toggleLightMode ? "black" : "white",
-            border:'1px solid #b3b3b3',
-            boxShadow:
-              "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px",
-          }}
-        >
-          <h1>Create account to continue</h1>
+      <div className="main-login-div">
+        <div className="signup-img-div">
+          <img src={LoginImage}></img>
+        </div>
 
-          <div style={{ display: "flex", position: "relative" }}>
-            <i
-              className="fa-regular fa-envelope"
-              style={{
-                position: "absolute",
-                top: "30%",
-                marginLeft: ".5rem",
-                color: toggleLightMode ? "#ff444f" : "rgb(11, 196, 67)",
-                fontSize: "1.3rem",
-              }}
-            ></i>
-
-            <input
-              type="email"
-              value={email}
-              onChange={handleEmailChange}
-              placeholder="Email"
-              style={{
-                paddingLeft: "2.5rem",
-                backgroundColor: toggleLightMode
-                  ? "white"
-                  : "rgb(56, 56, 56)",
-                color: toggleLightMode ? "black" : "white",
-              }}
-            ></input>
-          </div>
-
-          <div className="names-container">
-            <input
-              type="text"
-              placeholder="First name"
-              style={{
-                minWidth: "45%",
-                backgroundColor: toggleLightMode
-                  ? "white"
-                  : "rgb(56, 56, 56)",
-                color: toggleLightMode ? "black" : "white",
-              }}
-              value={firstName}
-              onChange={handleFirstNameChange}
-            ></input>
-            <input
-              type="text"
-              placeholder="Last name"
-              style={{
-                minWidth: "45%",
-                backgroundColor: toggleLightMode
-                  ? "white"
-                  : "rgb(56, 56, 56)",
-                color: toggleLightMode ? "black" : "white",
-              }}
-              value={lastName}
-              onChange={handleLastNameChange}
-            ></input>
-          </div>
-
-          <div style={{ display: "flex", position: "relative" }}>
-            <i
-              className="fa-solid fa-phone"
-              style={{
-                position: "absolute",
-                top: "30%",
-                marginLeft: ".5rem",
-                color: toggleLightMode ? "#ff444f" : "rgb(11, 196, 67)",
-                fontSize: "1.3rem",
-              }}
-            ></i>
-
-            <input
-              type="text"
-              value={phoneNumber}
-              onChange={handlePhoneChange}
-              placeholder="Phone number (along with country code ex : +917879278953)"
-              style={{
-                paddingLeft: "2.5rem",
-                backgroundColor: toggleLightMode
-                  ? "white"
-                  : "rgb(56, 56, 56)",
-                color: toggleLightMode ? "black" : "white",
-              }}
-            ></input>
-          </div>
-
-          <div style={{ display: "flex", position: "relative" }}>
-            <i
-              className="fa-solid fa-lock"
-              style={{
-                position: "absolute",
-                top: "30%",
-                marginLeft: ".5rem",
-                color: toggleLightMode ? "#ff444f" : "rgb(11, 196, 67)",
-                fontSize: "1.3rem",
-              }}
-            ></i>
-
-            <input
-              type="password"
-              value={password}
-              onChange={handlePasswordChange}
-              placeholder="Password"
-              style={{
-                paddingLeft: "2.5rem",
-                backgroundColor: toggleLightMode
-                  ? "white"
-                  : "rgb(56, 56, 56)",
-                color: toggleLightMode ? "black" : "white",
-              }}
-            ></input>
-          </div>
-
-          <div style={{ display: "flex", position: "relative" }}>
-            <i
-              className="fa-regular fa-eye"
-              style={{
-                position: "absolute",
-                top: "30%",
-                marginLeft: ".5rem",
-                color: toggleLightMode ? "#ff444f" : "rgb(11, 196, 67)",
-                fontSize: "1.3rem",
-              }}
-            ></i>
-
-            <input
-              type="password"
-              placeholder="Confirm password"
-              style={{
-                paddingLeft: "2.5rem",
-                backgroundColor: toggleLightMode
-                  ? "white"
-                  : "rgb(56, 56, 56)",
-                color: toggleLightMode ? "black" : "white",
-              }}
-            ></input>
-          </div>
-
-          <button
-            className="signup-btn"
-            onClick={handleSubmit}
-            style={{
-              backgroundColor: toggleLightMode ? "#ff444f" : "rgb(11, 196, 67)",
-              color: "white",
-            }}
-          >
-            {loading ? (
-              <div style={{display:'flex', flexDirection:'row', gap:'1rem', alignItems:'center', justifyContent:'center'}}>
-                <Loader color="white"/>
-                <p>Creating your account ... </p>
-              </div>
-            ) : (
-              <div>Create Account</div>
-            )}
-          </button>
-
-          <p
-            style={{
-              marginTop: "0.7rem",
-              marginBottom: "0.7rem",
-              color: toggleLightMode?"black":"white",
-            }}
-          >
-            Already have an account?{" "}
-            <Link
-              to="/login"
-              style={{
-                color: toggleLightMode ? "#ff444f" : "rgb(11, 196, 67)",
-              }}
-            >
-              Access account!
-            </Link>
+        <div className="login-form-div">
+          <h1>Create an account</h1>
+          <p>
+            Join eventlabs community and enjoy resources by creating your account for free! 
           </p>
 
-          <div
-            style={{ width: "100%", borderBottom: "0.2px solid white" }}
-          ></div>
-
-          <div className="additional-signups">
-            <p>Or Signup with</p>
-            <div className="add-logos">
-              <i className="fa-brands fa-google"></i>
-              <i className="fa-brands fa-facebook"></i>
-              <i className="fa-brands fa-twitter"></i>
-              <i className="fa-brands fa-discord"></i>
-            </div>
+          <div className="login-inputs">
+            <input type="email" placeholder="Email" onChange={handleEmailChange}></input>
+            <input type="text" placeholder="First name" onChange={handleFirstNameChange}></input>
+            <input type="text" placeholder="Last name" onChange={handleLastNameChange}></input>
+            <input type="number" placeholder="Phone number" onChange={handlePhoneChange}></input>
+            <input type="password" placeholder="Password" onChange={handlePasswordChange}></input>
           </div>
+
+          <div className="signup-option">
+          <p>Already have an account? <Link to="/login"><span>Login.</span></Link></p>
+          </div>
+
+          <button className="submit-btn" onClick={handleSubmit}>{loading ? (
+                <div className="btn-loader">
+                  <Loader color="white"/>
+                  <p>Creating an account ...</p>
+              </div>
+            ) : (
+              <div>Sign up</div>
+            )}</button>
         </div>
       </div>
     </>

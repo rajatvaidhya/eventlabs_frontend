@@ -8,6 +8,8 @@ import Home from "./pages/Home";
 import ChatRoulette from "./components/ChatRoulette";
 import { LightModeProvider } from "./contexts/LightModeContext";
 import CreateEvent from "./pages/CreateEvent";
+import UserProfile from "./pages/UserProfile";
+import EventPage from "./pages/EventPage";
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
             <Route path="/mainpage" element={<MainPage />} />
             <Route path="/chat/:roomId" element={<ChatRoulette />} />
             <Route path="/create-event" element={<CreateEvent />} />
+            <Route path="/user/:userId" element={<UserProfile />} />
+            <Route path="/event/:eventId" element={<EventPage />} />
           </Routes>
         </Router>
       </div>

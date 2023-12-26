@@ -47,6 +47,7 @@
     margin-top: 2rem;
     padding: 10px 2rem 10px 2rem;
     margin: auto;
+    width:94%;
   }
   
   @media (max-width: 768px) {

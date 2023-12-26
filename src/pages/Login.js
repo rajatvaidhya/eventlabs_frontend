@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useLightMode } from "../contexts/LightModeContext";
+import "./Login.css";
 import Loader from "../components/Loader";
 import Navbar from "../components/Navbar";
-import LoginImage from "../images/110-removebg-preview.png";
+import LoginImage from "../images/5101873.png";
 
 const Login = () => {
-    const ENDPOINT = "https://eventlabs-backend.onrender.com";
-    // const ENDPOINT = "http://localhost:5000";
+  const ENDPOINT = "https://eventlabs-backend.onrender.com";
+  // const ENDPOINT = "http://localhost:5000";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -62,133 +63,37 @@ const Login = () => {
   return (
     <>
       <Navbar />
+      <div className="main-login-div">
+        <div className="login-img-div">
+          <img src={LoginImage}></img>
+        </div>
 
-      <div
-        className="signup-container"
-        style={{
-          color: toggleLightMode ? "black" : "white",
-          backgroundColor: toggleLightMode ? "white" : "black",
-          paddingTop: "1rem",
-        }}
-      >
-        <div
-          className="main-signup-form"
-          style={{
-            backgroundColor: toggleLightMode ? "white" : "rgb(43, 43, 43)",
-            color: toggleLightMode ? "black" : "white",
-            border:'1px solid #b3b3b3',
-            boxShadow:
-              "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px",
-          }}
-        >
-          <h1>Login</h1>
+        <div className="login-form-div">
+          <h1>Account Login</h1>
+          <p>
+            If you are already a member you can login with email address and
+            password.
+          </p>
 
-          <div style={{ display: "flex", position: "relative" }}>
-            <i
-              className="fa-regular fa-envelope"
-              style={{
-                position: "absolute",
-                top: "30%",
-                marginLeft: ".5rem",
-                color: toggleLightMode ? "#ff444f" : "rgb(11, 196, 67)",
-                fontSize: "1.3rem",
-              }}
-            ></i>
-            <input
-              type="email"
-              value={email}
-              onChange={handleEmailChange}
-              placeholder="Email"
-              style={{
-                paddingLeft: "2.5rem",
-                backgroundColor: toggleLightMode
-                  ? "white"
-                  : "rgb(56, 56, 56)",
-                color: toggleLightMode ? "black" : "white",
-              }}
-            ></input>
+          <div className="login-inputs">
+            <input type="email" placeholder="Email" onChange={handleEmailChange}></input>
+            <input type="password" placeholder="Password" onChange={handlePasswordChange}></input>
           </div>
 
-          <div style={{ display: "flex", position: "relative" }}>
-            <i
-              className="fa-solid fa-lock"
-              style={{
-                position: "absolute",
-                top: "30%",
-                marginLeft: ".5rem",
-                color: toggleLightMode ? "#ff444f" : "rgb(11, 196, 67)",
-                fontSize: "1.3rem",
-              }}
-            ></i>
-            <input
-              type="password"
-              value={password}
-              onChange={handlePasswordChange}
-              placeholder="Password"
-              style={{
-                paddingLeft: "2.5rem",
-                backgroundColor: toggleLightMode
-                  ? "white"
-                  : "rgb(56, 56, 56)",
-                color: toggleLightMode ? "black" : "white",
-              }}
-            ></input>
+          <div className="signup-option">
+          <p>Don't have an account? <Link to="/signup"><span>Create one.</span></Link></p>
           </div>
 
-          <button
-            className="signup-btn"
-            onClick={handleSubmit}
-            style={{
-              backgroundColor: toggleLightMode ? "#ff444f" : "rgb(11, 196, 67)",
-              color: "white",
-            }}
-          >
-            {loading ? (
-              <div>
-                <div style={{display:'flex', flexDirection:'row', alignItems:'center', gap:'1rem', justifyContent:'center'}}>
+          <button className="submit-btn" onClick={handleSubmit}>{loading ? (
+                <div className="btn-loader">
                   <Loader color="white"/>
                   <p>Accessing account ...</p>
-                </div>
               </div>
             ) : (
               <div>Login</div>
-            )}
-          </button>
-
-          <p
-            style={{
-              marginTop: "0.7rem",
-              marginBottom: "0.7rem",
-              color: toggleLightMode ? "black" : "white",
-            }}
-          >
-            Don't have an account?{" "}
-            <Link
-              to="/signup"
-              style={{
-                color: toggleLightMode ? "#ff444f" : "rgb(11, 196, 67)",
-              }}
-            >
-              Create one!
-            </Link>
-          </p>
-
-          <div
-            style={{ width: "100%", borderBottom: "0.2px solid white" }}
-          ></div>
-
-          <div className="additional-signups">
-            <p>Or Login with</p>
-            <div className="add-logos">
-              <i className="fa-brands fa-google"></i>
-              <i className="fa-brands fa-facebook"></i>
-              <i className="fa-brands fa-twitter"></i>
-              <i className="fa-brands fa-discord"></i>
-            </div>
-          </div>
+            )}</button>
         </div>
       </div>
-
     </>
   );
 };

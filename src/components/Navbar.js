@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Navbar.css";
-import DarkLogo from "../images/Eventlabs__1_-removebg-preview.png";
+import DarkLogo from '../images/main-logo.png';
 import LightLogo from "../images/newlogo.png";
 import NotifyPanel from "./NotifyPanel";
 import { useNavigate } from "react-router-dom";
@@ -58,7 +58,7 @@ const Navbar = () => {
         color: toggleLightMode ? "black" : "white",
       }}
     >
-      <div style={{ height: "100px", width: "100px" }}>
+      <div className="site-logo">
         {toggleLightMode ? (
           <img src={LightLogo} alt="Logo" />
         ) : (

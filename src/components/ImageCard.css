@@ -1,0 +1,65 @@
+.main-image{
+    cursor:pointer;
+    width: 100%;
+  height: 100%;
+  object-fit: cover; 
+}
+
+.main-image:hover{
+    opacity:0.5;
+}
+
+.modal-content{
+    display:flex;
+    gap:1rem;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: black;
+    color:white;
+    border-radius: 8px;
+    outline:none;
+    width:70%;
+  }
+
+  .modal-content .modal-image{
+    width:50%;
+    height:500px;
+  }
+
+  .modal-image img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+  }
+  
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .profile-info{
+    display: flex;
+    align-items: center;
+    gap:0.7rem;
+    font-size: 15px;
+    margin-bottom: 1rem;
+    margin-top: 0.7rem;
+  }
+
+  .profile-info img{
+    height:45px;
+    width:45px;
+    border-radius: 50%;
+  }
