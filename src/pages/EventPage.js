@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./UserProfile.css"
 import "./EventPage.css";
 import Modal from "react-modal";
 import ImageCard from "../components/ImageCard";
@@ -6,6 +7,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import RequirementsComponents from "../components/RequirementsComponents";
 import MemberCard from "../components/MemberCard";
+import Loader from "../components/Loader";
 
 const EventPage = () => {
   const ENDPOINT = "https://eventlabs-backend.onrender.com";
@@ -14,16 +16,21 @@ const EventPage = () => {
   const [roomName, setRoomName] = useState("");
   const [roomAddress, setRoomAddress] = useState("");
   const [roomDescription, setRoomDescription] = useState("");
+  const [roomDate, setRoomDate] = useState("");
   const [members, setMembers] = useState([]);
   const [admin, setAdmin] = useState([]);
   const [adminId, setAdminId] = useState("");
   const [requirements, setRequirements] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [ratingModal, setRatingModal] = useState(false);
   const [imageSelect, setImageSelect] = useState(false);
   const [caption, setCaption] = useState("");
   const [image, setImage] = useState();
   const [posts, setPosts] = useState([]);
+  const [ratings, setRatings] = useState(0);
+  const [currentRatings, setCurrentRatings] = useState(0);
   const [activeComponent, setActiveComponent] = useState("Posts");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const fetchChatRoomData = async () => {
@@ -41,6 +48,8 @@ const EventPage = () => {
       setRoomAddress(data.chatRoom.address);
       setRoomDescription(data.chatRoom.description);
       setAdminId(data.chatRoom.createdBy);
+      setRoomDate(data.chatRoom.scheduledDate);
+      setCurrentRatings(data.chatRoom.averageRating);
 
       const uniqueUserIds = [];
 
@@ -60,6 +69,7 @@ const EventPage = () => {
   };
 
   const handleClick = async () => {
+    setLoading(true);
     const formData = new FormData();
     formData.append("eventId", eventId);
     formData.append("image", image);
@@ -73,7 +83,8 @@ const EventPage = () => {
       if (response) {
         console.log(response.data);
       }
-      navigate(`/mainpage`);
+
+      window.location.reload();
     } catch (error) {
       console.error("Error uploading data:", error);
     }
@@ -132,10 +143,6 @@ const EventPage = () => {
     setActiveComponent("Requirements");
   };
 
-  const showMembers = () => {
-    setActiveComponent("Members");
-  };
-
   const PostsComponent = () => (
     <div className="event-work-images">
       <div>
@@ -162,42 +169,29 @@ const EventPage = () => {
     </div>
   );
 
-  const MemberComponent = () => (
-    <div className="member-component-div">
-      {members.map((member) => (
-        <MemberCard
-          key={member._id}
-          id={member._id}
-          firstName={member.firstName}
-          lastName={member.lastName}
-          phoneNumber={member.phoneNumber}
-        />
-      ))}
-    </div>
-  );
+  const handleRate = async () => {
+    const response = await fetch(`${ENDPOINT}/api/chat/addRating`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        eventId,
+        ratings,
+      }),
+    });
+
+    const data = await response.json();
+    console.log(data);
+    window.location.reload();
+  };
 
   return (
     <>
       <div className="main-event-profile-container">
-        <div className="event-info" style={{ position: "relative" }}>
-          <div
-            style={{
-              position: "absolute",
-              height: "100%",
-              width: "100%",
-              zIndex: "-100",
-              opacity: "0.3",
-            }}
-          >
-            <img
-              style={{
-                height: "100%",
-                width: "100%",
-                objectFit: "cover",
-                overflow: "hidden",
-              }}
-              src="https://picsum.photos/1000/1000"
-            />
+        <div className="event-info">
+          <div className="event-info-img">
+            <img src="https://picsum.photos/1000/1000" />
           </div>
 
           <div className="event-image">
@@ -217,36 +211,6 @@ const EventPage = () => {
               <h2 style={{ fontSize: "2rem", fontWeight: "bold" }}>
                 {roomName}
               </h2>
-              <div
-                style={{ display: "flex", gap: "2rem", marginRight: "6rem" }}
-              >
-                <h2>
-                  {" "}
-                  <span
-                    style={{
-                      fontSize: "2rem",
-                      fontWeight: "bold",
-                      color: "#FFD700",
-                    }}
-                  >
-                    {members.length}
-                  </span>{" "}
-                  Members
-                </h2>
-                <h2>
-                  {" "}
-                  <span
-                    style={{
-                      fontSize: "2rem",
-                      fontWeight: "bold",
-                      color: "#FFD700",
-                    }}
-                  >
-                    {requirements.length}
-                  </span>{" "}
-                  Requirements
-                </h2>
-              </div>
             </div>
             <p style={{ color: "rgb(124, 124, 124)" }}>{roomAddress}</p>
 
@@ -259,18 +223,28 @@ const EventPage = () => {
               }}
             >
               <p>
-                Created by : {admin.firstName} {admin.lastName}
+                Owned by : {admin.firstName} {admin.lastName}
               </p>
+
               <p>·</p>
-              <p>Profile visitors : 1.1K</p>
-              <p>·</p>
-              <p>Event date : 29/04/2024</p>
+
+              <p>Contact : {admin.phoneNumber}</p>
+
+              {roomDate !== "" ? <p>· &nbsp; Event date : {roomDate}</p> : ""}
             </div>
             <p style={{ marginTop: "1rem" }}>{roomDescription}</p>
 
-            <Link to={`/chat/${eventId}`}>
-              <button>Join this event</button>
-            </Link>
+            <div className="ratings">
+              <button onClick={() => setRatingModal(true)}>Rate us</button>
+
+              {Array.from({ length: currentRatings }).map((_, index) => (
+                <i key={index} className="fa-solid fa-star"></i>
+              ))}
+
+              {Array.from({ length: 5 - currentRatings }).map((_, index) => (
+                <i key={index} className="fa-regular fa-star"></i>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -281,19 +255,17 @@ const EventPage = () => {
           </button>
           <button onClick={showRequirements}>
             {" "}
-            <i className="fa-solid fa-people-line"></i> Requirements
-          </button>
-          <button onClick={showMembers}>
-            {" "}
-            <i className="fa-solid fa-people-line"></i> Members
+            <i className="fa-solid fa-gear"></i> Services
           </button>
         </div>
 
         {activeComponent === "Posts" && <PostsComponent />}
         {activeComponent === "Requirements" && (
-          <RequirementsComponents requirements={requirements} adminId={adminId} />
+          <RequirementsComponents
+            requirements={requirements}
+            adminId={adminId}
+          />
         )}
-        {activeComponent === "Members" && <MemberComponent />}
 
         {localStorage.getItem("userId") === adminId ? (
           <div className="sticky-button-container" onClick={openModal}>
@@ -365,8 +337,49 @@ const EventPage = () => {
             <button
               className="submit-uploaded-image-info"
               onClick={handleClick}
+              disabled={loading}
             >
-              Upload
+              {loading ? (
+                <div className="upload-post-button-loader">
+                  <Loader />
+                </div>
+              ) : (
+                "Upload"
+              )}
+            </button>
+          </div>
+        </Modal>
+
+        <Modal
+          isOpen={ratingModal}
+          onRequestClose={() => setRatingModal(false)}
+          contentLabel="Image Details"
+          className="rating-modal"
+          overlayClassName="overlay"
+          ariaHideApp={false}
+        >
+          <h2 className="rating-modal-heading">
+            <i className="fa-solid fa-star"></i> &nbsp; Rate us!
+          </h2>
+          <div className="modal-content">
+            <select
+              value={ratings}
+              onChange={(e) => {
+                setRatings(e.target.value);
+              }}
+            >
+              <option value={0}>Select Rating</option>
+              <option value={1}>1</option>
+              <option value={2}>2</option>
+              <option value={3}>3</option>
+              <option value={4}>4</option>
+              <option value={5}>5</option>
+            </select>
+          </div>
+
+          <div className="add-rating-button">
+            <button className="create-button" onClick={handleRate}>
+              Rate
             </button>
           </div>
         </Modal>

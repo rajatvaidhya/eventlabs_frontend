@@ -6,11 +6,9 @@ import LightModeImage from "../images/imgonline-com-ua-Rotate360-osbMT9fa3KSXqU.
 import HomeImage2 from "../images/homeimage2.jpg";
 import HomeImage3 from "../images/homeimage3.jpg";
 import { useNavigate } from "react-router-dom";
-import { useLightMode } from "../contexts/LightModeContext";
 import FelxiFooter from "../components/FelxiFooter";
 
 const Home = () => {
-  const { toggleLightMode } = useLightMode();
 
   const navigate = useNavigate();
 
@@ -25,20 +23,20 @@ const Home = () => {
       <div
         className="main-home-container"
         style={{
-          backgroundColor: toggleLightMode ? "white" : "black",
-          color: toggleLightMode ? "black" : "white",
+          backgroundColor: "black",
+          color: "white",
         }}
       >
         <div className="first" style={{ position: "relative" }}>
-          {toggleLightMode ? (
+          {/* {toggleLightMode ? (
             <img
               src={LightModeImage}
               alt="Background"
               style={{ borderBottomRightRadius: "100px" }}
             />
-          ) : (
+          ) : ( */}
             <img src={DarkModeImage} alt="Background" />
-          )}
+          {/* )} */}
 
           <div className="first-div" style={{ color: "white" }}>
             <h1>Explore and participate in nearby events and activities.</h1>
@@ -52,9 +50,7 @@ const Home = () => {
             <button
               onClick={handleClick}
               style={{
-                backgroundColor: toggleLightMode
-                  ? "#ff444f"
-                  : "rgb(11, 196, 67)",
+                backgroundColor: "rgb(11, 196, 67)",
                 color: "white",
               }}
             >
@@ -72,7 +68,7 @@ const Home = () => {
               style={{
                 borderBottom: "1px solid rgb(11, 196, 67)",
                 width: "50%",
-                borderColor: toggleLightMode ? "#ff444f" : "rgb(11, 196, 67)",
+                borderColor: "rgb(11, 196, 67)",
               }}
               className="vertical-line"
             ></div>
@@ -106,7 +102,7 @@ const Home = () => {
               style={{
                 borderBottom: "1px solid rgb(11, 196, 67)",
                 width: "50%",
-                borderColor: toggleLightMode ? "#ff444f" : "rgb(11, 196, 67)",
+                borderColor: "rgb(11, 196, 67)",
               }}
               className="vertical-line"
             ></div>

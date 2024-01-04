@@ -1,3 +1,11 @@
+.main-imagecard-div{
+  height:16rem;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  overflow: hidden;
+}
+
 .main-image{
     cursor:pointer;
     width: 100%;
@@ -62,4 +70,36 @@
     height:45px;
     width:45px;
     border-radius: 50%;
+  }
+
+  .modal-info{
+    width:50%;
+    font-size: 14px;
+  }
+
+  @media only screen and (max-width:768px){
+    .main-imagecard-div{
+      height:7rem;
+    }
+
+    .profile-work-images-main-modal{
+      width:90%;
+    }
+
+    .profile-work-images-modal{
+      display: flex;
+      gap:0;
+      flex-direction: column;
+    }
+
+    .profile-work-images-modal .modal-image{
+      width:100%;
+      height:300px;
+    }
+
+    .profile-work-images-modal .modal-info{
+      width:100%;
+      font-size: 12px;
+      padding:10px;
+    }
   }

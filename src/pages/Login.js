@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useLightMode } from "../contexts/LightModeContext";
 import "./Login.css";
 import Loader from "../components/Loader";
 import Navbar from "../components/Navbar";
 import LoginImage from "../images/5101873.png";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const ENDPOINT = "https://eventlabs-backend.onrender.com";
@@ -13,7 +14,6 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { toggleLightMode, setToggleLightMode } = useLightMode();
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -46,9 +46,11 @@ const Login = () => {
       localStorage.setItem("userId", json.userId);
       localStorage.setItem("username", json.firstName);
       navigate("/mainpage");
-      alert("Logged in successfully");
     } else {
-      alert("Invalid details");
+      toast.error("Invalid details", {
+        position: "top-center",
+        theme: "colored",
+      });
     }
   };
 
@@ -63,6 +65,7 @@ const Login = () => {
   return (
     <>
       <Navbar />
+      <ToastContainer />
       <div className="main-login-div">
         <div className="login-img-div">
           <img src={LoginImage}></img>
@@ -76,22 +79,37 @@ const Login = () => {
           </p>
 
           <div className="login-inputs">
-            <input type="email" placeholder="Email" onChange={handleEmailChange}></input>
-            <input type="password" placeholder="Password" onChange={handlePasswordChange}></input>
+            <input
+              type="email"
+              placeholder="Email"
+              onChange={handleEmailChange}
+            ></input>
+            <input
+              type="password"
+              placeholder="Password"
+              onChange={handlePasswordChange}
+            ></input>
           </div>
 
           <div className="signup-option">
-          <p>Don't have an account? <Link to="/signup"><span>Create one.</span></Link></p>
+            <p>
+              Don't have an account?{" "}
+              <Link to="/signup">
+                <span>Create one.</span>
+              </Link>
+            </p>
           </div>
 
-          <button className="submit-btn" onClick={handleSubmit}>{loading ? (
-                <div className="btn-loader">
-                  <Loader color="white"/>
-                  <p>Accessing account ...</p>
+          <button className="submit-btn" onClick={handleSubmit} disabled={loading}>
+            {loading ? (
+              <div className="btn-loader">
+                <Loader color="white" />
+                <p>Accessing account ...</p>
               </div>
             ) : (
               <div>Login</div>
-            )}</button>
+            )}
+          </button>
         </div>
       </div>
     </>

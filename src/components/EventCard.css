@@ -4,6 +4,7 @@
   cursor:pointer;
   border-radius: 10px;
   position:relative;
+  border: 1px solid #292929;
 }
 
 .card:hover {
@@ -16,8 +17,9 @@
 }
 
 .card-image-container img{
-  height:15rem;
-  width:110%;
+  height:250px;
+  width:250px;
+  object-fit: cover;
   border-radius: 10px;
 }
 
@@ -51,6 +53,11 @@
 
 @media screen and (max-width:768px){
 
+  .card {
+    width: calc(50% - 0.5rem);
+    height:13rem;
+  }
+
   .card-content .card-name{
     font-size: 1.8rem;
     letter-spacing: -2px;
@@ -60,6 +67,7 @@
   }
 
   .card-image-container img{
-    height:13rem;
+    height:100%;
+    width:100%;
   }
 } 

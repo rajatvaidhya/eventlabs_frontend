@@ -1,157 +1,212 @@
-.modal-container{
-    background-color: rgb(39, 39, 39);
-    color:white;
-    height:70%;
-    width:70%;
-    border-radius: 10px;
-    border: 1px solid rgb(26,26,26);
+.main-create-event-container {
+  display: flex;
+  color: white;
 }
 
-.main-modal-container{
-    display:flex;
-    flex-direction: row;
-    padding-top:3rem;
-    margin:0;
-    gap:2rem;
+.create-event-search input{
+  width:100%;
 }
 
-.main-modal-container .image-picker{
-    display: flex;
-    width: 50%;
-    border: 3px dashed rgb(61, 61, 61);
-    border-radius: 10px;
-    text-align: center;
-    flex-direction: column;
-    justify-content: center;
-    margin-left: 2rem;
-    gap:1rem;
-    cursor:pointer;
-    height:50vh;
-    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+.create-event-search .suggestions-list{
+  width:100%;
 }
 
-.main-modal-container .fill-room-details{
-    display: flex;
-    flex-direction: column;
-    width:50%;
-    padding:10px;
-    gap:1rem;
-    margin-right: 2rem;
-    height:100vh;
-    overflow-y: visible;
-}
-
-.fill-room-details input, textarea{
-    min-height: 7vh;
-    padding-left:10px;
-    outline:none;
-    background-color: rgb(26,26,26);
-    border-radius: 10px;
-    padding-right: 20px;
-    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
-}
-
-.create-button{
-    height:2rem;
-    width:5rem;
-    border-radius: 10px;
-}
-
-.address-list{
+.create-event-informations {
+  width: 50%;
+  height: 100vh;
   overflow-y: scroll;
-  height:100px;
+  font-size: 14px;
+}
+
+.create-event-image {
+  width: 50%;
+  overflow: hidden;
+  background-color: rgb(11, 196, 67);
+}
+
+.create-event-image img {
+  height: 100vh;
+  object-fit: cover;
+  margin: auto;
+}
+
+.create-event-informations h1 {
+  text-align: center;
+  font-size: 2rem;
   margin-top: 1rem;
+  font-weight: bold;
 }
 
-.address-list ul li{
-  padding: 6px;
-  border-bottom: none;
+.create-event-informations p {
+  font-size: 14px;
+  text-align: center;
+  padding: 1rem 0 2rem 0;
+}
+
+.image-picker {
+  display: flex;
+  width: 95%;
+  border: 3px dashed rgb(61, 61, 61);
   border-radius: 10px;
-  cursor:pointer;
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  gap: 1rem;
+  cursor: pointer;
+  height: 50vh;
+  margin-bottom: 1rem;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px,
+    rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
 }
 
-.address-list ul li:hover{
-  background-color: gray;
+.image-selection-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-
-.fill-room-details .description{
-    padding:10px;
-    min-height:15vh;
+.image-selection-svg {
+  font-size: 2rem;
+  color: lightgreen;
 }
 
-.mt-4 h3{
-    margin-top: -1rem;
-    margin-bottom: 1rem;
+.image-upload-icon {
+  font-size: 2rem;
+  color: white;
 }
 
-.seeking-tags{
-    border:2px solid rgb(58, 58, 58);
-    padding:6px;
-    /* padding-left: 10px; */
-    cursor:pointer;
-    text-align: center;
-    border-radius: 50px;
+#file-input {
+  display: none;
 }
 
-
-/* Hide the default scrollbar */
 .fill-room-details {
-    scrollbar-width: thin; /* Firefox */
-    scrollbar-color: transparent transparent; /* Firefox */
-  
-    /* Hide Chrome scrollbar */
-    ::-webkit-scrollbar {
-      width: 6px;
-    }
-  
-    ::-webkit-scrollbar-thumb {
-      background-color: transparent;
-    }
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 10px;
+  gap: 1rem;
+  margin-right: 2rem;
+  height: 100vh;
+  overflow-y: visible;
+}
+
+.fill-room-details input,
+textarea {
+  min-height: 7vh;
+  outline: none;
+  padding-left: 10px;
+  background-color: rgb(26, 26, 26);
+  border-radius: 10px;
+  padding-right: 20px;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px,
+    rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+}
+
+.fill-room-details textarea {
+  min-height: 30vh;
+  padding: 10px;
+}
+
+.interest-selection-container h3 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.interest-selection-container .flex {
+  margin-bottom: 1rem;
+  gap: 10px;
+}
+
+.seeking-tags {
+  border: 2px solid rgb(58, 58, 58);
+  padding: 6px;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 50px;
+}
+
+.seeking-tags-selected {
+  border: 1px solid rgb(11, 196, 67);
+  padding: 6px;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 50px;
+}
+
+.address-input {
+  width: 100%;
+}
+
+.address-field-container {
+  display: flex;
+  align-items: center;
+}
+
+.address-load-button {
+  margin-left: -3.2rem;
+  border: none;
+  padding: 7px;
+  background-color: rgb(11, 196, 67);
+  border-radius: 10px;
+  outline: none;
+  cursor: pointer;
+}
+
+.address-items {
+  border: 1px solid white;
+  text-align: center;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.address-items:hover {
+  background-color: #181818;
+}
+
+.create-button {
+  color: white;
+  background-color: rgb(11, 196, 67);
+  height: 2rem;
+  width: 5rem;
+  border-radius: 10px;
+}
+
+.create-button-loader {
+  display: flex;
+  justify-content: center;
+}
+
+.set-business-address-button{
+  width:100%;
+  display: flex;
+  padding:20px;
+  align-items: center;
+  justify-content: center;
+}
+
+
+@media only screen and (max-width:768px){
+  .create-event-image{
+    display: none;
   }
-  
-  /* Style the custom scrollbar */
-  .fill-room-details::-webkit-scrollbar {
-    width: 1px; /* Width of the scrollbar */
-  }
-  
-  .fill-room-details::-webkit-scrollbar-thumb {
-    background-color: #ffffff; /* Color of the thumb */
-    border-radius: 3px; /* Rounded corners of the thumb */
-  }
-  
-  .fill-room-details::-webkit-scrollbar-thumb:hover {
-    background-color: #aaa; /* Hover color of the thumb */
+
+  .create-event-informations{
+    margin-top: 2rem;
+    width:100%;
   }
 
-
-  @media screen and (max-width:768px){
-
-    .real-modal{
-      height: 100vh;
-    }
-    .modal-container{
-      width:90%;
-      /* height:70vh; */
-    }
-
-    .modal-container .modal-content h1{
-      text-align: center;
-    }
-
-    .main-modal-container{
-      flex-direction: column;
-    }
-
-    .main-modal-container .image-picker{
-      margin: 0;
-      min-height:40vh;
-      width:95%;
-      margin: auto;
-    }
-
-    .main-modal-container .fill-room-details{
-      width:100%;
-      min-height:100vh;
-    }
+  .create-event-informations h1{
+    font-size: 1.7rem;
   }
+
+  .create-event-informations p{
+    font-size: 12px;
+  }
+
+  .set-business-address-button{
+    font-size: 12px;
+  }
+}

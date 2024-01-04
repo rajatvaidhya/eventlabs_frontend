@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useLightMode } from "../contexts/LightModeContext";
 import Navbar from "../components/Navbar";
 import Loader from "../components/Loader";
-import LoginImage from '../images/SideBg.svg'
+import SignupImage from '../images/4934424.png'
 import "./Signup.css";
 
 const Signup = () => {
@@ -20,7 +19,6 @@ const Signup = () => {
     longitude: 0,
   });
   const navigate = useNavigate();
-  const { toggleLightMode, setToggleLightMode } = useLightMode();
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -81,7 +79,7 @@ const Signup = () => {
       localStorage.setItem("token", json.authtoken);
       localStorage.setItem("userId", json.userId);
       localStorage.setItem("username", json.firstName);
-      navigate("/interest-select");
+      navigate("/mainpage");
       alert("Account Created Successfully");
     } else {
       alert("Invalid Details");
@@ -92,30 +90,33 @@ const Signup = () => {
     <>
       <Navbar />
 
-      <div className="main-login-div">
+      <div className="main-signup-div">
         <div className="signup-img-div">
-          <img src={LoginImage}></img>
+          <img src={SignupImage}></img>
         </div>
 
-        <div className="login-form-div">
+        <div className="login-form-div signup-form-div">
           <h1>Create an account</h1>
           <p>
             Join eventlabs community and enjoy resources by creating your account for free! 
           </p>
 
-          <div className="login-inputs">
+          <div className="login-inputs signup-inputs">
             <input type="email" placeholder="Email" onChange={handleEmailChange}></input>
+
+            <div className="names-input">
             <input type="text" placeholder="First name" onChange={handleFirstNameChange}></input>
             <input type="text" placeholder="Last name" onChange={handleLastNameChange}></input>
+            </div>
             <input type="number" placeholder="Phone number" onChange={handlePhoneChange}></input>
             <input type="password" placeholder="Password" onChange={handlePasswordChange}></input>
           </div>
 
-          <div className="signup-option">
+          <div className="signup-option login-option">
           <p>Already have an account? <Link to="/login"><span>Login.</span></Link></p>
           </div>
 
-          <button className="submit-btn" onClick={handleSubmit}>{loading ? (
+          <button className="submit-btn signup-btn" onClick={handleSubmit}>{loading ? (
                 <div className="btn-loader">
                   <Loader color="white"/>
                   <p>Creating an account ...</p>

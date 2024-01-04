@@ -1,0 +1,53 @@
+.main-first-nav{
+    display: flex;
+    justify-content: space-between;
+    margin: 0.5rem 2rem 0.5rem 2rem;
+}
+
+.main-first-nav p{
+    color:white;
+    font-size: 14px;
+}
+
+.location-input{
+    display: flex;
+    gap:1rem;
+}
+
+.location-input select{
+    padding:3px;
+    font-size: 14px;
+    outline:none;
+    border-radius: 5px;
+    background-color: #1b1b1b;
+    color:white;
+}
+
+.first-nav-other-info{
+    display: flex;
+}
+
+.logout-text{
+    cursor: pointer;
+}
+
+
+@media only screen and (max-width:768px){
+    .main-first-nav{
+        margin: .5rem;
+    }
+
+    .main-first-nav p{
+        font-size: 12px;
+    }
+
+    .location-input{
+        display: flex;
+        gap: .5rem;
+        align-items: center;
+    }
+
+    .location-input select{
+        font-size: 12px;
+    }
+}

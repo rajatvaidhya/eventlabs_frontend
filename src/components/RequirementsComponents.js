@@ -1,54 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Modal from "react-modal";
 import "./RequirementsComponents.css";
 import RequirementsCard from "./RequirementsCard";
-import io from "socket.io-client";
-import { useNavigate, useParams } from "react-router-dom";
+import Loader from "./Loader";
+import { useParams } from "react-router-dom";
 
-let socket;
 const RequirementsComponents = (props) => {
   const ENDPOINT = "https://eventlabs-backend.onrender.com";
   // const ENDPOINT = "http://localhost:5000";
   const { eventId } = useParams();
-  const [title, setTitle] = useState("");
-  const [numberOfPosts, setNumberOfPosts] = useState(0);
-  const [radius, setRadius] = useState(0);
-  const [eventName, setEventName] = useState("");
+  const [serviceName, setServiceName] = useState("");
+  const [radioValue, setRadioValue] = useState(false);
+  const [startDay, setStartDay] = useState("");
+  const [endDay, setEndDay] = useState("");
+  const [startTiming, setStartTiming] = useState("");
+  const [endTiming, setEndTiming] = useState("");
+  const [price, setPrice] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedInterests, setSelectedInterests] = useState([]);
-  const navigate = useNavigate();
-  const [location, setLocation] = useState({
-    latitude: 0,
-    longitude: 0,
-  });
-  const [availableInterests, setAvailableInterests] = useState([
-    "Hiking",
-    "Cooking",
-    "Photography",
-    "Yoga",
-    "Reading",
-    "Sports",
-    "Art",
-    "Music",
-    "Social",
-  ]);
-
-  const getEventCoordinates = async () => {
-    try {
-      const response = await fetch(`${ENDPOINT}/api/chat/room/${eventId}`);
-      const data = await response.json();
-      setEventName(data.chatRoom.name);
-      setLocation({
-        longitude: data.chatRoom.location.coordinates[0],
-        latitude: data.chatRoom.location.coordinates[1],
-      });
-    } catch (error) {
-      console.error("Error fetching chat room data:", error);
-    }
-  };
+  const [loading, setLoading] = useState(false);
 
   const openModal = () => {
+    setRadioValue(false);
     setModalIsOpen(true);
   };
 
@@ -56,31 +28,9 @@ const RequirementsComponents = (props) => {
     setModalIsOpen(false);
   };
 
-  const handleInterestSelect = (interest) => {
-    setSelectedInterests([...selectedInterests, interest]);
-  };
-
-  const handleInterestRemove = (interest) => {
-    setSelectedInterests(selectedInterests.filter((item) => item !== interest));
-  };
-
-  const filteredInterests = availableInterests.filter((interest) =>
-    interest.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  const handleTitleChange = (event) => {
-    setTitle(event.target.value);
-  };
-
-  const handlePostsNumber = (event) => {
-    setNumberOfPosts(event.target.value);
-  };
-
-  const handleRadiusChange = (event) => {
-    setRadius(event.target.value);
-  };
-
   const handleClick = async () => {
+    setLoading(true);
+
     const response = await fetch(
       `${ENDPOINT}/api/requirements/createRequirement`,
       {
@@ -90,11 +40,13 @@ const RequirementsComponents = (props) => {
         },
         body: JSON.stringify({
           eventId,
-          title,
-          radius,
-          selectedInterests,
-          numberOfPosts,
-          location,
+          serviceName,
+          radioValue,
+          startDay,
+          endDay,
+          startTiming,
+          endTiming,
+          price,
         }),
       }
     );
@@ -102,47 +54,39 @@ const RequirementsComponents = (props) => {
     const data = await response.json();
 
     if (response.ok) {
-      await socket.emit("notify", {
-        location,
-        title,
-        eventName,
-        radius,
-        selectedInterests,
-        eventId,
-        reqId: data.reqId,
-      });
-      navigate(`/event/${eventId}`);
+      window.location.reload();
+    } else {
+      alert("Error in adding.");
     }
   };
 
-  useEffect(() => {
-    socket = io(ENDPOINT, { transports: ["websocket"] });
-    socket.on("connect", () => {});
-
-    getEventCoordinates();
-  }, []);
-
   return (
     <div className="requirements-container">
+      {localStorage.getItem("userId") === props.adminId ? (
+        <button
+          className="create-button add-services-button"
+          onClick={openModal}
+        >
+          Add services
+        </button>
+      ) : (
+        ""
+      )}
+
       {props.requirements.map((requirement) => (
         <RequirementsCard
           key={requirement._id}
           id={requirement._id}
-          adminId={props.adminId}
-          appliedBy={requirement.appliedBy}
           title={requirement.requirementTitle}
-          numberOfPosts={requirement.requirementNumber}
+          isFree={requirement.freeCancellation}
+          startDay={requirement.startDay}
+          endDay={requirement.endDay}
+          startTiming={requirement.startTiming}
+          endTiming={requirement.endTiming}
+          price={requirement.price}
+          adminId={props.adminId}
         />
       ))}
-
-      {localStorage.getItem("userId") === props.adminId ? (
-        <div onClick={openModal} className="add-more-div">
-          <i className="fa-solid fa-plus"></i>
-          <h2>Add More</h2>
-        </div>
-      ) : (
-        ""
-      )}
 
       <Modal
         isOpen={modalIsOpen}
@@ -152,62 +96,141 @@ const RequirementsComponents = (props) => {
         overlayClassName="overlay"
         ariaHideApp={false}
       >
-        <div className="requirements-form">
-          <input
-            type="text"
-            placeholder="Enter requirement"
-            onChange={handleTitleChange}
-          ></input>
-          <input
-            type="number"
-            placeholder="Number of requirements"
-            onChange={handlePostsNumber}
-          ></input>
-
-          <div>
-            <div className="interest-tags-container">
-              {filteredInterests.map((interest) => (
-                <div
-                  key={interest}
-                  className="interest-tags"
-                  style={{ color: "white" }}
-                  onClick={() => handleInterestSelect(interest)}
-                >
-                  {interest}
-                </div>
-              ))}
-            </div>
-            <div className="mt-4">
-              <h3
-                className="text-lg font-semibold mb-2"
-                style={{ textAlign: "center" }}
-              >
-                Selected Interests
-              </h3>
-              <div
-                className="flex flex-wrap"
-                style={{ justifyContent: "center", gap: "0.5rem" }}
-              >
-                {selectedInterests.map((interest) => (
-                  <div
-                    key={interest}
-                    className="interest-tags"
-                    onClick={() => handleInterestRemove(interest)}
-                    style={{ border: "1px solid rgb(11, 196, 67)" }}
-                  >
-                    {interest}
-                  </div>
-                ))}
-              </div>
-            </div>
+        <div className="requirement-modal">
+          <div className="modal-heading">
+            <h2>Add Service</h2>
           </div>
 
-          <input
-            type="number"
-            placeholder="Notify in radius"
-            onChange={handleRadiusChange}
-          ></input>
-          <button onClick={handleClick}>Add requirement</button>
+          <div className="service-form">
+            <input
+              type="text"
+              placeholder="Service name"
+              className="service-form-input"
+              onChange={(e) => {
+                setServiceName(e.target.value);
+              }}
+            ></input>
+            <div className="cancellation-div">
+              <input
+                type="radio"
+                value="cancellation"
+                name="cancellation"
+                onChange={() => {
+                  setRadioValue((prevValue) => !prevValue);
+                }}
+              ></input>
+              <label htmlFor="cancellation">Free cancellation?</label>
+            </div>
+
+            <div className="available-div">
+              <div className="available-inside">
+                <p>From : </p>
+                <select
+                  value={startDay}
+                  onChange={(e) => {
+                    setStartDay(e.target.value);
+                  }}
+                >
+                  <option>Start Day</option>
+                  <option>Monday</option>
+                  <option>Tuesday</option>
+                  <option>Wednesday</option>
+                  <option>Thrusday</option>
+                  <option>Friday</option>
+                  <option>Saturday</option>
+                  <option>Sunday</option>
+                </select>
+
+                <p>To : </p>
+                <select
+                  value={endDay}
+                  onChange={(e) => {
+                    setEndDay(e.target.value);
+                  }}
+                >
+                  <option>End Day</option>
+                  <option>Monday</option>
+                  <option>Tuesday</option>
+                  <option>Wednesday</option>
+                  <option>Thrusday</option>
+                  <option>Friday</option>
+                  <option>Saturday</option>
+                  <option>Sunday</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="timings">
+              <div className="available-inside">
+                <p>From : </p>
+                <select
+                  value={startTiming}
+                  onChange={(e) => {
+                    setStartTiming(e.target.value);
+                  }}
+                >
+                  <option>Start Time</option>
+                  <option>1:00</option>
+                  <option>2:00</option>
+                  <option>3:00</option>
+                  <option>5:00</option>
+                  <option>6:00</option>
+                  <option>7:00</option>
+                  <option>8:00</option>
+                  <option>9:00</option>
+                  <option>10:00</option>
+                  <option>11:00</option>
+                  <option>12:00</option>
+                </select>
+
+                <p>To : </p>
+                <select
+                  value={endTiming}
+                  onChange={(e) => {
+                    setEndTiming(e.target.value);
+                  }}
+                >
+                  <option>End Time</option>
+                  <option>1:00</option>
+                  <option>2:00</option>
+                  <option>3:00</option>
+                  <option>5:00</option>
+                  <option>6:00</option>
+                  <option>7:00</option>
+                  <option>8:00</option>
+                  <option>9:00</option>
+                  <option>10:00</option>
+                  <option>11:00</option>
+                  <option>12:00</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="price-input">
+              <input
+                type="number"
+                placeholder="Set price in rupees"
+                className="service-form-input"
+                onChange={(e) => {
+                  setPrice(e.target.value);
+                }}
+              ></input>
+            </div>
+
+            <button
+              className="create-button service-button-modal"
+              onClick={handleClick}
+              disabled={loading}
+            >
+              {loading ? (
+                <div className="upload-post-button-loader">
+                  <Loader />
+                </div>
+              ) : (
+                "Add"
+              )}
+            </button>
+          </div>
         </div>
       </Modal>
     </div>

@@ -1,58 +1,85 @@
-.requirements-container{
-    width:80%;
-    margin: auto;
-    margin-top: 1rem;
-  }
-
-.add-more-div{
+.requirements-container {
+  margin: auto;
   display: flex;
   flex-direction: column;
-  color: white;
   align-items: center;
+  flex-wrap: wrap;
+  gap:1rem;
   justify-content: center;
-  gap: 0.4rem;
-  border: 1px dashed #323232;
-  border-radius: 10px;
-  cursor: pointer;
+  margin-top: 1rem;
 }
 
-  @media screen and (min-width: 768px) {
-    .requirements-container {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr); 
-      gap: 16px; 
-    }
-  }
-  
-  @media screen and (max-width: 767px) {
-    .requirements-container {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr); 
-      gap: 16px; 
-    }
-  }
+.cancellation-div{
+  display: flex;
+  gap:1rem;
+}
 
+.cancellation-div input{
+  background-color: #1b1b1b;
+}
+
+.add-services-button{
+  width:30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding:20px;
+}
+
+.available-inside{
+  display:flex;
+  align-items: center;
+  gap:1rem;
+}
+
+.require-modal input, .require-modal select{
+  background-color: #1b1b1b;
+  padding:10px;
+  border-radius: 5px;
+  outline:none;
+  font-size: 14px;
+}
+
+.modal-heading{
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  padding:10px;
+}
+
+.require-modal{
+  width:30%;
+}
+
+.service-form-input{
+  width:90%;
+}
+
+.price-input{
+  width:100%;
+}
+
+.service-form{
+  display: flex;
+  width:100%;
+  flex-direction: column;
+  gap:1.5rem;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.service-button-modal{
+  margin-bottom:1rem;
+}
+
+@media only screen and (max-width:768px){
   .require-modal{
-    width:50%;
+    width:95%;
   }
 
-  .requirements-form{
-    display:flex;
-    flex-direction: column;
-    padding:10px;
-    gap:1rem;
+  .add-services-button{
+    width:70%;
+    font-size: 12px;
   }
-
-  .requirements-form input{
-    padding:10px;
-    background-color: #323232;
-    color:white;
-    border-radius: 10px;
-    outline:none;
-  }
-
-  .requirements-form button{
-    padding:10px;
-    background-color: blueviolet;
-    border-radius: 10px;
-  }
+}

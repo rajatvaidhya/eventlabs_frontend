@@ -2,64 +2,65 @@ import React, { useEffect, useState } from "react";
 import "./CreateEvent.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-// import io from "socket.io-client";
 import Navbar from "../components/Navbar";
 import Loader from "../components/Loader";
-import { useLightMode } from "../contexts/LightModeContext";
+import CreateEventImage from "../images/8614927.png";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-// let socket;
 const CreateEvent = ({ isOpen, onClose }) => {
-  const NOMINATIM_BASE_URL = "https://nominatim.openstreetmap.org/search?";
   const ENDPOINT = "https://eventlabs-backend.onrender.com";
   // const ENDPOINT = "http://localhost:5000";
 
   const [eventName, setEventName] = useState("");
   const [description, setDescription] = useState("");
-  const [addressToggle, setAddressToggle] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [address, setAddress] = useState("");
-  const [radius, setRadius] = useState(0);
   const [image, setImage] = useState();
   const [addressList, setAddressList] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [locationLoading, setLocationLoading] = useState(false);
   const [imageSelectToggle, setImageSelectToggle] = useState(false);
   const [buttonDisable, setButtonDisable] = useState(false);
+  const [date, setDate] = useState("");
   const [location, setLocation] = useState({
     latitude: 0,
     longitude: 0,
   });
-  const { toggleLightMode } = useLightMode();
 
   const navigate = useNavigate();
 
-  const [selectedInterests, setSelectedInterests] = useState([]);
-  const [availableInterests, setAvailableInterests] = useState([
-    "Hiking",
-    "Cooking",
-    "Photography",
-    "Yoga",
-    "Reading",
-    "Sports",
-    "Art",
-    "Music",
-    "Social",
-  ]);
+  const [suggestions, setSuggestions] = useState([]);
 
-  const handleInterestSelect = (interest) => {
-    setSelectedInterests([...selectedInterests, interest]);
+  const data = [
+    "Events and Parties",
+    "Electricians",
+    "Spa and Salons",
+    "Cleaning Services",
+    "Flower and Decorations",
+    "Marriage and Catering",
+    "Plumbers",
+    "Photographers",
+    "Textile Services",
+    "Pet Care Service",
+    "Fitness Services",
+    "Legal and Consultancy Services",
+    "Medical Services"
+  ];
+
+  const handleCategoryChange = (e) => {
+    const newSearchTerm = e.target.value.toLowerCase();
+    setSearchTerm(newSearchTerm);
+
+    const newSuggestions = data.filter((item) =>
+      item.toLowerCase().includes(newSearchTerm)
+    );
+    setSuggestions(newSuggestions);
   };
 
-  const handleAddressChange = (e) => {
-    setAddress(e.target.value);
+  const handleSuggestionClick = (suggestion) => {
+    setSearchTerm(suggestion);
+    setSuggestions([]);
   };
-
-  const handleInterestRemove = (interest) => {
-    setSelectedInterests(selectedInterests.filter((item) => item !== interest));
-  };
-
-  const filteredInterests = availableInterests.filter((interest) =>
-    interest.toLowerCase().includes(searchTerm.toLowerCase())
-  );
 
   const handleEventNameChange = (e) => {
     setEventName(e.target.value);
@@ -74,15 +75,10 @@ const CreateEvent = ({ isOpen, onClose }) => {
     setImage(e.target.files[0]);
   };
 
-  const handleRadiusChange = (e) => {
-    setRadius(e.target.value);
-  }
-
   const handleCreateEvent = async () => {
     setButtonDisable(true);
     const formData = new FormData();
 
-    
     if (eventName.trim() === "") {
       alert("Please enter an event name.");
       return;
@@ -91,10 +87,11 @@ const CreateEvent = ({ isOpen, onClose }) => {
     formData.append("name", eventName);
     formData.append("description", description);
     formData.append("address", address);
-    formData.append("seeking", selectedInterests);
+    formData.append("seeking", searchTerm);
     formData.append("image", image);
     formData.append("latitude", location.latitude);
     formData.append("longitude", location.longitude);
+    formData.append("date", date);
     formData.append("token", localStorage.getItem("token"));
 
     try {
@@ -104,10 +101,9 @@ const CreateEvent = ({ isOpen, onClose }) => {
       );
 
       const data = response.data;
-      console.log("data : ",data);
+      console.log("data : ", data);
       localStorage.setItem("roomId", data.roomId);
-      // await socket.emit("notify", {location, eventName, address, radius, selectedInterests, eventId:data.roomId});
-      navigate(`/chat/${data.roomId}`);
+      navigate(`/event/${data.roomId}`);
     } catch (error) {
       console.error("Error uploading data:", error);
     }
@@ -115,46 +111,22 @@ const CreateEvent = ({ isOpen, onClose }) => {
 
   useEffect(() => {}, [addressList]);
 
-  const handleKeyDown = (e) => {
-    if (address.trim() !== "") {
-      setLoading(true);
-      setAddressToggle(true);
+  const setCurrentLocation = () => {
+    setLocationLoading(true);
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        const { latitude, longitude } = position.coords;
+        setLocation({ latitude: latitude, longitude: longitude });
+      });
+      setLocationLoading(false);
 
-      const params = {
-        q: address,
-        format: "json",
-        addressdetails: 1,
-        polygon_geojson: 0,
-      };
-
-      const queryString = new URLSearchParams(params).toString();
-      const requestOptions = {
-        method: "GET",
-        redirect: "follow",
-      };
-
-      fetch(`${NOMINATIM_BASE_URL}${queryString}`, requestOptions)
-        .then((response) => response.text())
-        .then((result) => {
-          setLoading(false);
-          setAddressList(JSON.parse(result));
-        })
-        .catch((err) => console.log("error", err));
-      setAddress("");
+      toast.success("Location set successfully", {
+        position: "top-center",
+        theme: "colored",
+      });
+    } else {
+      console.log("Location sharing isn't possible due to network issue!");
     }
-  };
-
-  // useEffect(() => {
-  //   socket = io(ENDPOINT, { transports: ["websocket"] });
-  //   socket.on("connect", () => {
-  //     console.log("Socket Connected!");
-  //   });
-  // },[]);
-
-  const handleListItemClick = (lat, lon, displayName) => {
-    setAddressToggle(false);
-    setAddress(displayName);
-    setLocation({ latitude: lat, longitude: lon });
   };
 
   const handleCancelEvent = () => {
@@ -165,64 +137,30 @@ const CreateEvent = ({ isOpen, onClose }) => {
     <>
       <Navbar />
 
-      <div
-        style={{
-          color: toggleLightMode ? "black" : "white",
-          backgroundColor: toggleLightMode ? "white" : "black",
-          minHeight: "100vh",
-          overflowY: "scroll",
-        }}
-      >
-        <h2
-          className="text-2xl font-semibold"
-          style={{
-            paddingTop: "2rem",
-            paddingBottom: "2rem",
-            textAlign: "center",
-            fontSize: "1.7rem",
-            fontWeight: "bold",
-            letterSpacing: "-1px",
-            color: toggleLightMode ? "black" : "white",
-            backgroundColor: toggleLightMode ? "white" : "black",
-          }}
-        >
-          Create an Event 🎉
-        </h2>
+      <div className="main-create-event-container">
+        <div className="create-event-image">
+          <img src={CreateEventImage} alt="image" />
+        </div>
 
-        <div className="main-modal-container">
+        <div className="create-event-informations">
+          <h1>List your business 🎉</h1>
+          <p>
+            Expand your business by reaching to more and more peoples around
+            you.
+          </p>
+
           <label className="image-picker" htmlFor="file-input">
             {imageSelectToggle ? (
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "1rem",
-                }}
-              >
+              <div className="image-selection-info">
                 <label>
-                  <i
-                    className="fa-solid fa-circle-check"
-                    style={{ fontSize: "2rem", color: "lightgreen" }}
-                  ></i>
+                  <i className="fa-solid fa-circle-check image-selection-svg"></i>
                 </label>
                 <label>Image selected</label>
               </div>
             ) : (
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "1rem",
-                }}
-              >
+              <div className="image-selection-info">
                 <label>
-                  <i
-                    className="fa-solid fa-upload"
-                    style={{
-                      fontSize: "2rem",
-                      color: toggleLightMode ? "black" : "white",
-                    }}
-                  ></i>
+                  <i className="fa-solid fa-upload image-upload-icon"></i>
                 </label>
                 <label htmlFor="file-input">Choose an image</label>
               </div>
@@ -234,140 +172,81 @@ const CreateEvent = ({ isOpen, onClose }) => {
             id="file-input"
             name="image"
             onChange={handleImageChange}
-            style={{ display: "none" }}
           ></input>
+
           <div className="fill-room-details">
             <input
               type="text"
-              placeholder="Event name"
-              style={{
-                backgroundColor: toggleLightMode ? "white" : "",
-                border: toggleLightMode ? "1px solid #b9b9b9" : "",
-              }}
+              placeholder="Business name"
               value={eventName}
               onChange={handleEventNameChange}
+              className="event-name-input"
             ></input>
             <textarea
               type="text"
-              className="description"
+              className="event-description-input"
               placeholder="Description"
               value={description}
-              style={{
-                backgroundColor: toggleLightMode ? "white" : "",
-                border: toggleLightMode ? "1px solid #b9b9b9" : "",
-              }}
+              row={100}
               onChange={handleDescriptionChange}
             ></textarea>
 
-            <div className="mt-4">
-              <h3 style={{ textAlign: "center" }}>Looking for :</h3>
-              <div
-                className="flex flex-wrap"
-                style={{ marginBottom: "1rem", gap: "10px" }}
-              >
-                {selectedInterests.map((interest) => (
-                  <div
-                    key={interest}
-                    className="seeking-tags"
-                    style={{
-                      border: "1px solid rgb(11, 196, 67)",
-                      padding: "6px",
-                      fontSize: "14px",
-                      width: "30%",
-                    }}
-                    onClick={() => handleInterestRemove(interest)}
-                  >
-                    <i
-                      className="fa-solid fa-xmark"
-                      style={{
-                        float: "left",
-                        justifyContent: "center",
-                        marginTop: ".2rem",
-                        marginLeft: ".4rem",
-                        display: "block",
-                      }}
-                    ></i>
-                    {interest}
-                  </div>
-                ))}
-              </div>
-
-              <div className="grid grid-cols-2 gap-2">
-                {filteredInterests.map((interest) => (
-                  <div
-                    key={interest}
-                    className="seeking-tags"
-                    onClick={() => handleInterestSelect(interest)}
-                  >
-                    {interest}
-                  </div>
-                ))}
-              </div>
+            <div className="main-search-container create-event-search">
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={handleCategoryChange}
+                placeholder="Yours business category"
+              />
+              {suggestions.length > 0 && (
+                <ul className="suggestions-list">
+                  {suggestions.map((suggestion, index) => (
+                    <li
+                      key={index}
+                      onClick={() => handleSuggestionClick(suggestion)}
+                    >
+                      {suggestion}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
 
             <div className="address-field">
-              <div style={{ display: "flex", alignItems: "center" }}>
+              <div className="address-field-container">
                 <input
-                  style={{
-                    width: "100%",
-                    backgroundColor: toggleLightMode ? "white" : "",
-                    border: toggleLightMode ? "1px solid #b9b9b9" : "",
-                  }}
                   type="text"
-                  placeholder="Address (Click on icon to load)"
-                  value={address}
-                  onChange={handleAddressChange}
-                ></input>
-                <i
-                  style={{
-                    marginLeft: "-2rem",
-                    fontSize: "1.3rem",
-                    cursor: "pointer",
+                  className="address-input"
+                  placeholder="Address"
+                  onChange={(e) => {
+                    setAddress(e.target.value);
                   }}
-                  onClick={handleKeyDown}
-                  className="fa-solid fa-location-dot"
-                ></i>
+                  value={address}
+                ></input>
               </div>
-
-              {addressToggle &&
-                (loading ? (
-                  <h1>Address Loading...</h1>
-                ) : (
-                  <div className="address-list">
-                    <ul>
-                      {addressList.map((item) => (
-                        <li
-                          key={item.osm_id}
-                          style={{
-                            border: toggleLightMode
-                              ? "1px solid #b9b9b9"
-                              : "1px solid white",
-                          }}
-                          onClick={() =>
-                            handleListItemClick(
-                              item.lat,
-                              item.lon,
-                              item.display_name
-                            )
-                          }
-                        >
-                          {item.display_name}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
             </div>
+
             <input
-              type="number"
-              placeholder="Notify in Radius (Variable upto 1-2 km)"
-              onChange={handleRadiusChange}
-              // value={radius}
-              style={{
-                backgroundColor: toggleLightMode ? "white" : "",
-                border: toggleLightMode ? "1px solid #b9b9b9" : "",
-              }}
+              type="date"
+              placeholder="Event date"
+              onChange={(e) => setDate(e.target.value)}
             ></input>
+
+            <button
+              className="create-button set-business-address-button"
+              onClick={setCurrentLocation}
+            >
+              {locationLoading ? (
+                <div className="create-button-loader">
+                  <Loader /> &nbsp; Setting location
+                </div>
+              ) : (
+                <div>
+                  <i className="fa-solid fa-location-dot"></i> &nbsp; Set
+                  current location as your business location
+                </div>
+              )}
+            </button>
 
             <div className="mt-4 flex justify-end pb-10">
               <button onClick={handleCancelEvent} className="mr-4">
@@ -377,22 +256,21 @@ const CreateEvent = ({ isOpen, onClose }) => {
                 disabled={buttonDisable}
                 onClick={handleCreateEvent}
                 className="create-button"
-                style={{
-                  color: "white",
-                  backgroundColor: toggleLightMode
-                    ? "rgb(255, 68, 79)"
-                    : "rgb(11, 196, 67)",
-                }}
               >
-                {buttonDisable ? 
-                <div style={{display:'flex', justifyContent:'center'}}>
-                  <Loader />
-                  </div> : <div>Create</div>}
+                {buttonDisable ? (
+                  <div className="create-button-loader">
+                    <Loader />
+                  </div>
+                ) : (
+                  <div>Create</div>
+                )}
               </button>
             </div>
           </div>
         </div>
       </div>
+
+      <ToastContainer />
     </>
   );
 };

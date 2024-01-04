@@ -1,141 +1,187 @@
-import React, { useEffect, useState } from "react";
-import "./Navbar.css";
-import DarkLogo from '../images/main-logo.png';
-import LightLogo from "../images/newlogo.png";
-import NotifyPanel from "./NotifyPanel";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useLightMode } from "../contexts/LightModeContext";
+import "./Navbar.css";
+import DarkLogo from "../images/main-logo.png";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Loader from "./Loader";
 
-const Navbar = () => {
+const Navbar = (props) => {
   const ENDPOINT = "https://eventlabs-backend.onrender.com";
   // const ENDPOINT = "http://localhost:5000";
+
+  const userId = localStorage.getItem("userId");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [search, setSearch] = useState(false);
+
   const navigate = useNavigate();
 
-  const { toggleLightMode, setToggleLightMode } = useLightMode();
-  const [notifications, setNotifications] = useState([]);
-  const [notifyPanelToggle, setNotifyPanelToggle] = useState(false);
+  const data = [
+    "Events and Parties",
+    "Electricians",
+    "Spa and Salons",
+    "Cleaning Services",
+    "Flower and Decorations",
+    "Marriage and Catering",
+    "Plumbers",
+    "Photographers",
+    "Textile Services",
+    "Pet Care Service",
+    "Fitness Services",
+    "Legal and Consultancy Services",
+    "Medical Services",
+  ];
 
-  const handleLogout = () => {
-    localStorage.removeItem("userId");
-    localStorage.removeItem("token");
-    localStorage.removeItem("username");
-    localStorage.removeItem("roomId");
-    localStorage.removeItem("longitude");
-    localStorage.removeItem("latitude");
-    navigate("/");
+  const handleInputChange = (e) => {
+    const newSearchTerm = e.target.value.toLowerCase();
+    setSearchTerm(newSearchTerm);
+
+    const newSuggestions = data.filter((item) =>
+      item.toLowerCase().includes(newSearchTerm)
+    );
+    setSuggestions(newSuggestions);
   };
 
-  const handleLogin = () => {
-    navigate("/login");
+  const handleSuggestionClick = (suggestion) => {
+    setSearchTerm(suggestion);
+    setSuggestions([]);
   };
 
-  const fetchNotifications = async () => {
-    const response = await fetch(`${ENDPOINT}/api/user/fetchNotifications`, {
+  const setLiveLocation = async (longitude, latitude) => {
+    const response = await fetch(`${ENDPOINT}/api/chat/setLiveLocation`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        userId: localStorage.getItem("userId"),
+        userId,
+        userLocation: { longitude: longitude, latitude: latitude },
       }),
     });
 
-    const json = await response.json();
-    setNotifications(json.notifications);
+    if (response.ok) {
+      console.log("User location updated successfully");
+      toast.success("Location set successfully.", {
+        position: "top-center",
+        theme: "colored",
+      });
+      setLoading(false);
+      window.location.reload();
+    } else {
+      toast.error("Error updating location.", {
+        position: "top-center",
+        theme: "colored",
+      });
+    }
   };
 
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      fetchNotifications();
+  const handleSetLocation = () => {
+    setLoading(true);
+
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        const { latitude, longitude } = position.coords;
+        localStorage.setItem("latitude", latitude);
+        localStorage.setItem("longitude", longitude);
+        setLiveLocation(longitude, latitude);
+      });
+    } else {
+      console.log("Location sharing isn't possible due to network issue!");
     }
-  }, []);
+  };
+
+  const handleSearch = () => {
+    props.setSearchItem(searchTerm);
+  };
 
   return (
-    <div
-      className="navbar"
-      style={{
-        backgroundColor: toggleLightMode ? "white" : "black",
-        color: toggleLightMode ? "black" : "white",
-      }}
-    >
-      <div className="site-logo">
-        {toggleLightMode ? (
-          <img src={LightLogo} alt="Logo" />
-        ) : (
+    <>
+      <div className="navbar">
+        <div className="site-logo">
           <img src={DarkLogo} alt="Logo" />
-        )}
-      </div>
-      <div className="navbar-right">
-        <div>
-          <i
-            className="fa-regular fa-moon"
-            style={{
-              color: "black",
-              display: toggleLightMode ? "block" : "none",
-              cursor: "pointer",
-            }}
-            onClick={() => setToggleLightMode(!toggleLightMode)}
-          ></i>
-          <i
-            className="fa-solid fa-sun"
-            style={{
-              color: "white",
-              display: toggleLightMode ? "none" : "block",
-              cursor: "pointer",
-            }}
-            onClick={() => setToggleLightMode(!toggleLightMode)}
-          ></i>
         </div>
 
         {localStorage.getItem("token") ? (
-          <div
-          className="navbar-right-div"
-          >
-            <div onClick={() => setNotifyPanelToggle(!notifyPanelToggle)}>
-              <div
-                className="notification-count"
-              >
-                {" "}
-                {notifications.length}
-              </div>
-              <i
-                className="fa-regular fa-bell"
-                style={{ cursor: "pointer" }}
-              ></i>
-              <NotifyPanel
-                display={notifyPanelToggle}
-                notifications={notifications}
-              />
-            </div>
-            <div
-              className="button-container"
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                gap: "0.7rem",
-              }}
+          <div className="main-search-container">
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={handleInputChange}
+              placeholder="Type to search"
+            />
+            {suggestions.length > 0 && (
+              <ul className="suggestions-list">
+                {suggestions.map((suggestion, index) => (
+                  <li
+                    key={index}
+                    onClick={() => handleSuggestionClick(suggestion)}
+                  >
+                    {suggestion}
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            <button className="nav-buttons" onClick={handleSearch}>
+              {" "}
+              <i className="fa-solid fa-search"></i> &nbsp;Search
+            </button>
+            <button
+              className="nav-buttons"
+              disabled={loading}
+              onClick={handleSetLocation}
             >
-              <i className="fa-solid fa-power-off"></i>
-              <button onClick={handleLogout}>Logout</button>
-            </div>
+              {loading ? (
+                <div className="set-location-loader">
+                  <Loader /> Setting Location
+                </div>
+              ) : (
+                <div>
+                  <i className="fa-solid fa-location-dot"></i> &nbsp; Set
+                  current location
+                </div>
+              )}
+            </button>
           </div>
         ) : (
-          <div
-            className="button-container"
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              gap: "0.7rem",
-            }}
+          <button
+            className="nav-buttons login-btn"
+            onClick={() => navigate("/login")}
           >
-            <i className="fa-solid fa-power-off"></i>
-            <button onClick={handleLogin}>Login</button>
-          </div>
+            Login
+          </button>
         )}
       </div>
-    </div>
+
+      {localStorage.getItem('token') ? (
+        <div className="mobile-buttons">
+        <button className="nav-buttons2" onClick={handleSearch}>
+          <i className="fa-solid fa-search"></i> &nbsp;Search
+        </button>
+
+        <button className="nav-buttons2" onClick={handleSetLocation}>
+          {loading ? (
+            <div className="set-location-loader">
+              <Loader /> Setting Location
+            </div>
+          ) : (
+            <div>
+              <i className="fa-solid fa-location-dot"></i> &nbsp; Set current
+              location
+            </div>
+          )}
+        </button>
+      </div>
+      ) : (
+        ""
+      )}
+
+      
+
+      <ToastContainer />
+    </>
   );
 };
 

@@ -1,128 +1,155 @@
-.user-info{
-    display: flex;
-    align-items: center;
-    width:80%;
-    margin: auto;
-    gap:2rem;
-    margin-top: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px dashed #3b3b3b;
-    margin-bottom: 1rem;
+.user-info {
+  display: flex;
+  align-items: center;
+  width: 80%;
+  margin: auto;
+  gap: 2rem;
+  margin-top: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px dashed #3b3b3b;
+  margin-bottom: 1rem;
 }
 
-.user-image{
-    width: 200px; 
-  height: 200px; 
+.user-image {
+  width: 200px;
+  height: 200px;
   overflow: hidden;
   border-radius: 50%;
 }
 
-.user-image img{
-
-    width: 100%;
+.user-image img {
+  width: 100%;
   height: 100%;
-  object-fit: cover; 
-  border-radius: 50%; 
+  object-fit: cover;
+  border-radius: 50%;
 }
 
-.user-creds{
-    display:flex;
-    flex-direction: column;
-    gap:0.5rem;
-    width:80%;
+.user-creds {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 80%;
 }
 
-.user-creds h2{
-    font-size: 2rem;
-    font-weight: bold;
+.user-creds h2 {
+  font-size: 2rem;
+  font-weight: bold;
 }
 
-.user-creds .user-description{
-    margin-top: 0.6rem;
-    font-size: 15px;
+.user-creds .user-description {
+  margin-top: 0.6rem;
+  font-size: 15px;
 }
 
-.user-creds button{
-    border: 1px solid rgb(11, 196, 67);
-    color:rgb(11, 196, 67);
-    border-radius: 10px;
-    padding:5px;
-    width:30%;
-    /* margin-top: 2rem; */
+.user-creds button {
+  border: 1px solid rgb(11, 196, 67);
+  color: rgb(11, 196, 67);
+  border-radius: 10px;
+  padding: 5px;
+  width: 30%;
+  /* margin-top: 2rem; */
 }
 
-.user-creds button:hover{
-    background-color: rgb(11, 196, 67);
-    color:white;
+.user-creds button:hover {
+  background-color: rgb(11, 196, 67);
+  color: white;
 }
 
-.user-work-images{
-    width:80%;
-    margin: auto;
+.user-work-images {
+  width: 80%;
+  margin: auto;
 }
 
 .image-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 5px; 
-  
-    @media (max-width: 768px) {
-      grid-template-columns: repeat(3, 1fr);
-    }
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
   }
-  
-  .image-grid img {
-    max-width: 100%;
-    height: auto;
-  }
-  
-  .sticky-button-container {
-    position: fixed;
-    bottom: 20px;
-    right:45%;
-    z-index: 1000; 
-  }
-  
-  .sticky-button {
-    display: flex;
-    gap:0.4rem;
-    align-items: center;
-    padding: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
-    background-color: rgb(11, 196, 67);
-    opacity: 0.9;
-    color: #fff;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
+}
+
+.image-grid img {
+  max-width: 100%;
+  height: auto;
+}
+
+.sticky-button-container {
+  position: fixed;
+  bottom: 20px;
+  right: 45%;
+  z-index: 1000;
+}
+
+.sticky-button {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: rgb(11, 196, 67);
+  opacity: 0.9;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.addpost-inputs {
+  display: flex;
+  gap: 2rem;
+  width: 100%;
+}
+
+.addpost-image-input {
+  display: flex;
+  justify-content: center;
+  border: 2px dashed rgb(70, 70, 70);
+  border-radius: 10px;
+  padding: 10px;
+  width: 50%;
+  height: 20rem;
+  align-items: center;
+  margin: auto;
+}
+
+.addpost-caption-input {
+  width: 50%;
+}
+
+.submit-uploaded-image-info {
+  background-color: rgb(11, 196, 67);
+  padding: 5px;
+  border-radius: 10px;
+}
+
+
+@media screen and (max-width:768px){
+  .sticky-button-container{
+    right:0;
+    left:25%;
+    font-size: 12px;
   }
 
   .addpost-inputs{
-    display:flex;
-    gap:2rem;
-    width:100%;
+    display: flex;
+    flex-direction: column;
   }
 
   .addpost-image-input{
-    display: flex;
-    justify-content: center;
-    border: 2px dashed rgb(70,70,70);
-    border-radius: 10px;
-    padding:10px;
-    width:50%;
-    height:20rem;
-    align-items: center;
-    margin: auto;
+    width:100%;
+    font-size: 12px;
+    height:10rem;
   }
 
   .addpost-caption-input{
-    width:50%;
+    width:100%;
+    font-size: 12px;
   }
 
   .submit-uploaded-image-info{
-    background-color: rgb(11, 196, 67);
-    padding:5px;
-    border-radius: 10px;
+    font-size: 12px;
   }
-  
+}
