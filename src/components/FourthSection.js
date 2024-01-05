@@ -34,7 +34,7 @@ const FourthSection = (props) => {
       <div className="fourth-section-main-container">
         <div>
           {businesses.length === 0 ? (
-            <div className="event-parties-grid">
+            <div className="event-parties-grid text404">
               No {props.interest} available.
             </div>
           ) : (

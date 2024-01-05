@@ -35,7 +35,7 @@ const SecondSection = () => {
       <div className="second-section-main-container">
         <div>
           {businesses.length === 0 ? (
-            <div className="event-parties-grid">
+            <div className="event-parties-grid text404">
               You have no business <span className="create-now-second"><Link to="/create-event">Create now!</Link></span>
             </div>
           ) : (
