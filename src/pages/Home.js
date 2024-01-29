@@ -9,11 +9,70 @@ import { useNavigate } from "react-router-dom";
 import FelxiFooter from "../components/FelxiFooter";
 
 const Home = () => {
-
   const navigate = useNavigate();
 
   const handleClick = () => {
     navigate("/signup");
+  };
+
+  const CommentCard = () => {
+    return (
+      <div className="second-card">
+        <div className="second-card-comment">
+          <p>
+            Love the integrations with Calendar, Zoom and WhatsApp. Makes my
+            life easier!
+          </p>
+        </div>
+        <div className="second-card-bottom">
+          <img src="https://picsum.photos/50/50" />
+          <div>
+            <h3>Aishwarya Rai</h3>
+            <p>Malad, Mumbai</p>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const Third = () => {
+    return (
+      <div>
+        <h1>
+          Find the <span>right experts</span>
+        </h1>
+        <p className="third-text">Get help from top personalized experts near you!</p>
+
+        <div className="third-input-container">
+          <input type="text" placeholder="Search here to get nearby results"></input>
+            <h2>Search</h2>
+        </div>
+
+        <div className="third-grid">
+          <div className="third-card">
+            <p className="third-card-head">Find nearby parties and events</p>
+            <p className="third-card-bottom">I am looking for nearby parties in London</p>
+          </div>
+
+          <div className="third-card">
+            <p className="third-card-head">Find nearby salons & spas</p>
+            <p className="third-card-bottom">I am looking for nearby salons in London</p>
+          </div>
+        </div>
+
+        <div className="third-grid" style={{marginBottom:'5rem'}}>
+          <div className="third-card">
+            <p className="third-card-head">Find nearby electricians</p>
+            <p className="third-card-bottom">I am looking for nearby electricians in London</p>
+          </div>
+
+          <div className="third-card">
+            <p className="third-card-head">Find nearby decoration service</p>
+            <p className="third-card-bottom">I am looking for nearby decorators in London</p>
+          </div>
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -28,24 +87,13 @@ const Home = () => {
         }}
       >
         <div className="first" style={{ position: "relative" }}>
-          {/* {toggleLightMode ? (
-            <img
-              src={LightModeImage}
-              alt="Background"
-              style={{ borderBottomRightRadius: "100px" }}
-            />
-          ) : ( */}
-            <img src={DarkModeImage} alt="Background" />
-          {/* )} */}
+          <img src={DarkModeImage} alt="Background" />
 
           <div className="first-div" style={{ color: "white" }}>
-            <h1>Explore and participate in nearby events and activities.</h1>
+            <h1>Discover Nearby Services and Participate in Local Events</h1>
             <p style={{ marginTop: "2rem" }}>
-              It is a long established fact that a reader will be distracted by
-              the readable content of a page when looking at its layout. The
-              point of using Lorem Ipsum is that it has a more-or-less normal
-              distribution of letters, as opposed to using 'Content here,
-              content here', making it look like readable English.
+              
+Looking for reliable service professionals in your area? Look no further than Eventlabs. We're your go-to destination for finding top-notch service businesses nearby, whether you need an electrician, plumber, salon, spa, and much more. With our user-friendly platform and verified listings, finding the perfect service provider has never been easier.
             </p>
             <button
               onClick={handleClick}
@@ -59,63 +107,20 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="second">
-          <div className="second-div">
-            <h1 style={{ fontSize: "2rem", fontWeight: "700" }}>
-              Meet Communities
-            </h1>
-            <div
-              style={{
-                borderBottom: "1px solid rgb(11, 196, 67)",
-                width: "50%",
-                borderColor: "rgb(11, 196, 67)",
-              }}
-              className="vertical-line"
-            ></div>
-            <p>
-              Contrary to popular belief, Lorem Ipsum is not simply random text.
-              It has roots in a piece of classical Latin literature from 45 BC,
-              making it over 2000 years old. Richard McClintock, a Latin
-              professor at Hampden-Sydney College in Virginia, looked up one of
-              the more obscure Latin words, consectetur, from a Lorem Ipsum
-              passage, and going through the cites of the word in classical
-              literature, discovered the undoubtable source.
-            </p>
-          </div>
-
-          <div className="home-image2">
-            <img src={HomeImage2} alt="image"></img>
-          </div>
+        <div className="third">
+          <Third />
         </div>
 
-        <div className="third">
-          <div className="home-image2">
-            <img src={HomeImage3} alt="image"></img>
-          </div>
+        <div className="second">
+          <h1>Peoples love using eventlabs</h1>
 
-          <div className="second-div">
-            <h1 style={{ fontSize: "2rem", fontWeight: "700" }}>
-              Build Your Network
-            </h1>
-
-            <div
-              style={{
-                borderBottom: "1px solid rgb(11, 196, 67)",
-                width: "50%",
-                borderColor: "rgb(11, 196, 67)",
-              }}
-              className="vertical-line"
-            ></div>
-
-            <p>
-              Contrary to popular belief, Lorem Ipsum is not simply random text.
-              It has roots in a piece of classical Latin literature from 45 BC,
-              making it over 2000 years old. Richard McClintock, a Latin
-              professor at Hampden-Sydney College in Virginia, looked up one of
-              the more obscure Latin words, consectetur, from a Lorem Ipsum
-              passage, and going through the cites of the word in classical
-              literature, discovered the undoubtable source.
-            </p>
+          <div className="second-grid">
+            <CommentCard />
+            <CommentCard />
+            <CommentCard />
+            <CommentCard />
+            <CommentCard />
+            <CommentCard />
           </div>
         </div>
       </div>

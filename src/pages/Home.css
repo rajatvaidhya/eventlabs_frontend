@@ -2,7 +2,6 @@
     color:white;
     display: flex;
     flex-direction: column;
-    gap:4rem;
 }
 
 .first{
@@ -31,48 +30,6 @@
     margin-top: 2rem;
 }
 
-.second{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-top: 2rem;
-    gap:4rem;
-    height:70vh;
-}
-
-.home-image2{
-    display: flex;
-    width:30rem;
-}
-
-.second-div{
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    width: 50%;
-}
-
-.second img {
-    border-radius: 30px;
-    top:50%;
-}
-
-.third{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-top: 2rem;
-    gap:4rem;
-    height:70vh;
-}
-
-.third img {
-    border-radius: 30px;
-    top:50%;
-}
-
 .first-div{
     position: absolute;
     top: 37%;
@@ -83,7 +40,143 @@
     color: white;
 }
 
+.second{
+    background-color: #000;
+}
 
+.second h1{
+    font-size: 3rem;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 7rem;
+}
+
+.second-grid{
+    display: flex;
+    flex-wrap: wrap;
+    gap:2rem;
+    justify-content: center;
+    margin-top: 4rem;
+}
+
+.second-card{
+    background-color: white;
+    color:black;
+    width:30%;
+    padding: 0 15px 0 15px;
+    border-radius: 30px;
+}
+
+.second-card-comment{
+    height:9rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 400;
+    padding:10px;
+    color:rgba(0, 0, 0, 0.88);
+}
+
+.second-card-bottom{
+    display: flex;
+    align-items: center;
+    gap:1rem;
+    padding-bottom: 15px;
+}
+
+.second-card-bottom h3{
+    font-size: 14px;
+    font-weight: 600;
+    color:rgba(0, 0, 0, 0.88);
+}
+
+.second-card-bottom p{
+    font-size: 13px;
+}
+
+.second-card-bottom img{
+    border-radius: 50%;
+}
+
+.third h1{
+    text-align: center;
+}
+
+.third h1{
+    font-size: 4rem;
+    font-weight: 300;
+    margin-top: 4rem;
+}
+
+.third h1 span{
+    font-weight: 600;
+}
+
+.third-input-container{
+    background-color: #fff;
+    color:black;
+    display: flex;
+    align-items: center;
+    margin: auto;
+    width:50%;
+    border-radius: 30px;
+    margin-bottom: 3rem;
+    margin-top: 3rem;
+}
+
+.third-input-container input{
+    padding:15px;
+    width:100%;
+    outline:none;
+    border-radius: 30px;
+    padding-left: 30px;
+}
+
+.third-input-container h2{
+    padding:13px;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-right: 3px;
+    border-radius: 30px;
+    background-color: #8a60f6;
+    cursor: pointer;
+    color:white;
+}
+
+.third-grid{
+    display: flex;
+    justify-content: center;
+    gap:2rem;
+    margin-bottom: 1rem;
+}
+
+.third-card{
+    border: 1px solid #b0afaf;
+    padding:10px;
+    text-align: left;
+    width:30%;
+    border-radius: 12px;
+    padding-left: 20px;
+}
+
+.third-card-head{
+    font-weight: 700;
+    font-size: 16px;
+    text-align: left;
+}
+
+.third-card-bottom{
+    color:hsla(0,0%,100%,.59);
+    font-size: 16px;
+    font-weight: 400;
+    text-align: left;
+}
+
+.third-text{
+    text-align: center;
+    font-size: 1.2rem;
+}
 
 /* Mobile Displays */
 
@@ -99,35 +192,49 @@
         width:100%;
     }
 
-    .second{
-        display: flex;
-        flex-direction: column;
-        margin-top: 2rem;
-        gap:2rem;
-    }
-
-    .second-div{
-        width:90%;
-        display: flex;
-        text-align: center;
-    }
-
     .vertical-line{
         margin: auto;
     }
 
-    .home-image2{
-        width:20rem;
-    }
-
-    .third{
-        display: flex;
-        flex-direction: column-reverse;
-        margin-top: 7rem;
-        gap:2rem;
-    }
-
     .main-home-container{
         padding-bottom: 2rem;
+    }
+
+    .third h1{
+        font-size: 2.1rem;
+    }
+
+    .third-text{
+        font-size: 1rem;
+    }
+
+    .third-input-container{
+        width:95%;
+    }
+    
+    .third-grid{
+        display: flex;
+        flex-direction: column;
+        gap:1rem;
+        justify-content: center;
+    }
+    
+    .third-card{
+        margin: auto;
+        width:95%;
+    }
+
+    .second h1{
+        font-size: 2.1rem;
+    }
+
+    .second-grid{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .second-card{
+        width:95%;
+        margin: auto;
     }
 }

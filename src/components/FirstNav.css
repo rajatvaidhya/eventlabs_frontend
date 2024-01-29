@@ -1,7 +1,8 @@
 .main-first-nav{
     display: flex;
     justify-content: space-between;
-    margin: 0.5rem 2rem 0.5rem 2rem;
+    padding: 0.5rem 2rem 0.5rem 2rem;
+    background-color: black;
 }
 
 .main-first-nav p{
@@ -34,7 +35,8 @@
 
 @media only screen and (max-width:768px){
     .main-first-nav{
-        margin: .5rem;
+        /* margin: .5rem; */
+        padding:.5rem;
     }
 
     .main-first-nav p{
