@@ -215,22 +215,20 @@ const EventPage = () => {
             <p style={{ color: "rgb(124, 124, 124)" }}>{roomAddress}</p>
 
             <div
-              style={{
-                display: "flex",
-                gap: "1rem",
-                marginTop: "0.8rem",
-                color: "rgb(124, 124, 124)",
-              }}
+              className="event-admin-details"
             >
               <p>
                 Owned by : {admin.firstName} {admin.lastName}
               </p>
 
-              <p>·</p>
+              <h1>&nbsp;·&nbsp;</h1>
+
 
               <p>Contact : {admin.phoneNumber}</p>
 
-              {roomDate !== "" ? <p>· &nbsp; Event date : {roomDate}</p> : ""}
+              <h1>&nbsp;·&nbsp;</h1>
+
+              {roomDate !== "" ? <p>Event date : {roomDate}</p> : ""}
             </div>
             <p style={{ marginTop: "1rem" }}>{roomDescription}</p>
 

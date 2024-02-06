@@ -9,14 +9,15 @@
   margin-left: 2rem;
 }
 
-.event-parties-grid{
+.event-parties-grid {
   margin-top: 1rem;
   margin-left: 2rem;
   margin-right: 2rem;
   display: flex;
-  justify-content: left;
-  flex-wrap: wrap;
-  gap:1rem;
+  justify-content: flex-start;
+  overflow-x: auto; /* Enable horizontal scroll */
+  flex-wrap: nowrap; /* Prevent wrapping onto multiple lines */
+  gap: 1rem;
 }
 
 @media only screen and (max-width: 768px) {

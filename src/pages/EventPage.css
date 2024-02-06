@@ -54,6 +54,13 @@
     color:white;
 }
 
+.event-admin-details{
+  display: flex;
+  gap:.2rem;
+  margin-top: .8rem;
+  color:rgb(124,124,124);
+}
+
 .event-work-images{
     width:90%;
     margin: auto;
@@ -77,7 +84,7 @@
     gap: 5px; 
   
     @media (max-width: 768px) {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
     }
   }
   
@@ -168,8 +175,8 @@
 
   @media only screen and (max-width:768px){
     .event-image{
-      width:100px;
-      height:100px;
+      width:90px;
+      height:80px;
     }
 
     .event-info{
@@ -205,5 +212,15 @@
 
     .rating-modal select{
       width:80%;
+    }
+
+    .event-admin-details{
+      display: flex;
+      flex-direction: column;
+      gap:.2rem;
+    }
+
+    .event-admin-details h1{
+      display: none;
     }
   }
