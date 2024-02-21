@@ -30,14 +30,18 @@
 }
 
 .event-info{
+  position: relative;
+  color:white;
+  margin: auto;
+  border-bottom: 1px solid #3b3b3b;
+  padding-bottom: 1rem;
+  margin-bottom: .5rem;
+}
+
+.event-info-first-div{
   position:relative;
     display: flex;
     gap:2rem;
-    color:white;
-    margin: auto;
-    border-bottom: 1px solid #3b3b3b;
-    padding-bottom: 1rem;
-    margin-bottom: .5rem;
 }
 
 .event-creds button{
@@ -172,6 +176,10 @@
     margin-bottom: 1rem;
   }
 
+  .event-wrapper-mobile{
+    display: none;
+  }
+
 
   @media only screen and (max-width:768px){
     .event-image{
@@ -179,9 +187,30 @@
       height:80px;
     }
 
-    .event-info{
+    .event-wrapper-mobile{
       display: flex;
-      gap:1rem;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width:100%;
+    }
+
+    .event-wrapper-mobile div{
+      display: flex;
+      margin-top: 1.3rem;
+      width:95%;
+      color:rgb(156, 156, 156);
+    }
+
+    .event-wrapper{
+      display: none;
+    }
+
+    .mobile-wrapper-desc{
+      margin-top:2rem;
+      margin-left: 1rem;
+      margin-right: 1rem;
+      color:white;
     }
 
     .event-info p{
@@ -222,5 +251,9 @@
 
     .event-admin-details h1{
       display: none;
+    }
+
+    .add-picture-modal{
+      min-width:90%;
     }
   }

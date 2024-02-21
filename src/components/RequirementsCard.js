@@ -8,13 +8,35 @@ const RequirementsCard = (props) => {
   const ENDPOINT = "https://eventlabs-backend.onrender.com";
   // const ENDPOINT = "http://localhost:5000";
 
-  const handleDelete = async () =>{
-    const response = await fetch(`${ENDPOINT}/api/requirements/deleteRequirement/${props.id}`,{
-      method:'DELETE'
-    })
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const MAX_LETTERS = 15;
+
+  const truncateText = (text) => {
+    if (text.length > MAX_LETTERS) {
+      return text.slice(0, MAX_LETTERS) + "...";
+    }
+    return text;
+  };
+
+  const handleDelete = async () => {
+    const response = await fetch(
+      `${ENDPOINT}/api/requirements/deleteRequirement/${props.id}`,
+      {
+        method: "DELETE",
+      }
+    );
 
     window.location.reload();
-  }
+  };
+
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
 
   return (
     <>
@@ -25,15 +47,14 @@ const RequirementsCard = (props) => {
           ""
         )}
         <div className="requirement-card-left">
-          <h2 className="requirement-heading">{props.title}</h2>
+          <h2 className="requirement-heading">{truncateText(props.title)}</h2>
           <p className="cancellation-heading">
             {props.isFree === true
               ? "Free Cancellation"
               : "No Free Cancellation"}
           </p>
           <p className="valid-heading">
-            Available on : {props.startDay} - {props.endDay} | Timings :{" "}
-            {props.startTiming} - {props.endTiming}
+            Available on : {props.startDay} - {props.endDay}
           </p>
         </div>
 
@@ -42,9 +63,47 @@ const RequirementsCard = (props) => {
             <p className="price-heading">₹ {props.price}</p>
             <p className="tax-para">Inc. of all taxes</p>
           </div>
-          <button className="create-button">Contact</button>
+          <button className="create-button" onClick={openModal}>
+            Info
+          </button>
         </div>
       </div>
+
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        contentLabel="Image Details"
+        className="modal require-modal service-modal"
+        overlayClassName="overlay"
+        ariaHideApp={false}
+      >
+        <div className="service-info-modal">
+          <h3>{props.title}</h3>
+          <p className="service-desc">
+            {props.description}
+          </p>
+          <p className="cancellation-heading">
+            {props.isFree === true
+              ? "Free Cancellation"
+              : "No Free Cancellation"}
+          </p>
+
+          <p className="valid-heading">
+            Available on : {props.startDay} - {props.endDay}
+          </p>
+
+          <div className="price-tag">
+            <div>
+              <p className="price-heading">₹ {props.price}</p>
+              <p className="tax-para">Inc. of all taxes</p>
+            </div>
+
+            <a href={`tel:${props.phoneNumber}`}>
+              <button className="create-button">Call</button>
+            </a>
+          </div>
+        </div>
+      </Modal>
     </>
   );
 };

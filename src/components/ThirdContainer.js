@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./ThirdContainer.css";
 import EventCard from "./EventCard";
+import CartLoader from "./CartLoader";
 
 const ThirdContainer = (props) => {
   const ENDPOINT = "https://eventlabs-backend.onrender.com";
@@ -9,6 +10,7 @@ const ThirdContainer = (props) => {
   const userId = localStorage.getItem("userId");
 
   const [businesses, setBusinesses] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getNearby = async () => {
@@ -25,6 +27,7 @@ const ThirdContainer = (props) => {
 
       const json = await response.json();
       setBusinesses(json.nearbyChatRooms);
+      setLoading(false);
     };
 
     getNearby();
@@ -34,20 +37,28 @@ const ThirdContainer = (props) => {
     <>
       <div className="third-section-main-container">
         <div>
-          {businesses.length === 0 ? (
-            <div className="event-parties-grid">
-              No {props.interest} available.
+          {loading ? (
+            <div className="cart-loader">
+              <CartLoader />
             </div>
           ) : (
-            <div className="event-parties-grid">
-              {businesses.map((business) => (
-                <EventCard
-                  key={business._id}
-                  id={business._id}
-                  name={business.name}
-                  location={business.address}
-                />
-              ))}
+            <div>
+              {businesses.length === 0 ? (
+                <div className="event-parties-grid">
+                  No {props.interest} available.
+                </div>
+              ) : (
+                <div className="event-parties-grid">
+                  {businesses.map((business) => (
+                    <EventCard
+                      key={business._id}
+                      id={business._id}
+                      name={business.name}
+                      location={business.address}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
           )}
         </div>

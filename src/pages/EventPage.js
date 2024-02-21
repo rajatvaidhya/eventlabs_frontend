@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./UserProfile.css"
+import "./UserProfile.css";
 import "./EventPage.css";
 import Modal from "react-modal";
 import ImageCard from "../components/ImageCard";
@@ -190,9 +190,12 @@ const EventPage = () => {
     <>
       <div className="main-event-profile-container">
         <div className="event-info">
+
           <div className="event-info-img">
             <img src="https://picsum.photos/1000/1000" />
           </div>
+          <div className="event-info-first-div">
+
 
           <div className="event-image">
             <img src={`${ENDPOINT}/api/chat/photo/${eventId}`}></img>
@@ -214,35 +217,50 @@ const EventPage = () => {
             </div>
             <p style={{ color: "rgb(124, 124, 124)" }}>{roomAddress}</p>
 
-            <div
-              className="event-admin-details"
-            >
+            <div className="event-wrapper">
+              <div className="event-admin-details">
+                <p>
+                  Owned by : {admin.firstName} {admin.lastName}
+                </p>
+
+                <h1>&nbsp;·&nbsp;</h1>
+
+                <p>Contact : {admin.phoneNumber}</p>
+
+                <h1>&nbsp;·&nbsp;</h1>
+
+                {roomDate !== "" ? <p>Event date : {roomDate}</p> : ""}
+              </div>
+
+              <p style={{ marginTop: "1rem" }}>{roomDescription}</p>
+
+              <div className="ratings">
+                <button onClick={() => setRatingModal(true)}>Rate us</button>
+
+                {Array.from({ length: currentRatings }).map((_, index) => (
+                  <i key={index} className="fa-solid fa-star"></i>
+                ))}
+
+                {Array.from({ length: 5 - currentRatings }).map((_, index) => (
+                  <i key={index} className="fa-regular fa-star"></i>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          </div>
+
+
+          <div className="event-wrapper-mobile">
+            <div>
               <p>
                 Owned by : {admin.firstName} {admin.lastName}
               </p>
-
-              <h1>&nbsp;·&nbsp;</h1>
-
-
               <p>Contact : {admin.phoneNumber}</p>
-
-              <h1>&nbsp;·&nbsp;</h1>
-
               {roomDate !== "" ? <p>Event date : {roomDate}</p> : ""}
             </div>
-            <p style={{ marginTop: "1rem" }}>{roomDescription}</p>
 
-            <div className="ratings">
-              <button onClick={() => setRatingModal(true)}>Rate us</button>
-
-              {Array.from({ length: currentRatings }).map((_, index) => (
-                <i key={index} className="fa-solid fa-star"></i>
-              ))}
-
-              {Array.from({ length: 5 - currentRatings }).map((_, index) => (
-                <i key={index} className="fa-regular fa-star"></i>
-              ))}
-            </div>
+            <p className="mobile-wrapper-desc">{roomDescription}</p>
           </div>
         </div>
 
@@ -262,6 +280,7 @@ const EventPage = () => {
           <RequirementsComponents
             requirements={requirements}
             adminId={adminId}
+            phoneNumber={admin.phoneNumber}
           />
         )}
 
@@ -280,7 +299,7 @@ const EventPage = () => {
           isOpen={modalIsOpen}
           onRequestClose={closeModal}
           contentLabel="Image Details"
-          className="modal"
+          className="modal add-picture-modal"
           overlayClassName="overlay"
           ariaHideApp={false}
         >

@@ -1,14 +1,15 @@
 .main-requirement-card{
   color:#fff;
-  background-color: #1b1b1b;
+  background-color: #0f0f0f;
   display: flex;
   position: relative;
   justify-content: space-between;
   padding:20px;
-  width:80%;
+  width:33%;
   gap:3rem;
   font-size: 14px;
-  border-radius: 5px;
+  border-radius: 10px;
+  border:1px solid rgb(49, 49, 49);
 }
 
 .fa-circle-minus{
@@ -34,6 +35,10 @@
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .cancellation-heading{
@@ -55,6 +60,44 @@
   color:#838383
 }
 
+.service-modal{
+  width:50%;
+}
+
+.service-info-modal{
+  padding:20px;
+  padding-left: 20px;
+  border: 1px solid rgb(58, 58, 58);
+  border-radius: 10px;
+}
+
+.service-info-modal h3{
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.service-info-modal .service-desc{
+  font-size: 14px;
+  color:gray;
+  margin-bottom: 1rem;
+}
+
+.service-info-modal .valid-heading{
+  margin-bottom: 1rem;
+  font-size: 14px;
+}
+
+.service-info-modal .price-tag{
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+}
+
+.service-info-modal .create-button{
+  font-size: 14px;
+}
+
 
 @media only screen and (max-width:768px){
   .main-requirement-card{
@@ -67,5 +110,9 @@
 
   .requirement-heading{
     font-size: 22px;
+  }
+
+  .service-modal{
+    width:95%;
   }
 }

@@ -1,9 +1,8 @@
 .carousel-container {
     position: relative;
-    width: 95%;
-    /* border-radius: 10px; */
+    width: 100%;
     margin: auto;
-    margin-top: 4rem;
+    margin-top: 2rem;
     overflow: hidden;
     height:100%;
   }
@@ -48,8 +47,6 @@
 
     .carousel-container {
         height:auto;
-        border-bottom-left-radius: 20px;
-        border-bottom-right-radius: 20px;
         margin-top: 2rem;
     }
   }

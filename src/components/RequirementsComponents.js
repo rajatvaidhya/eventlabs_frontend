@@ -15,6 +15,7 @@ const RequirementsComponents = (props) => {
   const [endDay, setEndDay] = useState("");
   const [startTiming, setStartTiming] = useState("");
   const [endTiming, setEndTiming] = useState("");
+  const [serviceDescription, setServiceDescription] = useState("");
   const [price, setPrice] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -47,6 +48,7 @@ const RequirementsComponents = (props) => {
           startTiming,
           endTiming,
           price,
+          serviceDescription
         }),
       }
     );
@@ -73,33 +75,36 @@ const RequirementsComponents = (props) => {
         ""
       )}
 
-      {props.requirements.map((requirement) => (
-        <RequirementsCard
-          key={requirement._id}
-          id={requirement._id}
-          title={requirement.requirementTitle}
-          isFree={requirement.freeCancellation}
-          startDay={requirement.startDay}
-          endDay={requirement.endDay}
-          startTiming={requirement.startTiming}
-          endTiming={requirement.endTiming}
-          price={requirement.price}
-          adminId={props.adminId}
-        />
-      ))}
+      <div className="main-services-grid">
+        {/* <div className="service-item"> */}
+
+        {props.requirements.map((requirement) => (
+          <RequirementsCard
+            key={requirement._id}
+            id={requirement._id}
+            title={requirement.requirementTitle}
+            isFree={requirement.freeCancellation}
+            startDay={requirement.startDay}
+            endDay={requirement.endDay}
+            price={requirement.price}
+            description={requirement.requirementDescription}
+            adminId={props.adminId}
+            phoneNumber={props.phoneNumber}
+          />
+        ))}
+        {/* </div> */}
+      </div>
 
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         contentLabel="Image Details"
-        className="modal require-modal"
+        className="modal require-modal add-service-modal"
         overlayClassName="overlay"
         ariaHideApp={false}
       >
         <div className="requirement-modal">
-          <div className="modal-heading">
-            <h2>Add Service</h2>
-          </div>
+          <div className="modal-heading">{/* <h2>Add Service</h2> */}</div>
 
           <div className="service-form">
             <input
@@ -110,6 +115,17 @@ const RequirementsComponents = (props) => {
                 setServiceName(e.target.value);
               }}
             ></input>
+
+            <textarea
+              type="text"
+              placeholder="Service description"
+              className="service-form-input"
+              onChange={(e) => {
+                setServiceDescription(e.target.value);
+              }}
+              rows={10}
+            ></textarea>
+
             <div className="cancellation-div">
               <input
                 type="radio"
@@ -160,7 +176,7 @@ const RequirementsComponents = (props) => {
               </div>
             </div>
 
-            <div className="timings">
+            {/* <div className="timings">
               <div className="available-inside">
                 <p>From : </p>
                 <select
@@ -204,7 +220,7 @@ const RequirementsComponents = (props) => {
                   <option>12:00</option>
                 </select>
               </div>
-            </div>
+            </div> */}
 
             <div className="price-input">
               <input

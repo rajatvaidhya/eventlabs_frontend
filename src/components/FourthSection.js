@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import EventCard from "./EventCard";
+import CartLoader from "./CartLoader";
 
 const FourthSection = (props) => {
   const ENDPOINT = "https://eventlabs-backend.onrender.com";
@@ -8,6 +9,7 @@ const FourthSection = (props) => {
   const userId = localStorage.getItem("userId");
 
   const [businesses, setBusinesses] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getNearby = async () => {
@@ -24,6 +26,7 @@ const FourthSection = (props) => {
 
       const json = await response.json();
       setBusinesses(json.nearbyChatRooms);
+      setLoading(false);
     };
 
     getNearby();
@@ -33,20 +36,28 @@ const FourthSection = (props) => {
     <>
       <div className="fourth-section-main-container">
         <div>
-          {businesses.length === 0 ? (
-            <div className="event-parties-grid text404">
-              No {props.interest} available.
+          {loading ? (
+            <div className="cart-loader">
+              <CartLoader />
             </div>
           ) : (
-            <div className="event-parties-grid">
-              {businesses.map((business) => (
-                <EventCard
-                  key={business._id}
-                  id={business._id}
-                  name={business.name}
-                  location={business.address}
-                />
-              ))}
+            <div>
+              {businesses.length === 0 ? (
+                <div className="event-parties-grid text404">
+                  No {props.interest} available.
+                </div>
+              ) : (
+                <div className="event-parties-grid">
+                  {businesses.map((business) => (
+                    <EventCard
+                      key={business._id}
+                      id={business._id}
+                      name={business.name}
+                      location={business.address}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
           )}
         </div>

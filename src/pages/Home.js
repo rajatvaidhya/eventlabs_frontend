@@ -174,7 +174,7 @@ const Home = () => {
               <div className="slide slide2">
                 <CommentCard
                   name="Palshree Rathore"
-                  location="DAVV, Indore"
+                  location="IIT Roorkee"
                   comment="Eventlabs is my go-to for all things service-related. So convenient and efficient!"
                 />
               </div>

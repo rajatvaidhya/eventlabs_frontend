@@ -9,6 +9,11 @@
   margin-top: 1rem;
 }
 
+.service-form textarea{
+  padding:10px;
+  font-size: 14px;
+}
+
 .cancellation-div{
   display: flex;
   gap:1rem;
@@ -47,12 +52,15 @@
   padding:10px;
 }
 
-.require-modal{
-  width:30%;
+.add-service-modal{
+  width:70%;
+  height:70%;
+  overflow-y: scroll;
+  border: 1px solid rgb(75, 74, 74);
 }
 
 .service-form-input{
-  width:90%;
+  width:97%;
 }
 
 .price-input{
@@ -71,6 +79,15 @@
 
 .service-button-modal{
   margin-bottom:1rem;
+}
+
+.main-services-grid{
+  display: flex;
+  flex-direction: row;
+  gap:1rem;
+  width:100%;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 @media only screen and (max-width:768px){

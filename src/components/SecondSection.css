@@ -54,10 +54,17 @@
     font-size: 14px;
     color:rgb(11, 196, 67);
   }
+
+  .cart-loader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+  }
   
   @media (max-width: 768px) {
     .event-cards {
-      grid-template-columns: repeat(2, 1fr); /* Two cards per row on mobile devices */
+      grid-template-columns: repeat(2, 1fr); 
     }
 
     .find-events-container h1{
