@@ -261,6 +261,18 @@ const EventPage = () => {
             </div>
 
             <p className="mobile-wrapper-desc">{roomDescription}</p>
+
+            <div className="ratings">
+                <button onClick={() => setRatingModal(true)}>Rate us</button>
+
+                {Array.from({ length: currentRatings }).map((_, index) => (
+                  <i key={index} className="fa-solid fa-star"></i>
+                ))}
+
+                {Array.from({ length: 5 - currentRatings }).map((_, index) => (
+                  <i key={index} className="fa-regular fa-star"></i>
+                ))}
+              </div>
           </div>
         </div>
 

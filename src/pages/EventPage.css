@@ -197,6 +197,7 @@
 
     .event-wrapper-mobile div{
       display: flex;
+      justify-content: space-between;
       margin-top: 1.3rem;
       width:95%;
       color:rgb(156, 156, 156);
