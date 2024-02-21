@@ -14,8 +14,6 @@ const Navbar = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [latitude, setLatitude] = useState(0);
-  const [longitude, setLongitude] = useState(0);
   const [search, setSearch] = useState(false);
 
   const navigate = useNavigate();
@@ -51,17 +49,7 @@ const Navbar = (props) => {
     setSuggestions([]);
   };
 
-  const setLiveLocation = async () => {
-    setLoading(true);
-
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(function (position) {
-        setLatitude(position.coords.latitude);
-        setLongitude(position.coords.longitude);
-        localStorage.setItem("latitude", latitude);
-        localStorage.setItem("longitude", longitude);
-      });
-    }
+  const setLiveLocation = async (longitude, latitude) => {
 
     const response = await fetch(`${ENDPOINT}/api/chat/setLiveLocation`, {
       method: "POST",
@@ -90,20 +78,20 @@ const Navbar = (props) => {
     }
   };
 
-  // const handleSetLocation = () => {
-  //   setLoading(true);
+  const handleSetLocation = () => {
+    setLoading(true);
 
-  //   if ("geolocation" in navigator) {
-  //     navigator.geolocation.getCurrentPosition(function (position) {
-  //       const { latitude, longitude } = position.coords;
-  // localStorage.setItem("latitude", latitude);
-  // localStorage.setItem("longitude", longitude);
-  //       setLiveLocation(longitude, latitude);
-  //     });
-  //   } else {
-  //     console.log("Location sharing isn't possible due to network issue!");
-  //   }
-  // };
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        const { latitude, longitude } = position.coords;
+        localStorage.setItem("latitude", latitude);
+        localStorage.setItem("longitude", longitude);
+        setLiveLocation(longitude, latitude);
+      });
+    } else {
+      console.log("Location sharing isn't possible due to network issue!");
+    }
+  };
 
   const handleSearch = () => {
     props.setSearchItem(searchTerm);
@@ -144,7 +132,7 @@ const Navbar = (props) => {
             <button
               className="nav-buttons"
               disabled={loading}
-              onClick={setLiveLocation}
+              onClick={handleSetLocation}
             >
               {loading ? (
                 <div className="set-location-loader">
