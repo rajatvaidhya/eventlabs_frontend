@@ -162,7 +162,7 @@ const Navbar = (props) => {
             <i className="fa-solid fa-search"></i> &nbsp;Search
           </button>
 
-          <button className="nav-buttons2" onClick={setLiveLocation}>
+          <button className="nav-buttons2" onClick={handleSetLocation}>
             {loading ? (
               <div className="set-location-loader">
                 <Loader /> Setting Location
