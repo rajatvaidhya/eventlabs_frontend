@@ -1,0 +1,14 @@
+.flexi-footer-main {
+  padding: 10px;
+  text-align: center;
+  font-size: 12px;
+  padding-top: 3rem;
+  background-color: black;
+  color: white;
+}
+
+@media screen and (min-width:768px){
+  .flexi-footer-main{
+    display: none;
+  }
+}

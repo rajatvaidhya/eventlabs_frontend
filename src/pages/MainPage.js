@@ -5,20 +5,56 @@ import FirstNav from "../components/FirstNav";
 import SecondSection from "../components/SecondSection";
 import FourthSection from "../components/FourthSection";
 import Carousel from "../components/Carousel";
+import { useNavigate } from "react-router-dom";
 
 const MainPage = () => {
+  const navigate = useNavigate();
   const [searchItem, setSearchItem] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate("/login");
+    } else {
+      setIsLoading(false); 
+    }
+  }, []);
 
   const slides = [
     {
-      image: "https://img4.nbstatic.in/tr:w-2800/6544c0ca41a952000cf5c94f.jpg",
+      image: "https://img4.nbstatic.in/tr:w-2800/627b4e163b031b000b774d60.jpg",
       caption: "Slide 1",
     },
     {
-      image: "https://img4.nbstatic.in/tr:w-2800/6512c7b0aa3610000c481afa.jpg",
+      image: "https://img4.nbstatic.in/tr:w-2800/627b4e033b031b000b774d5f.jpg",
       caption: "Slide 2",
     },
+    {
+      image: "https://img4.nbstatic.in/tr:w-2800/61166f0a40e9df000b66f90b.jpg",
+      caption: "Slide 3",
+    },
+    {
+      image: "https://img4.nbstatic.in/tr:w-2800/61166f731e2731000b703940.jpg",
+      caption: "Slide 4",
+    },
+    {
+      image: "https://img4.nbstatic.in/tr:w-2800/611670111e2731000b703943.jpg",
+      caption: "Slide 5",
+    },
+    {
+      image: "https://img4.nbstatic.in/tr:w-2800/643550d63ddca9000be2a8d2.jpg",
+      caption: "Slide 6",
+    },
+    {
+      image: "https://img4.nbstatic.in/tr:w-2800/611670ba40e9df000b66f911.jpg",
+      caption: "Slide 7",
+    },
   ];
+
+  if (isLoading) {
+    return null;
+  }
 
   return (
     <>

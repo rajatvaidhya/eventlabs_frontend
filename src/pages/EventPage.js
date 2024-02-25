@@ -31,7 +31,22 @@ const EventPage = () => {
   const [currentRatings, setCurrentRatings] = useState(0);
   const [activeComponent, setActiveComponent] = useState("Posts");
   const [loading, setLoading] = useState(false);
+  // const [eventPageLoading, setEventPageLoading] = useState(true);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate("/login");
+    }
+  }, []);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate("/login");
+    }
+  }, []); 
 
   const fetchChatRoomData = async () => {
     const response = await fetch(`${ENDPOINT}/api/chat/getChatRoomData`, {

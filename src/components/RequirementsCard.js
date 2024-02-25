@@ -10,7 +10,7 @@ const RequirementsCard = (props) => {
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const MAX_LETTERS = 15;
+  const MAX_LETTERS = 14;
 
   const truncateText = (text) => {
     if (text.length > MAX_LETTERS) {

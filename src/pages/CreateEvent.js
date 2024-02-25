@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const CreateEvent = ({ isOpen, onClose }) => {
   const ENDPOINT = "https://eventlabs-backend.onrender.com";
+  const navigate = useNavigate();
   // const ENDPOINT = "http://localhost:5000";
 
   const [eventName, setEventName] = useState("");
@@ -22,12 +23,27 @@ const CreateEvent = ({ isOpen, onClose }) => {
   const [imageSelectToggle, setImageSelectToggle] = useState(false);
   const [buttonDisable, setButtonDisable] = useState(false);
   const [date, setDate] = useState("");
+  // const [createEventLoading, setCreateEventLoading] = useState(true);
   const [location, setLocation] = useState({
     latitude: 0,
     longitude: 0,
   });
 
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate("/login");
+    }
+  }, []);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate("/login");
+    }
+  }, []); 
+
 
   const [suggestions, setSuggestions] = useState([]);
 

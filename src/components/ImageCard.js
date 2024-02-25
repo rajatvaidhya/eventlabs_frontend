@@ -59,7 +59,7 @@ const ImageCard = (props) => {
               <p>
                 {props.firstName} {props.lastName}
               </p>
-              <p>·</p>
+              {/* <p>·</p> */}
               <p>{props.phoneNumber}</p>
             </div>
             <p>{props.caption}</p>

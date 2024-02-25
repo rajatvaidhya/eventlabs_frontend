@@ -8,6 +8,7 @@ import HomeImage3 from "../images/homeimage3.jpg";
 import { useNavigate } from "react-router-dom";
 import FelxiFooter from "../components/FelxiFooter";
 import FourthImage from "../images/aisearch-hi.png"
+import Footer from "../components/Footer";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -198,6 +199,8 @@ const Home = () => {
           </div>
         </div>
       </div>
+
+      <Footer/>
 
       <FelxiFooter />
     </>

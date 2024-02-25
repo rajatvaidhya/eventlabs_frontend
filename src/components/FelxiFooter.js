@@ -1,21 +1,15 @@
 import React from "react";
+import './FlexiFooter.css'
 
 const FelxiFooter = () => {
   return (
     <div
-      style={{
-        padding: "10px",
-        textAlign: "center",
-        fontSize: "12px",
-        paddingTop: "3rem",
-        backgroundColor: "black",
-        color: "white",
-      }}
+      className="flexi-footer-main"
     >
       <h1>
-        Developed With
+        Designed and Developed With
         <span> 💚 </span>
-        By <span>Rajat Vaidhya</span>
+        By <span><br></br>Ishani, Pureshwar, Pushti, Rajat, Usha</span>
       </h1>
     </div>
   );
