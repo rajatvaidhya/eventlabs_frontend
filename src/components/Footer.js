@@ -72,7 +72,7 @@ const Footer = () => {
       <div className="bottom-footer-div">
 
         <div>
-            <h1>Designed and Developed by</h1>
+            <h1>Designed And Developed By - </h1>
             <p>Ishani, Pureshwar, Pushti, Rajat, Usha</p>
         </div>
 

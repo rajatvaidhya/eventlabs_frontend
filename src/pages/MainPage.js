@@ -65,11 +65,6 @@ const MainPage = () => {
       {searchItem === "" ? (
         <div>
           <div className="event-parties-container">
-            <h2 className="event-parties-heading">Your businesses</h2>
-            <SecondSection />
-          </div>
-
-          <div className="event-parties-container">
             <h2 className="event-parties-heading">
               {" "}
               Events and Parties near you! 🎉{" "}
@@ -98,6 +93,11 @@ const MainPage = () => {
           <div className="event-parties-container">
             <h2 className="event-parties-heading">Fitness services</h2>
             <FourthSection interest="Fitness Services" />
+          </div>
+
+          <div className="event-parties-container">
+            <h2 className="event-parties-heading">Your businesses</h2>
+            <SecondSection />
           </div>
         </div>
       ) : (
