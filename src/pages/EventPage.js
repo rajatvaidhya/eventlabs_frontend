@@ -226,7 +226,7 @@ const EventPage = () => {
                 justifyContent: "space-between",
               }}
             >
-              <h2 style={{ fontSize: "2rem", fontWeight: "bold" }}>
+              <h2 className="room-name-heading">
                 {roomName}
               </h2>
             </div>

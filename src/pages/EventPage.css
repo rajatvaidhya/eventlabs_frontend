@@ -82,6 +82,11 @@
   justify-content: center;
 }
 
+.room-name-heading{
+  font-size: 2rem;
+  font-weight: bold;
+}
+
 .image-grid, .member-component-div {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -201,6 +206,10 @@
     .event-image{
       width:90px;
       height:80px;
+    }
+
+    .room-name-heading{
+      font-size: 1.4rem;
     }
 
     .event-wrapper-mobile{
