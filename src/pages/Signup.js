@@ -108,7 +108,7 @@ const Signup = () => {
             <input type="text" placeholder="First name" onChange={handleFirstNameChange}></input>
             <input type="text" placeholder="Last name" onChange={handleLastNameChange}></input>
             </div>
-            <input type="number" placeholder="Phone number" onChange={handlePhoneChange}></input>
+            <input type="number" placeholder="Phone number (India only, don't include +91)" onChange={handlePhoneChange}></input>
             <input type="password" placeholder="Password" onChange={handlePasswordChange}></input>
           </div>
 

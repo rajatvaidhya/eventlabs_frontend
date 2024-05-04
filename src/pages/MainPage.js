@@ -5,7 +5,9 @@ import FirstNav from "../components/FirstNav";
 import SecondSection from "../components/SecondSection";
 import FourthSection from "../components/FourthSection";
 import Carousel from "../components/Carousel";
+import Footer from '../components/Footer';
 import { useNavigate } from "react-router-dom";
+import FelxiFooter from "../components/FelxiFooter";
 
 const MainPage = () => {
   const navigate = useNavigate();
@@ -106,6 +108,11 @@ const MainPage = () => {
           <FourthSection interest={searchItem} />
         </div>
       )}
+
+
+
+      <Footer/>
+      <FelxiFooter/>
     </>
   );
 };

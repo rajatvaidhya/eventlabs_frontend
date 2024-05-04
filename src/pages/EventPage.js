@@ -35,18 +35,18 @@ const EventPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (!token) {
       navigate("/login");
     }
   }, []);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (!token) {
       navigate("/login");
     }
-  }, []); 
+  }, []);
 
   const fetchChatRoomData = async () => {
     const response = await fetch(`${ENDPOINT}/api/chat/getChatRoomData`, {
@@ -201,70 +201,75 @@ const EventPage = () => {
     window.location.reload();
   };
 
+  const handleDeleteEvent = () => {
+    console.log("Deleted...");
+  };
+
   return (
     <>
       <div className="main-event-profile-container">
         <div className="event-info">
-
           <div className="event-info-img">
             <img src="https://picsum.photos/1000/1000" />
           </div>
           <div className="event-info-first-div">
-
-
-          <div className="event-image">
-            <img src={`${ENDPOINT}/api/chat/photo/${eventId}`}></img>
-          </div>
-          <div
-            className="event-creds"
-            style={{ width: "80%", marginTop: "2rem" }}
-          >
+            <div className="event-image">
+              <img src={`${ENDPOINT}/api/chat/photo/${eventId}`}></img>
+            </div>
             <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
+              className="event-creds"
+              style={{ width: "80%", marginTop: "2rem" }}
             >
-              <h2 className="room-name-heading">
-                {roomName}
-              </h2>
-            </div>
-            <p style={{ color: "rgb(124, 124, 124)" }}>{roomAddress}</p>
-
-            <div className="event-wrapper">
-              <div className="event-admin-details">
-                <p>
-                  Owned by : {admin.firstName} {admin.lastName}
-                </p>
-
-                <h1>&nbsp;·&nbsp;</h1>
-
-                <p>Contact : {admin.phoneNumber}</p>
-
-                <h1>&nbsp;·&nbsp;</h1>
-
-                {roomDate !== "" ? <p>Event date : {roomDate}</p> : ""}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
+                <h2 className="room-name-heading">{roomName}</h2>
               </div>
+              <p style={{ color: "rgb(124, 124, 124)" }}>{roomAddress}</p>
 
-              <p style={{ marginTop: "1rem" }}>{roomDescription}</p>
+              <div className="event-wrapper">
+                <div className="event-admin-details">
+                  <p>
+                    Owned by : {admin.firstName} {admin.lastName}
+                  </p>
 
-              <div className="ratings">
-                <button onClick={() => setRatingModal(true)}>Rate us</button>
+                  <h1>&nbsp;·&nbsp;</h1>
 
-                {Array.from({ length: currentRatings }).map((_, index) => (
-                  <i key={index} className="fa-solid fa-star"></i>
-                ))}
+                  <p>Contact : {admin.phoneNumber}</p>
 
-                {Array.from({ length: 5 - currentRatings }).map((_, index) => (
-                  <i key={index} className="fa-regular fa-star"></i>
-                ))}
+                  <h1>&nbsp;·&nbsp;</h1>
+
+                  {roomDate !== "" ? <p>Event date : {roomDate}</p> : ""}
+                </div>
+
+                <p style={{ marginTop: "1rem" }}>{roomDescription}</p>
+
+                <div className="ratings">
+                  {localStorage.getItem("userId") === adminId ? (
+                    <button onClick={handleDeleteEvent} className="delete-event-button">Delete event</button>
+                  ) : (
+                    <button onClick={() => setRatingModal(true)}>
+                      Rate us
+                    </button>
+                  )}
+
+                  {Array.from({ length: currentRatings }).map((_, index) => (
+                    <i key={index} className="fa-solid fa-star"></i>
+                  ))}
+
+                  {Array.from({ length: 5 - currentRatings }).map(
+                    (_, index) => (
+                      <i key={index} className="fa-regular fa-star"></i>
+                    )
+                  )}
+                </div>
               </div>
             </div>
           </div>
-
-          </div>
-
 
           <div className="event-wrapper-mobile">
             <div>
@@ -278,16 +283,16 @@ const EventPage = () => {
             <p className="mobile-wrapper-desc">{roomDescription}</p>
 
             <div className="ratings">
-                <button onClick={() => setRatingModal(true)}>Rate us</button>
+              <button onClick={() => setRatingModal(true)}>Rate us</button>
 
-                {Array.from({ length: currentRatings }).map((_, index) => (
-                  <i key={index} className="fa-solid fa-star"></i>
-                ))}
+              {Array.from({ length: currentRatings }).map((_, index) => (
+                <i key={index} className="fa-solid fa-star"></i>
+              ))}
 
-                {Array.from({ length: 5 - currentRatings }).map((_, index) => (
-                  <i key={index} className="fa-regular fa-star"></i>
-                ))}
-              </div>
+              {Array.from({ length: 5 - currentRatings }).map((_, index) => (
+                <i key={index} className="fa-regular fa-star"></i>
+              ))}
+            </div>
           </div>
         </div>
 

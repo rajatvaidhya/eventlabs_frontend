@@ -201,6 +201,16 @@
     display: none;
   }
 
+  .ratings .delete-event-button{
+    border:1px solid red;
+    color:red;
+  }
+
+  .ratings .delete-event-button:hover{
+    background-color: red;
+    color:white;
+  }
+
 
   @media only screen and (max-width:768px){
     .event-image{

@@ -9,7 +9,7 @@ const EventCard = (props) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/event/${props.id}`);
+    window.open(`/event/${props.id}`, "_blank");
   };
 
   return (
@@ -18,7 +18,7 @@ const EventCard = (props) => {
       onClick={handleClick}
     >
       
-      <div className="card-image-container" style={{opacity:'0.5'}}>
+      <div className="card-image-container">
         <img
           src={`${ENDPOINT}/api/chat/photo/${props.id}`}
           className="card-image"
