@@ -1,19 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Loader from "../components/Loader";
-import SignupImage from '../images/4934424.png'
+import SignupImage from "../images/4934424.png";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./Signup.css";
 
 const Signup = () => {
-    const ENDPOINT = "https://eventlabs-backend.onrender.com";
-    // const ENDPOINT = "http://localhost:5000";
+  const ENDPOINT = "https://eventlabs-backend.onrender.com";
+  // const ENDPOINT = "http://localhost:5000";
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [OTPScreen, setOTPScreen] = useState(false);
+  const [otp, setOTP] = useState(["", "", "", "", "", ""]);
+  const inputRefs = useRef([]);
   const [location, setLocation] = useState({
     latitude: 0,
     longitude: 0,
@@ -53,6 +58,53 @@ const Signup = () => {
     }
   }, []);
 
+  const handleOTPVerification = async(e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    if(phoneNumber.length < 10){
+      toast.error(`Enter valid phone number`, {
+        position: "top-center",
+        theme: "colored",
+      });
+      setLoading(false);
+      return;
+    }
+
+    if(password.length < 8){
+      toast.warn(`Password should be more than 8 characters`, {
+        position: "top-center",
+        theme: "colored",
+      });
+      setLoading(false);
+      return;
+    }
+
+    const response = await fetch(`${ENDPOINT}/api/auth/send-otp`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        phoneNumber,
+      }),
+    });
+
+    const json = await response.json();
+
+    if (json.success === true) {
+      setOTPScreen(true);
+      setLoading(false);
+    } else {
+      toast.error(`${json.message}`, {
+        position: "top-center",
+        theme: "colored",
+      });
+      setLoading(false);
+    }
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
@@ -69,6 +121,7 @@ const Signup = () => {
         email,
         password,
         location,
+        FrontendOTP:otp
       }),
     });
 
@@ -80,9 +133,32 @@ const Signup = () => {
       localStorage.setItem("userId", json.userId);
       localStorage.setItem("username", json.firstName);
       navigate("/mainpage");
-      alert("Account Created Successfully");
+      toast.success(`Account created successfully`, {
+        position: "top-center",
+        theme: "colored",
+      });
     } else {
-      alert("Invalid Details");
+      toast.error(`${json.message}`, {
+        position: "top-center",
+        theme: "colored",
+      });
+      setLoading(false);
+    }
+  };
+
+  const handleOtpChange = (event, index) => {
+    const { value } = event.target;
+    const newOTP = [...otp];
+    newOTP[index] = value;
+    setOTP(newOTP);
+    if (value && index < otp.length - 1) {
+      inputRefs.current[index + 1].focus();
+    }
+  };
+
+  const handleKeyDown = (index, key) => {
+    if (key === "Backspace" && index > 0) {
+      inputRefs.current[index-1].focus();
     }
   };
 
@@ -95,37 +171,107 @@ const Signup = () => {
           <img src={SignupImage}></img>
         </div>
 
-        <div className="login-form-div signup-form-div">
-          <h1>Create an account</h1>
-          <p>
-            Join eventlabs community and enjoy resources by creating your account for free! 
-          </p>
+        {OTPScreen ? (
+          <div className="login-form-div signup-form-div">
+            <h1>Enter OTP</h1>
+            <p>To verify your account, enter OTP sent to {email}.</p>
 
-          <div className="login-inputs signup-inputs">
-            <input type="email" placeholder="Email" onChange={handleEmailChange}></input>
-
-            <div className="names-input">
-            <input type="text" placeholder="First name" onChange={handleFirstNameChange}></input>
-            <input type="text" placeholder="Last name" onChange={handleLastNameChange}></input>
+            <div className="otp-container">
+              {otp.map((digit, index) => (
+                <input
+                  key={index}
+                  ref={(ref) => (inputRefs.current[index] = ref)}
+                  maxLength={1}
+                  value={digit}
+                  onChange={(event) => handleOtpChange(event, index)}
+                  onKeyDown={({ nativeEvent: { key } }) =>
+                    handleKeyDown(index, key)
+                  }
+                  className="otp-digit-input"
+                />
+              ))}
             </div>
-            <input type="number" placeholder="Phone number (India only, don't include +91)" onChange={handlePhoneChange}></input>
-            <input type="password" placeholder="Password" onChange={handlePasswordChange}></input>
-          </div>
 
-          <div className="signup-option login-option">
-          <p>Already have an account? <Link to="/login"><span>Login.</span></Link></p>
-          </div>
-
-          <button className="submit-btn signup-btn" onClick={handleSubmit}>{loading ? (
+            <button
+              className="submit-btn"
+              style={{ marginTop: "2rem" }}
+              onClick={handleSubmit}
+            >
+              {loading ? (
                 <div className="btn-loader">
-                  <Loader color="white"/>
-                  <p>Creating an account ...</p>
+                  <Loader color="white" />
+                  <p>Verifying OTP ...</p>
+                </div>
+              ) : (
+                <div>Verify OTP</div>
+              )}
+            </button>
+          </div>
+        ) : (
+          <div className="login-form-div signup-form-div">
+            <h1>Create an account</h1>
+            <p>
+              Join eventlabs community and enjoy resources by creating your
+              account for free!
+            </p>
+
+            <div className="login-inputs signup-inputs">
+              <input
+                type="email"
+                placeholder="Email"
+                onChange={handleEmailChange}
+              ></input>
+
+              <div className="names-input">
+                <input
+                  type="text"
+                  placeholder="First name"
+                  onChange={handleFirstNameChange}
+                ></input>
+                <input
+                  type="text"
+                  placeholder="Last name"
+                  onChange={handleLastNameChange}
+                ></input>
               </div>
-            ) : (
-              <div>Sign up</div>
-            )}</button>
-        </div>
+              <input
+                type="number"
+                placeholder="Phone number (India only, don't include +91)"
+                onChange={handlePhoneChange}
+              ></input>
+              <input
+                type="password"
+                placeholder="Password"
+                onChange={handlePasswordChange}
+              ></input>
+            </div>
+
+            <div className="signup-option login-option">
+              <p>
+                Already have an account?{" "}
+                <Link to="/login">
+                  <span>Login.</span>
+                </Link>
+              </p>
+            </div>
+
+            <button
+              className="submit-btn signup-btn"
+              onClick={handleOTPVerification}
+            >
+              {loading ? (
+                <div className="btn-loader">
+                  <Loader color="white" />
+                  <p>Creating an account ...</p>
+                </div>
+              ) : (
+                <div>Sign up</div>
+              )}
+            </button>
+          </div>
+        )}
       </div>
+      <ToastContainer />
     </>
   );
 };

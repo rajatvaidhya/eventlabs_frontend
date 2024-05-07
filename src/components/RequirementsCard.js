@@ -98,9 +98,15 @@ const RequirementsCard = (props) => {
               <p className="tax-para">Inc. of all taxes</p>
             </div>
 
+            <div style={{display:'flex', gap:'1rem'}}>
+
             <a href={`tel:${props.phoneNumber}`}>
               <button className="create-button">Call</button>
             </a>
+            <a href={`tel:${props.phoneNumber}`}>
+              <button className="create-button">Chat</button>
+            </a>
+            </div>
           </div>
         </div>
       </Modal>

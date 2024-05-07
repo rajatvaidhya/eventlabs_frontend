@@ -51,6 +51,7 @@ const Login = () => {
         position: "top-center",
         theme: "colored",
       });
+      setLoading(false);
     }
   };
 
