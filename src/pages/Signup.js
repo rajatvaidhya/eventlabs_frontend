@@ -236,7 +236,7 @@ const Signup = () => {
               </div>
               <input
                 type="number"
-                placeholder="Phone number (India only, don't include +91)"
+                placeholder="Phone number"
                 onChange={handlePhoneChange}
               ></input>
               <input
