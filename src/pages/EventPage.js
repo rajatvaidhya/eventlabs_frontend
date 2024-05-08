@@ -8,10 +8,12 @@ import axios from "axios";
 import RequirementsComponents from "../components/RequirementsComponents";
 import MemberCard from "../components/MemberCard";
 import Loader from "../components/Loader";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const EventPage = () => {
-  const ENDPOINT = "https://eventlabs-backend.onrender.com";
-  // const ENDPOINT = "http://localhost:5000";
+  // const ENDPOINT = "https://eventlabs-backend.onrender.com";
+  const ENDPOINT = "http://localhost:5000";
   const { eventId } = useParams();
   const [roomName, setRoomName] = useState("");
   const [roomAddress, setRoomAddress] = useState("");
@@ -31,7 +33,10 @@ const EventPage = () => {
   const [currentRatings, setCurrentRatings] = useState(0);
   const [activeComponent, setActiveComponent] = useState("Posts");
   const [loading, setLoading] = useState(false);
-  // const [eventPageLoading, setEventPageLoading] = useState(true);
+  const [location, setLocation] = useState({
+    latitude: 0,
+    longitude: 0,
+  });
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -201,8 +206,43 @@ const EventPage = () => {
     window.location.reload();
   };
 
-  const handleDeleteEvent = () => {
-    console.log("Deleted...");
+  const handleSetLocation = async () => {
+    setLoading(true);
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(function async(position) {
+        const { latitude, longitude } = position.coords;
+        setLocation({ latitude: latitude, longitude: longitude });
+      });
+    } else {
+      console.log("Location sharing isn't possible due to network issue!");
+    }
+
+    const response = await fetch(`${ENDPOINT}/api/chat/updateEventLocation`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        eventId: eventId,
+        latitude: location.latitude,
+        longitude: location.longitude,
+      }),
+    });
+
+    const json = await response.json();
+
+    if (json.success) {
+      toast.success("Location set successfully.", {
+        position: "top-center",
+        theme: "colored",
+      });
+    } else {
+      toast.error("Error updating location.", {
+        position: "top-center",
+        theme: "colored",
+      });
+    }
+    setLoading(false);
   };
 
   return (
@@ -250,7 +290,21 @@ const EventPage = () => {
 
                 <div className="ratings">
                   {localStorage.getItem("userId") === adminId ? (
-                    <button onClick={handleDeleteEvent} className="delete-event-button">Delete event</button>
+                    <button
+                      onClick={handleSetLocation}
+                      className="set-event-location-button"
+                    >
+                      {loading ? (
+                        <div className="set-location-loader">
+                          <Loader /> Setting Location
+                        </div>
+                      ) : (
+                        <div>
+                          <i className="fa-solid fa-location-dot"></i> &nbsp;
+                          Set Location
+                        </div>
+                      )}
+                    </button>
                   ) : (
                     <button onClick={() => setRatingModal(true)}>
                       Rate us
@@ -433,6 +487,7 @@ const EventPage = () => {
           </div>
         </Modal>
       </div>
+      <ToastContainer />
     </>
   );
 };
