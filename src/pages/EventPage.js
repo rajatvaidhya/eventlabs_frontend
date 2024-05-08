@@ -12,8 +12,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const EventPage = () => {
-  // const ENDPOINT = "https://eventlabs-backend.onrender.com";
-  const ENDPOINT = "http://localhost:5000";
+  const ENDPOINT = "https://eventlabs-backend.onrender.com";
+  // const ENDPOINT = "http://localhost:5000";
   const { eventId } = useParams();
   const [roomName, setRoomName] = useState("");
   const [roomAddress, setRoomAddress] = useState("");
