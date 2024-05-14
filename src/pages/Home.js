@@ -9,10 +9,16 @@ import { useNavigate } from "react-router-dom";
 import FelxiFooter from "../components/FelxiFooter";
 import FourthImage from "../images/aisearch-hi.png"
 import Footer from "../components/Footer";
+import IshaniImage from "../images/CommentCardImage1.jpeg"
+import ShivamImage from "../images/CommentCardImage2.jpeg"
+import PushtiImage from "../images/CommentCardImage3.jpeg"
+import UshaImage from "../images/CommentCardImage4.jpeg"
+import PureshwarImage from "../images/CommentCardImage5.jpg"
+import DharmImage from "../images/CommentCardImage6.jpeg"
 
 const Home = () => {
   const navigate = useNavigate();
-
+  
   const [serviceIndex, setServiceIndex] = useState(0);
   const services = ["Events & Parties", "Salons & Spas", "Catering Services", "Electricians", "Plumbers", "Pet Services"];
   const [animationClass, setAnimationClass] = useState("animate-pop");
@@ -38,7 +44,7 @@ const Home = () => {
           <h2>{props.comment}</h2>
         </div>
         <div className="second-card-bottom">
-          <img src="https://picsum.photos/50/50" />
+          <img src={props.image} />
           <div>
             <h3>{props.name}</h3>
             <p>{props.location}</p>
@@ -131,11 +137,6 @@ const Home = () => {
             </p>
             <button
               onClick={handleClick}
-              // style={{
-              //   backgroundColor: "rgb(11, 196, 67)",
-              //   color: "white",
-              // }}
-
               className="get-started-button"
             >
               Get Started
@@ -155,6 +156,7 @@ const Home = () => {
               <div className="slide slide2">
                 <CommentCard
                   name="Dharmishtha Sharma"
+                  image={DharmImage}
                   location="Rau, Indore"
                   comment="Eventlabs helped me discover exciting local events I never knew about!"
                 />
@@ -163,6 +165,7 @@ const Home = () => {
               <div className="slide slide2">
                 <CommentCard
                   name="Pushti Harsola"
+                  image={PushtiImage}
                   location="Indore, MP"
                   comment="I love how easy it is to book salon appointments through Eventlabs!"
                 />
@@ -171,6 +174,7 @@ const Home = () => {
               <div className="slide slide2">
                 <CommentCard
                   name="Ishani Malviya"
+                  image={IshaniImage}
                   location="Barwani, MP"
                   comment="Thanks to Eventlabs, I found a fantastic plumber in no time!"
                 />
@@ -179,6 +183,7 @@ const Home = () => {
               <div className="slide slide2">
                 <CommentCard
                   name="Pureshwar Gonekar"
+                  image={PureshwarImage}
                   location="Chhindwara, MP"
                   comment="Eventlabs made finding a reliable electrician a breeze!"
                 />
@@ -187,6 +192,7 @@ const Home = () => {
               <div className="slide slide2">
                 <CommentCard
                   name="Usha Arya"
+                  image={UshaImage}
                   location="Indore, MP"
                   comment="I highly recommend Eventlabs for anyone in need of quality service professionals."
                 />
@@ -195,6 +201,7 @@ const Home = () => {
               <div className="slide slide2">
                 <CommentCard
                   name="Shivam Sharma"
+                  image={ShivamImage}
                   location="Rajgarh, MP"
                   comment="Eventlabs is my go-to for all things service-related. So convenient and efficient!"
                 />

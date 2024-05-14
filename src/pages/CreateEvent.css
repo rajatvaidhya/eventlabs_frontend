@@ -190,6 +190,10 @@ textarea {
   justify-content: center;
 }
 
+.date-input{
+  width:100%;
+}
+
 
 @media only screen and (max-width:768px){
   .create-event-image{

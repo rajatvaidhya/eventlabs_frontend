@@ -278,6 +278,7 @@ const CreateEvent = ({ isOpen, onClose, backendURL }) => {
 
             <input
               type="date"
+              className="date-input"
               placeholder="Event date"
               onChange={(e) => setDate(e.target.value)}
             ></input>
