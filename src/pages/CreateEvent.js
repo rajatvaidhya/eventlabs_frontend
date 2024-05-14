@@ -8,10 +8,9 @@ import CreateEventImage from "../images/8614927.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const CreateEvent = ({ isOpen, onClose }) => {
-  const ENDPOINT = "https://eventlabs-backend.onrender.com";
+const CreateEvent = ({ isOpen, onClose, backendURL }) => {
   const navigate = useNavigate();
-  // const ENDPOINT = "http://localhost:5000";
+  const ENDPOINT = backendURL;
 
   const [eventName, setEventName] = useState("");
   const [description, setDescription] = useState("");
@@ -29,21 +28,19 @@ const CreateEvent = ({ isOpen, onClose }) => {
     longitude: 0,
   });
 
-
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (!token) {
       navigate("/login");
     }
   }, []);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (!token) {
       navigate("/login");
     }
-  }, []); 
-
+  }, []);
 
   const [suggestions, setSuggestions] = useState([]);
 
@@ -60,7 +57,8 @@ const CreateEvent = ({ isOpen, onClose }) => {
     "Pet Care Service",
     "Fitness Services",
     "Legal and Consultancy Services",
-    "Medical Services"
+    "Medical Services",
+    "Hostels and PGs"
   ];
 
   const handleCategoryChange = (e) => {
@@ -95,8 +93,44 @@ const CreateEvent = ({ isOpen, onClose }) => {
     setButtonDisable(true);
     const formData = new FormData();
 
-    if (eventName.trim() === "") {
-      alert("Please enter an event name.");
+    if (
+      eventName == "" ||
+      description == "" ||
+      address == "" ||
+      searchTerm == ""
+    ) {
+      toast.error("Enter all details", {
+        position: "top-center",
+        theme: "colored",
+      });
+      setButtonDisable(false);
+      return;
+    }
+
+    if (!image) {
+      toast.error("Select an image to continue", {
+        position: "top-center",
+        theme: "colored",
+      });
+      setButtonDisable(false);
+      return;
+    }
+
+    if (location.latitude == 0 || location.longitude == 0) {
+      toast.error("Set the business location", {
+        position: "top-center",
+        theme: "colored",
+      });
+      setButtonDisable(false);
+      return;
+    }
+
+    if (!data.includes(searchTerm)) {
+      toast.error("Select valid business category", {
+        position: "top-center",
+        theme: "colored",
+      });
+      setButtonDisable(false);
       return;
     }
 

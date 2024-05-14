@@ -3,8 +3,7 @@ import EventCard from "./EventCard";
 import CartLoader from "./CartLoader";
 
 const FourthSection = (props) => {
-  const ENDPOINT = "https://eventlabs-backend.onrender.com";
-  // const ENDPOINT = "http://localhost:5000";
+  const ENDPOINT = props.backendURL;
 
   const userId = localStorage.getItem("userId");
 
@@ -12,6 +11,9 @@ const FourthSection = (props) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+
+    setLoading(true);
+    
     const getNearby = async () => {
       const response = await fetch(`${ENDPOINT}/api/chat/getNearbyEvents`, {
         method: "POST",
@@ -30,7 +32,7 @@ const FourthSection = (props) => {
     };
 
     getNearby();
-  }, []);
+  }, [props.interest]);
 
   return (
     <>
@@ -51,6 +53,7 @@ const FourthSection = (props) => {
                   {businesses.map((business) => (
                     <EventCard
                       key={business._id}
+                      backendURL={ENDPOINT}
                       id={business._id}
                       name={business.name}
                       location={business.address}

@@ -11,20 +11,22 @@ import Loader from "../components/Loader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const EventPage = () => {
-  const ENDPOINT = "https://eventlabs-backend.onrender.com";
-  // const ENDPOINT = "http://localhost:5000";
+const EventPage = (props) => {
+  const ENDPOINT = props.backendURL;
+
   const { eventId } = useParams();
   const [roomName, setRoomName] = useState("");
   const [roomAddress, setRoomAddress] = useState("");
   const [roomDescription, setRoomDescription] = useState("");
   const [roomDate, setRoomDate] = useState("");
+  const [roomStatus, setRoomStatus] = useState("");
   const [members, setMembers] = useState([]);
   const [admin, setAdmin] = useState([]);
   const [adminId, setAdminId] = useState("");
   const [requirements, setRequirements] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [ratingModal, setRatingModal] = useState(false);
+  const [updateModal, setUpdateModal] = useState(false);
   const [imageSelect, setImageSelect] = useState(false);
   const [caption, setCaption] = useState("");
   const [image, setImage] = useState();
@@ -33,8 +35,14 @@ const EventPage = () => {
   const [currentRatings, setCurrentRatings] = useState(0);
   const [activeComponent, setActiveComponent] = useState("Posts");
   const [loading, setLoading] = useState(false);
+  const [selectedStatus, setSelectedStatus] = useState("change");
+
   const navigate = useNavigate();
 
+  const handleStatusChange = (event) => {
+    setSelectedStatus(event.target.value);
+  };
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -48,6 +56,33 @@ const EventPage = () => {
       navigate("/login");
     }
   }, []);
+
+  const handleUpdateInfo = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(`${ENDPOINT}/api/chat/updateChatRoomData`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          roomId: eventId,
+          roomName: roomName,
+          roomDescription: roomDescription,
+          roomAddress: roomAddress,
+          status: selectedStatus,
+        }),
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      window.location.reload();
+    } catch (error) {
+      console.error("Error updating chat room data:", error);
+    }
+  };
 
   const fetchChatRoomData = async () => {
     const response = await fetch(`${ENDPOINT}/api/chat/getChatRoomData`, {
@@ -65,6 +100,7 @@ const EventPage = () => {
       setRoomDescription(data.chatRoom.description);
       setAdminId(data.chatRoom.createdBy);
       setRoomDate(data.chatRoom.scheduledDate);
+      setRoomStatus(data.chatRoom.status);
       setCurrentRatings(data.chatRoom.averageRating);
 
       const uniqueUserIds = [];
@@ -169,6 +205,7 @@ const EventPage = () => {
             {posts.map((post) => (
               <ImageCard
                 key={post._id}
+                backendURL={ENDPOINT}
                 postId={post._id}
                 imageOf="event"
                 eventId={eventId}
@@ -228,7 +265,7 @@ const EventPage = () => {
         theme: "colored",
       });
     }
-  }
+  };
 
   const handleSetLocation = async () => {
     setLoading(true);
@@ -246,6 +283,17 @@ const EventPage = () => {
 
   return (
     <>
+      {localStorage.getItem("userId") === adminId ? (
+        <div
+          className="update-info-button"
+          onClick={() => setUpdateModal(true)}
+        >
+          <i className="fa-regular fa-pen-to-square"></i>
+        </div>
+      ) : (
+        ""
+      )}
+
       <div className="main-event-profile-container">
         <div className="event-info">
           <div className="event-info-img">
@@ -278,7 +326,14 @@ const EventPage = () => {
 
                   <h1>&nbsp;·&nbsp;</h1>
 
-                  <p>Contact : {admin.phoneNumber}</p>
+                  {/* <p>Contact : {admin.phoneNumber}</p> */}
+                  <p
+                    style={{
+                      color: roomStatus == "Available" ? "green" : "red",
+                    }}
+                  >
+                    {roomStatus}
+                  </p>
 
                   <h1>&nbsp;·&nbsp;</h1>
 
@@ -329,14 +384,39 @@ const EventPage = () => {
               <p>
                 Owned by : {admin.firstName} {admin.lastName}
               </p>
-              <p>Contact : {admin.phoneNumber}</p>
+              {/* <p>Contact : {admin.phoneNumber}</p> */}
+              <p
+                style={{
+                  color: roomStatus == "Available" ? "green" : "red",
+                }}
+              >
+                {roomStatus}
+              </p>
               {roomDate !== "" ? <p>Event date : {roomDate}</p> : ""}
             </div>
 
             <p className="mobile-wrapper-desc">{roomDescription}</p>
 
             <div className="ratings">
-              <button onClick={() => setRatingModal(true)}>Rate us</button>
+              {localStorage.getItem("userId") === adminId ? (
+                <button
+                  onClick={handleSetLocation}
+                  className="set-event-location-button"
+                >
+                  {loading ? (
+                    <div className="set-location-loader">
+                      <Loader /> Setting Location
+                    </div>
+                  ) : (
+                    <div>
+                      <i className="fa-solid fa-location-dot"></i> &nbsp; Set
+                      Location
+                    </div>
+                  )}
+                </button>
+              ) : (
+                <button onClick={() => setRatingModal(true)}>Rate us</button>
+              )}
 
               {Array.from({ length: currentRatings }).map((_, index) => (
                 <i key={index} className="fa-solid fa-star"></i>
@@ -363,6 +443,7 @@ const EventPage = () => {
         {activeComponent === "Posts" && <PostsComponent />}
         {activeComponent === "Requirements" && (
           <RequirementsComponents
+            backendURL={ENDPOINT}
             requirements={requirements}
             adminId={adminId}
             phoneNumber={admin.phoneNumber}
@@ -482,6 +563,45 @@ const EventPage = () => {
           <div className="add-rating-button">
             <button className="create-button" onClick={handleRate}>
               Rate
+            </button>
+          </div>
+        </Modal>
+
+        <Modal
+          isOpen={updateModal}
+          onRequestClose={() => setUpdateModal(false)}
+          contentLabel="Image Details"
+          className="update-modal"
+          overlayClassName="overlay"
+          ariaHideApp={false}
+        >
+          <div className="update-modal-content">
+            <input
+              type="text"
+              value={roomName}
+              onChange={(e) => setRoomName(e.target.value)}
+            />
+            <textarea
+              type="text"
+              value={roomDescription}
+              onChange={(e) => setRoomDescription(e.target.value)}
+            />
+            <input
+              type="text"
+              value={roomAddress}
+              onChange={(e) => setRoomAddress(e.target.value)}
+            />
+            <select
+              id="statusSelect"
+              value={selectedStatus}
+              onChange={handleStatusChange}
+            >
+              <option value="change">Change Status</option>
+              <option value="Available">Available</option>
+              <option value="Unavailable">Unavailable</option>
+            </select>
+            <button className="update-modal-button" onClick={handleUpdateInfo}>
+              {loading ? <Loader /> : "Update"}
             </button>
           </div>
         </Modal>

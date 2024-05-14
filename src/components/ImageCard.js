@@ -4,8 +4,8 @@ import "./ImageCard.css";
 import { useParams } from "react-router-dom";
 
 const ImageCard = (props) => {
-  const ENDPOINT = "https://eventlabs-backend.onrender.com";
-  // const ENDPOINT = "http://localhost:5000";
+  const ENDPOINT = props.backendURL;
+
   const { userId } = useParams();
   const [modalIsOpen, setModalIsOpen] = useState(false);
 

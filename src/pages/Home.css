@@ -4,6 +4,31 @@
   flex-direction: column;
 }
 
+.gradient-heading {
+  background: linear-gradient(135deg, #782ccb, #c1b1cb); 
+  -webkit-background-clip: text; 
+  -webkit-text-fill-color: transparent;
+}
+
+.animate-pop {
+  position:relative;
+  animation-name: popUpFadeIn;
+  animation-duration: 2s;
+}
+
+@keyframes popUpFadeIn{
+  from{
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to{
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+
+
 .first {
   min-height: 30vh;
   width: 100%;
@@ -24,7 +49,8 @@
 }
 
 .first button {
-  background-color: rgb(11, 196, 67);
+  /* background-color: rgb(11, 196, 67); */
+  background: rgb(11, 196, 67);
   padding: 9px 30px 9px 30px;
   border-radius: 10px;
   margin-top: 2rem;
@@ -239,6 +265,7 @@
 @media screen and (max-width: 768px) {
   .first h1 {
     font-size: 3rem;
+    margin-top: 3rem;
     line-height: 3.7rem;
   }
 

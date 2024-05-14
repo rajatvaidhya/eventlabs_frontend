@@ -3,8 +3,7 @@ import "./EventCard.css";
 import { useNavigate } from "react-router-dom";
 
 const EventCard = (props) => {
-  const ENDPOINT = "https://eventlabs-backend.onrender.com";
-  // const ENDPOINT = "http://localhost:5000";
+  const ENDPOINT = props.backendURL;
 
   const navigate = useNavigate();
 

@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 const GroupInfo = (props) => {
   const ENDPOINT = "https://eventlabs-backend.onrender.com";
   // const ENDPOINT = "http://localhost:5000";
+  // const ENDPOINT = process.env.ENDPOINT;
+
   const [users, setUsers] = useState([]);
   const [length, setLength] = useState(0);
   const [admin, setAdmin] = useState([]);

@@ -5,43 +5,79 @@ import MarkerClusterGroup from "react-leaflet-cluster";
 import L from "leaflet";
 
 const MyMap = (props) => {
-  
-  const position = {
-    lat:localStorage.getItem('latitude'),
-    lng:localStorage.getItem('longitude')
-  }
+  const ENDPOINT = props.backendURL;
+  const [loading, setLoading] = useState(false);
+  const [businesses, setBusinesses] = useState([]);
 
-  const [eventsMarkers, setEventsMarkers] = useState([]);
+  useEffect(() => {
+    const getNearby = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(`${ENDPOINT}/api/chat/getNearbyEvents`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: localStorage.getItem("userId"),
+            interest: props.eventName,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const json = await response.json();
+        setBusinesses(json.nearbyChatRooms);
+        setLoading(false);
+      } catch (error) {
+        console.error("Fetch error:", error);
+        setLoading(false);
+      }
+    };
+
+    getNearby();
+  }, []);
+
+  const position = {
+    lat: localStorage.getItem("latitude"),
+    lng: localStorage.getItem("longitude"),
+  };
 
   const icon = L.icon({
     iconUrl: "./mappin.png",
     iconSize: [30, 30],
   });
 
-  useEffect(() => {
-    const modifiedArray = props.events.map((event) => ({
-      geocode: [event.location.coordinates[1], event.location.coordinates[0]],
-      popUp: event.name,
-    }));
-
-    setEventsMarkers(modifiedArray);
-  }, [props.events]);
-
   return (
-    <MapContainer center={position} zoom={13} style={{boxShadow: 'rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset'}}>
-      <TileLayer
-        url="https://api.maptiler.com/maps/openstreetmap/{z}/{x}/{y}.jpg?key=awq6SDa4yLKXcaB5TCLa"
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      />
+    <>
+      {!loading ? (
+        <MapContainer center={position} zoom={13} style={{width:'100%', height:'100%'}}>
+          <TileLayer
+            url="https://api.maptiler.com/maps/openstreetmap/{z}/{x}/{y}.jpg?key=awq6SDa4yLKXcaB5TCLa"
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          />
 
-      <MarkerClusterGroup>
-        {eventsMarkers.map((marker) => (
-          <Marker position={marker.geocode} icon={icon} key={marker.geocode.join("-")}>
-            <Popup>{marker.popUp}</Popup>
-          </Marker>
-        ))}
-      </MarkerClusterGroup>
-    </MapContainer>
+          <MarkerClusterGroup>
+            {businesses.map((event, index) => (
+              <Marker
+                key={index}
+                position={[event.location.coordinates[1], event.location.coordinates[0]]}
+                icon={icon}
+              >
+                <Popup>{event.name}</Popup>
+              </Marker>
+            ))}
+          </MarkerClusterGroup>
+        </MapContainer>
+      ) : (
+
+        <div style={{display:'flex', justifyContent:'center', alignItems:'center', height:'100%'}}>
+          Wait a little, plotting map...
+        </div>
+      )} 
+    </>
   );
 };
 

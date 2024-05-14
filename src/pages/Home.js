@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Home.css";
 import Navbar from "../components/Navbar";
 import DarkModeImage from "../images/8217095.jpg";
@@ -12,6 +12,20 @@ import Footer from "../components/Footer";
 
 const Home = () => {
   const navigate = useNavigate();
+
+  const [serviceIndex, setServiceIndex] = useState(0);
+  const services = ["Events & Parties", "Salons & Spas", "Catering Services", "Electricians", "Plumbers", "Pet Services"];
+  const [animationClass, setAnimationClass] = useState("animate-pop");
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setServiceIndex((prevIndex) => (prevIndex + 1) % services.length);
+      setAnimationClass("animate-pop"); // Apply animation class on text change
+      setTimeout(() => setAnimationClass(""), 2000); // Remove animation class after 1 second
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [services.length]);
 
   const handleClick = () => {
     navigate("/signup");
@@ -102,7 +116,11 @@ const Home = () => {
           <img src={DarkModeImage} alt="Background" />
 
           <div className="first-div" style={{ color: "white" }}>
-            <h1>Discover Nearby Services and Participate in Local Events</h1>
+            {/* <h1>Discover <span className="gradient-heading">Nearby Services</span> and Participate in Local Events</h1> */}
+            <h1>
+              Discover Nearby <div className={`gradient-heading ${animationClass}`}>{services[serviceIndex]}</div>
+            </h1>
+
             <p style={{ marginTop: "2rem" }}>
               Looking for reliable service professionals in your area? Look no
               further than Eventlabs. We're your go-to destination for finding
@@ -113,10 +131,12 @@ const Home = () => {
             </p>
             <button
               onClick={handleClick}
-              style={{
-                backgroundColor: "rgb(11, 196, 67)",
-                color: "white",
-              }}
+              // style={{
+              //   backgroundColor: "rgb(11, 196, 67)",
+              //   color: "white",
+              // }}
+
+              className="get-started-button"
             >
               Get Started
             </button>
@@ -142,40 +162,40 @@ const Home = () => {
 
               <div className="slide slide2">
                 <CommentCard
-                  name="Chirag Shrimal (Jain)"
-                  location="GIM, Goa"
+                  name="Pushti Harsola"
+                  location="Indore, MP"
                   comment="I love how easy it is to book salon appointments through Eventlabs!"
                 />
               </div>
 
               <div className="slide slide2">
                 <CommentCard
-                  name="Sakshi Panwar"
-                  location="DAVV, Indore"
+                  name="Ishani Malviya"
+                  location="Barwani, MP"
                   comment="Thanks to Eventlabs, I found a fantastic plumber in no time!"
                 />
               </div>
 
               <div className="slide slide2">
                 <CommentCard
-                  name="Dev Sharma"
-                  location="IET DAVV, Indore"
+                  name="Pureshwar Gonekar"
+                  location="Chhindwara, MP"
                   comment="Eventlabs made finding a reliable electrician a breeze!"
                 />
               </div>
 
               <div className="slide slide2">
                 <CommentCard
-                  name="Shikhar Joshi"
-                  location="Bhawarkuan, Indore"
+                  name="Usha Arya"
+                  location="Indore, MP"
                   comment="I highly recommend Eventlabs for anyone in need of quality service professionals."
                 />
               </div>
 
               <div className="slide slide2">
                 <CommentCard
-                  name="Palshree Rathore"
-                  location="IIT Roorkee"
+                  name="Shivam Sharma"
+                  location="Rajgarh, MP"
                   comment="Eventlabs is my go-to for all things service-related. So convenient and efficient!"
                 />
               </div>

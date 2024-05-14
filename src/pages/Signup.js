@@ -7,9 +7,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Signup.css";
 
-const Signup = () => {
-  const ENDPOINT = "https://eventlabs-backend.onrender.com";
-  // const ENDPOINT = "http://localhost:5000";
+const Signup = (props) => {
+  const ENDPOINT = props.backendURL;
+
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -61,6 +61,22 @@ const Signup = () => {
   const handleOTPVerification = async(e) => {
     e.preventDefault();
     setLoading(true);
+
+    if(firstName=="" || lastName==""){
+      toast.error(`Enter all details`, {
+        position: "top-center",
+        theme: "colored",
+      });
+      return;
+    }
+
+    if(!email){
+      toast.error(`Enter valid email`, {
+        position: "top-center",
+        theme: "colored",
+      });
+      return;
+    }
 
     if(phoneNumber.length < 10){
       toast.error(`Enter valid phone number`, {
@@ -126,7 +142,6 @@ const Signup = () => {
     });
 
     const json = await response.json();
-    console.log(json);
 
     if (json.success === true) {
       localStorage.setItem("token", json.authtoken);

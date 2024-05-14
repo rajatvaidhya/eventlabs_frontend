@@ -4,9 +4,8 @@ import EventCard from "./EventCard";
 import { Link } from "react-router-dom";
 import CartLoader from "./CartLoader";
 
-const SecondSection = () => {
-  const ENDPOINT = "https://eventlabs-backend.onrender.com";
-  // const ENDPOINT = "http://localhost:5000";
+const SecondSection = (props) => {
+  const ENDPOINT = props.backendURL;
 
   const [businesses, setBusinesses] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -28,7 +27,6 @@ const SecondSection = () => {
 
       const json = await response.json();
       setBusinesses(json.chatRooms);
-      console.log(json.chatRooms);
       setLoading(false);
     };
 
@@ -57,6 +55,7 @@ const SecondSection = () => {
                   {businesses.map((business) => (
                     <EventCard
                       key={business._id}
+                      backendURL={ENDPOINT}
                       id={business._id}
                       name={business.name}
                       location={business.address}

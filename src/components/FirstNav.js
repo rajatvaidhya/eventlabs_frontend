@@ -3,12 +3,9 @@ import "./FirstNav.css";
 import { Link, useNavigate } from "react-router-dom";
 import FullScreenLoader from "./FullScreenLoader";
 
-const FirstNav = () => {
-  const ENDPOINT = "https://eventlabs-backend.onrender.com";
-  // const ENDPOINT = "http://localhost:5000";
-
+const FirstNav = (props) => {
+  const ENDPOINT = props.backendURL;
   const userId = localStorage.getItem("userId");
-
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();

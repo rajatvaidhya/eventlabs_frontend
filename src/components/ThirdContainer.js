@@ -4,8 +4,9 @@ import EventCard from "./EventCard";
 import CartLoader from "./CartLoader";
 
 const ThirdContainer = (props) => {
-  const ENDPOINT = "https://eventlabs-backend.onrender.com";
+  // const ENDPOINT = "https://eventlabs-backend.onrender.com";
   // const ENDPOINT = "http://localhost:5000";
+  const ENDPOINT = process.env.ENDPOINT;
 
   const userId = localStorage.getItem("userId");
 

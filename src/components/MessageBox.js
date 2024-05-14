@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 import { useLightMode } from "../contexts/LightModeContext";
 
 const MessageBox = (props) => {
-    const ENDPOINT = "https://eventlabs-backend.onrender.com";
+    // const ENDPOINT = "https://eventlabs-backend.onrender.com";
     // const ENDPOINT = "http://localhost:5000";
+  const ENDPOINT = process.env.ENDPOINT;
 
   const {toggleLightMode} = useLightMode();
   const timestamp = props.time;

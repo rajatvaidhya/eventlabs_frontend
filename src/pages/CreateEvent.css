@@ -1,6 +1,8 @@
 .main-create-event-container {
   display: flex;
   color: white;
+  overflow-y: scroll;
+  scrollbar-width: none;
 }
 
 .create-event-search input{
@@ -15,6 +17,7 @@
   width: 50%;
   height: 100vh;
   overflow-y: scroll;
+  scrollbar-width: none;
   font-size: 14px;
 }
 

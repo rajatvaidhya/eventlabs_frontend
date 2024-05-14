@@ -5,8 +5,7 @@ import { Link } from "react-router-dom";
 import Loader from "./Loader";
 
 const RequirementsCard = (props) => {
-  const ENDPOINT = "https://eventlabs-backend.onrender.com";
-  // const ENDPOINT = "http://localhost:5000";
+  const ENDPOINT = props.backendURL;
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -102,9 +101,6 @@ const RequirementsCard = (props) => {
 
             <a href={`tel:${props.phoneNumber}`}>
               <button className="create-button">Call</button>
-            </a>
-            <a href={`tel:${props.phoneNumber}`}>
-              <button className="create-button">Chat</button>
             </a>
             </div>
           </div>

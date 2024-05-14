@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 
 const MemberCard = (props) => {
 
-  const ENDPOINT = "https://eventlabs-backend.onrender.com";
+  // const ENDPOINT = "https://eventlabs-backend.onrender.com";
   // const ENDPOINT = "http://localhost:5000";
+  const ENDPOINT = process.env.ENDPOINT;
 
   return (
     <>

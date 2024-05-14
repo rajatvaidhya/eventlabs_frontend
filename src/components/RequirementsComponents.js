@@ -4,17 +4,17 @@ import "./RequirementsComponents.css";
 import RequirementsCard from "./RequirementsCard";
 import Loader from "./Loader";
 import { useParams } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const RequirementsComponents = (props) => {
-  const ENDPOINT = "https://eventlabs-backend.onrender.com";
-  // const ENDPOINT = "http://localhost:5000";
+  const ENDPOINT = props.backendURL;
+
   const { eventId } = useParams();
   const [serviceName, setServiceName] = useState("");
   const [radioValue, setRadioValue] = useState(false);
   const [startDay, setStartDay] = useState("");
   const [endDay, setEndDay] = useState("");
-  const [startTiming, setStartTiming] = useState("");
-  const [endTiming, setEndTiming] = useState("");
   const [serviceDescription, setServiceDescription] = useState("");
   const [price, setPrice] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -32,6 +32,16 @@ const RequirementsComponents = (props) => {
   const handleClick = async () => {
     setLoading(true);
 
+    if(serviceName=="" || startDay=="" || endDay=="" || serviceDescription=="" || price==""){
+      toast.error("Enter all details.", {
+        position: "top-center",
+        theme: "colored",
+      });
+
+      setLoading(false);
+      return;
+    }
+
     const response = await fetch(
       `${ENDPOINT}/api/requirements/createRequirement`,
       {
@@ -45,8 +55,6 @@ const RequirementsComponents = (props) => {
           radioValue,
           startDay,
           endDay,
-          startTiming,
-          endTiming,
           price,
           serviceDescription
         }),
@@ -63,6 +71,8 @@ const RequirementsComponents = (props) => {
   };
 
   return (
+
+    <>
     <div className="requirements-container">
       {localStorage.getItem("userId") === props.adminId ? (
         <button
@@ -76,12 +86,11 @@ const RequirementsComponents = (props) => {
       )}
 
       <div className="main-services-grid">
-        {/* <div className="service-item"> */}
-
         {props.requirements.map((requirement) => (
           <RequirementsCard
             key={requirement._id}
             id={requirement._id}
+            backendURL={ENDPOINT}
             title={requirement.requirementTitle}
             isFree={requirement.freeCancellation}
             startDay={requirement.startDay}
@@ -92,7 +101,6 @@ const RequirementsComponents = (props) => {
             phoneNumber={props.phoneNumber}
           />
         ))}
-        {/* </div> */}
       </div>
 
       <Modal
@@ -176,52 +184,6 @@ const RequirementsComponents = (props) => {
               </div>
             </div>
 
-            {/* <div className="timings">
-              <div className="available-inside">
-                <p>From : </p>
-                <select
-                  value={startTiming}
-                  onChange={(e) => {
-                    setStartTiming(e.target.value);
-                  }}
-                >
-                  <option>Start Time</option>
-                  <option>1:00</option>
-                  <option>2:00</option>
-                  <option>3:00</option>
-                  <option>5:00</option>
-                  <option>6:00</option>
-                  <option>7:00</option>
-                  <option>8:00</option>
-                  <option>9:00</option>
-                  <option>10:00</option>
-                  <option>11:00</option>
-                  <option>12:00</option>
-                </select>
-
-                <p>To : </p>
-                <select
-                  value={endTiming}
-                  onChange={(e) => {
-                    setEndTiming(e.target.value);
-                  }}
-                >
-                  <option>End Time</option>
-                  <option>1:00</option>
-                  <option>2:00</option>
-                  <option>3:00</option>
-                  <option>5:00</option>
-                  <option>6:00</option>
-                  <option>7:00</option>
-                  <option>8:00</option>
-                  <option>9:00</option>
-                  <option>10:00</option>
-                  <option>11:00</option>
-                  <option>12:00</option>
-                </select>
-              </div>
-            </div> */}
-
             <div className="price-input">
               <input
                 type="number"
@@ -250,6 +212,9 @@ const RequirementsComponents = (props) => {
         </div>
       </Modal>
     </div>
+
+    <ToastContainer/>
+    </>
   );
 };
 

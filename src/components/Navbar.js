@@ -7,8 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Loader from "./Loader";
 
 const Navbar = (props) => {
-  const ENDPOINT = "https://eventlabs-backend.onrender.com";
-  // const ENDPOINT = "http://localhost:5000";
+  const ENDPOINT = props.backendURL;
 
   const userId = localStorage.getItem("userId");
   const [searchTerm, setSearchTerm] = useState("");
@@ -32,9 +31,11 @@ const Navbar = (props) => {
     "Fitness Services",
     "Legal and Consultancy Services",
     "Medical Services",
+    "Hostels and PGs"
   ];
 
   const handleInputChange = (e) => {
+    e.preventDefault();
     const newSearchTerm = e.target.value.toLowerCase();
     setSearchTerm(newSearchTerm);
 

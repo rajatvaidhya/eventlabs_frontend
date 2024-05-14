@@ -7,9 +7,9 @@ import LoginImage from "../images/5101873.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Login = () => {
-  const ENDPOINT = "https://eventlabs-backend.onrender.com";
-  // const ENDPOINT = "http://localhost:5000";
+const Login = (props) => {
+  const ENDPOINT = props.backendURL;
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -36,10 +36,8 @@ const Login = () => {
       }),
     });
 
-    console.log(response);
 
     const json = await response.json();
-    console.log(json);
 
     if (json.success === true) {
       localStorage.setItem("token", json.authtoken);
