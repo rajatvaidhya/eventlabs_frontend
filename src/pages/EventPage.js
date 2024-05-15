@@ -281,6 +281,31 @@ const EventPage = (props) => {
     setLoading(false);
   };
 
+  const handleDeleteEvent = async () => {
+    setLoading(true);
+    const response = await fetch(`${ENDPOINT}/api/chat/deleteEvent`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        roomId: eventId,
+      }),
+    });
+
+    const json = await response.json();
+
+    if (json.success) {
+      navigate("/mainpage");
+    } else {
+      setLoading(false);
+      toast.error("Error deleting event.", {
+        position: "top-center",
+        theme: "colored",
+      });
+    }
+  };
+
   return (
     <>
       {localStorage.getItem("userId") === adminId ? (
@@ -600,9 +625,23 @@ const EventPage = (props) => {
               <option value="Available">Available</option>
               <option value="Unavailable">Unavailable</option>
             </select>
-            <button className="update-modal-button" onClick={handleUpdateInfo}>
-              {loading ? <Loader /> : "Update"}
-            </button>
+
+            <div className="update-modal-buttons">
+              <button
+                className="update-modal-button"
+                onClick={handleUpdateInfo}
+              >
+                {loading ? <Loader /> : "Update"}
+              </button>
+
+              <button
+                className="update-modal-button"
+                style={{ backgroundColor: "red" }}
+                onClick={handleDeleteEvent}
+              >
+                {loading ? <Loader /> : "Delete"}
+              </button>
+            </div>
           </div>
         </Modal>
       </div>

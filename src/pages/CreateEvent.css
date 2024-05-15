@@ -89,7 +89,7 @@
   width: 100%;
   padding: 10px;
   gap: 1rem;
-  margin-right: 2rem;
+  /* margin-right: 2rem; */
   height: 100vh;
   overflow-y: visible;
 }

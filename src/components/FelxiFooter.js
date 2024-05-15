@@ -9,7 +9,7 @@ const FelxiFooter = () => {
       <h1>
         Designed and Developed With
         <span> 💚 </span>
-        By <span><br></br>Ishani, Pureshwar, Pushti, Rajat, Usha</span>
+        By <span><br></br>Rajat Vaidhya</span>
       </h1>
     </div>
   );
