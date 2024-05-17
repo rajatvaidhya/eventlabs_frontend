@@ -13,25 +13,21 @@ const SecondSection = (props) => {
   const userId = localStorage.getItem("userId");
 
   useEffect(() => {
-
     const getNearby = async () => {
-      const response = await fetch(`${ENDPOINT}/api/chat/getYourEvents`, {
-        method: "POST",
+      const response = await fetch(`${ENDPOINT}/api/chat/getYourEvents?userId=${userId}`, {
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          userId: userId,
-        }),
       });
-
+  
       const json = await response.json();
       setBusinesses(json.chatRooms);
       setLoading(false);
     };
-
+  
     getNearby();
-  }, []);
+  }, [userId]);  
 
   return (
     <>
