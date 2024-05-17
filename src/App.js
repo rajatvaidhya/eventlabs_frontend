@@ -10,7 +10,8 @@ import EventPage from "./pages/EventPage";
 function App() {
 
   // const ENDPOINT = "http://localhost:5000";
-  const ENDPOINT = "https://eventlabs-backend.onrender.com";
+  // const ENDPOINT = "https://eventlabs-backend.onrender.com";
+  const ENDPOINT = "https://eventlabs-backend.vercel.app"
 
   return (
       <div className="main-app">
