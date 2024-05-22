@@ -10,6 +10,8 @@ import MemberCard from "../components/MemberCard";
 import Loader from "../components/Loader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ReactGA from "react-ga";
+import { Helmet } from "react-helmet";
 
 const EventPage = (props) => {
   const ENDPOINT = props.backendURL;
@@ -44,13 +46,7 @@ const EventPage = (props) => {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      navigate("/login");
-    }
-  }, []);
-
-  useEffect(() => {
+    ReactGA.pageview(window.location.pathname);
     const token = localStorage.getItem("token");
     if (!token) {
       navigate("/login");
@@ -308,6 +304,16 @@ const EventPage = (props) => {
 
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>{roomName} - Eventlabs</title>
+        <link
+          rel="canonical"
+          href={`https://eventlabs-frontend.vercel.app/event/${eventId}`}
+        />
+        <meta name="description" content={roomDescription} />
+      </Helmet>
+
       {localStorage.getItem("userId") === adminId ? (
         <div
           className="update-info-button"

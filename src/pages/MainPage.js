@@ -5,9 +5,11 @@ import FirstNav from "../components/FirstNav";
 import SecondSection from "../components/SecondSection";
 import FourthSection from "../components/FourthSection";
 import Carousel from "../components/Carousel";
-import MyMap from '../components/Map'
+import MyMap from "../components/Map";
 import { useNavigate } from "react-router-dom";
 import Modal from "react-modal";
+import ReactGA from "react-ga";
+import { Helmet } from "react-helmet";
 
 const MainPage = (props) => {
   const ENDPOINT = props.backendURL;
@@ -18,6 +20,7 @@ const MainPage = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   useEffect(() => {
+    ReactGA.pageview(window.location.pathname);
     const token = localStorage.getItem("token");
     if (!token) {
       navigate("/login");
@@ -57,14 +60,14 @@ const MainPage = (props) => {
     },
   ];
 
-  const handleMapModal = (eventname) =>{
+  const handleMapModal = (eventname) => {
     setEventName(eventname);
     setModalIsOpen(true);
-  }
+  };
 
   useEffect(() => {
-    console.log(eventName); 
-  }, [eventName]); 
+    console.log(eventName);
+  }, [eventName]);
 
   if (isLoading) {
     return null;
@@ -76,6 +79,16 @@ const MainPage = (props) => {
 
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Search nearby services - Eventlabs</title>
+        <link rel="canonical" href="https://eventlabs-frontend.vercel.app" />
+        <meta
+          name="description"
+          content={`Explore the best services in your city. Find top-rated electricians, plumbers, florists, decorators, and more. All services at your fingertips on Eventlabs.`}
+        />
+      </Helmet>
+
       <FirstNav backendURL={props.backendURL} />
       <Navbar backendURL={props.backendURL} setSearchItem={setSearchItem} />
       <Carousel slides={slides} />
@@ -84,10 +97,10 @@ const MainPage = (props) => {
         <div>
           <div className="event-parties-container">
             <div className="event-parties-heading">
-              <h2>
-                Events and Parties near you! 🎉
-              </h2>
-              <p onClick={() => handleMapModal("Events and Parties")}><i className="fa-solid fa-map-pin"></i> Map</p>
+              <h2>Events and Parties near you! 🎉</h2>
+              <p onClick={() => handleMapModal("Events and Parties")}>
+                <i className="fa-solid fa-map-pin"></i> Map
+              </p>
             </div>
             <FourthSection
               interest="Events and Parties"
@@ -96,11 +109,11 @@ const MainPage = (props) => {
           </div>
 
           <div className="event-parties-container">
-
             <div className="event-parties-heading">
-
-            <h2>Salons and Spa</h2>
-            <p onClick={() => handleMapModal("Spa and Salons")}><i className="fa-solid fa-map-pin"></i> Map</p>
+              <h2>Salons and Spa</h2>
+              <p onClick={() => handleMapModal("Spa and Salons")}>
+                <i className="fa-solid fa-map-pin"></i> Map
+              </p>
             </div>
             <FourthSection
               interest="Spa and Salons"
@@ -109,11 +122,11 @@ const MainPage = (props) => {
           </div>
 
           <div className="event-parties-container">
-
             <div className="event-parties-heading">
-
-            <h2>Electronic services</h2>
-            <p onClick={() => handleMapModal("Electricians")}><i className="fa-solid fa-map-pin"></i> Map</p>
+              <h2>Electronic services</h2>
+              <p onClick={() => handleMapModal("Electricians")}>
+                <i className="fa-solid fa-map-pin"></i> Map
+              </p>
             </div>
             <FourthSection
               interest="Electricians"
@@ -122,14 +135,11 @@ const MainPage = (props) => {
           </div>
 
           <div className="event-parties-container">
-
             <div className="event-parties-heading">
-
-            <h2>
-          
-              Marriage and Catering services{" "}
-            </h2>
-            <p onClick={() => handleMapModal("Marriage and Catering")}><i className="fa-solid fa-map-pin"></i> Map</p>
+              <h2>Marriage and Catering services </h2>
+              <p onClick={() => handleMapModal("Marriage and Catering")}>
+                <i className="fa-solid fa-map-pin"></i> Map
+              </p>
             </div>
             <FourthSection
               interest="Marriage and Catering"
@@ -138,11 +148,11 @@ const MainPage = (props) => {
           </div>
 
           <div className="event-parties-container">
-
             <div className="event-parties-heading">
-
-            <h2>Fitness services</h2>
-            <p onClick={() => handleMapModal("Fitness Services")}><i className="fa-solid fa-map-pin"></i> Map</p>
+              <h2>Fitness services</h2>
+              <p onClick={() => handleMapModal("Fitness Services")}>
+                <i className="fa-solid fa-map-pin"></i> Map
+              </p>
             </div>
             <FourthSection
               interest="Fitness Services"
@@ -152,8 +162,7 @@ const MainPage = (props) => {
 
           <div className="event-parties-container">
             <div className="event-parties-heading">
-
-            <h2>Your businesses</h2>
+              <h2>Your businesses</h2>
             </div>
             <SecondSection backendURL={props.backendURL} />
           </div>
@@ -165,20 +174,7 @@ const MainPage = (props) => {
         </div>
       )}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-<Modal
+      <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         contentLabel="Image Details"
@@ -186,7 +182,7 @@ const MainPage = (props) => {
         overlayClassName="overlay"
         ariaHideApp={false}
       >
-        <MyMap eventName={eventName} backendURL={ENDPOINT}/>
+        <MyMap eventName={eventName} backendURL={ENDPOINT} />
       </Modal>
     </>
   );

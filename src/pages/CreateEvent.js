@@ -6,7 +6,9 @@ import Navbar from "../components/Navbar";
 import Loader from "../components/Loader";
 import CreateEventImage from "../images/8614927.png";
 import { ToastContainer, toast } from "react-toastify";
+import ReactGA from "react-ga";
 import "react-toastify/dist/ReactToastify.css";
+import { Helmet } from "react-helmet";
 
 const CreateEvent = ({ isOpen, onClose, backendURL }) => {
   const navigate = useNavigate();
@@ -29,13 +31,9 @@ const CreateEvent = ({ isOpen, onClose, backendURL }) => {
   });
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      navigate("/login");
-    }
-  }, []);
 
-  useEffect(() => {
+    ReactGA.pageview(window.location.pathname);
+
     const token = localStorage.getItem("token");
     if (!token) {
       navigate("/login");
@@ -58,7 +56,7 @@ const CreateEvent = ({ isOpen, onClose, backendURL }) => {
     "Fitness Services",
     "Legal and Consultancy Services",
     "Medical Services",
-    "Hostels and PGs"
+    "Hostels and PGs",
   ];
 
   const handleCategoryChange = (e) => {
@@ -185,6 +183,11 @@ const CreateEvent = ({ isOpen, onClose, backendURL }) => {
 
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>List your business - Eventlabs</title>
+        <link rel="canonical" href="https://eventlabs-frontend.vercel.app/create-event" />
+      </Helmet>
       <Navbar />
 
       <div className="main-create-event-container">

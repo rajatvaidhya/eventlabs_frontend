@@ -4,25 +4,23 @@ import EventCard from "./EventCard";
 import CartLoader from "./CartLoader";
 
 const ThirdContainer = (props) => {
-  // const ENDPOINT = "https://eventlabs-backend.onrender.com";
-  // const ENDPOINT = "http://localhost:5000";
-  const ENDPOINT = process.env.ENDPOINT;
-
-  const userId = localStorage.getItem("userId");
+  const ENDPOINT = props.backendURL;
 
   const [businesses, setBusinesses] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     const getNearby = async () => {
-      const response = await fetch(`${ENDPOINT}/api/chat/getNearbyEvents`, {
+      const response = await fetch(`${ENDPOINT}/api/chat/getCityEvents`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userId: userId,
           interest: props.interest,
+          latitude:props.latitude,
+          longitude:props.longitude
         }),
       });
 
@@ -32,7 +30,7 @@ const ThirdContainer = (props) => {
     };
 
     getNearby();
-  }, []);
+  }, [props.cityname]);
 
   return (
     <>
@@ -56,6 +54,7 @@ const ThirdContainer = (props) => {
                       id={business._id}
                       name={business.name}
                       location={business.address}
+                      backendURL={ENDPOINT}
                     />
                   ))}
                 </div>

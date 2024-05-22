@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import FelxiFooter from "../components/FelxiFooter";
 import FourthImage from "../images/aisearch-hi.png"
 import Footer from "../components/Footer";
+import ReactGA from "react-ga";
 import IshaniImage from "../images/CommentCardImage1.jpeg"
 import ShivamImage from "../images/CommentCardImage2.jpeg"
 import PushtiImage from "../images/CommentCardImage3.jpeg"
@@ -106,6 +107,10 @@ const Home = () => {
       </div>
     );
   };
+
+  useEffect(()=>{
+    ReactGA.pageview(window.location.pathname);
+  },[])
 
   return (
     <>

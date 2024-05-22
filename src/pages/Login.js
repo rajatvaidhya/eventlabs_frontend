@@ -6,6 +6,8 @@ import Navbar from "../components/Navbar";
 import LoginImage from "../images/5101873.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ReactGA from 'react-ga';
+import { Helmet } from "react-helmet";
 
 const Login = (props) => {
   const ENDPOINT = props.backendURL;
@@ -16,6 +18,7 @@ const Login = (props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    ReactGA.pageview(window.location.pathname);
     if (localStorage.getItem("token")) {
       navigate("/mainpage");
     }
@@ -35,7 +38,6 @@ const Login = (props) => {
         password: password,
       }),
     });
-
 
     const json = await response.json();
 
@@ -63,6 +65,19 @@ const Login = (props) => {
 
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Login to Eventlabs</title>
+        <link
+          rel="canonical"
+          href="https://eventlabs-frontend.vercel.app/login"
+        />
+        <meta
+          name="description"
+          content={`Explore the best services in your city. Find top-rated electricians, plumbers, florists, decorators, and more. All services at your fingertips on Eventlabs.`}
+        />
+      </Helmet>
+
       <Navbar />
       <ToastContainer />
       <div className="main-login-div">
@@ -99,7 +114,11 @@ const Login = (props) => {
             </p>
           </div>
 
-          <button className="submit-btn" onClick={handleSubmit} disabled={loading}>
+          <button
+            className="submit-btn"
+            onClick={handleSubmit}
+            disabled={loading}
+          >
             {loading ? (
               <div className="btn-loader">
                 <Loader color="white" />

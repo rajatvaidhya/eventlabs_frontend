@@ -6,6 +6,8 @@ import SignupImage from "../images/4934424.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Signup.css";
+import ReactGA from "react-ga";
+import { Helmet } from "react-helmet";
 
 const Signup = (props) => {
   const ENDPOINT = props.backendURL;
@@ -42,6 +44,7 @@ const Signup = (props) => {
   };
 
   useEffect(() => {
+    ReactGA.pageview(window.location.pathname);
     if (localStorage.getItem("token")) {
       navigate("/mainpage");
     }
@@ -179,6 +182,16 @@ const Signup = (props) => {
 
   return (
     <>
+    <Helmet>
+        <meta charSet="utf-8" />
+        <title>Create your account - Eventlabs</title>
+        <link rel="canonical" href="https://eventlabs-frontend.vercel.app/signup" />
+        <meta
+          name="description"
+          content={`Explore the best services in your city. Find top-rated electricians, plumbers, florists, decorators, and more. All services at your fingertips on Eventlabs.`}
+        />
+      </Helmet>
+
       <Navbar />
 
       <div className="main-signup-div">

@@ -1,0 +1,19 @@
+.main-city-service-container{
+    color:white;
+}
+
+.main-city-service-container-heading{
+    color:white;
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-top: 2rem;
+}
+
+.city-services-grid{
+    display: flex;
+    flex-wrap: wrap;
+    gap:.5rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
